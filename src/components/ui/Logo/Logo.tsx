@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export const Logo = () => {
   return (
-    <Link to="/" tabIndex={0} title="Spencer and Williams" className="group">
+    <Link to="/" tabIndex={0} title="Spencer and Williams" style={{textDecoration:'none',color:'#fff'}}>
     <svg
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -8,7 +8,7 @@ import { ProductI } from '../../interfaces/product';
 export const Product:FC<Props> = ({product}) => {
   const {name, price, description,image} = product;
   return (
-    <Link to={`home/123`} style={{textDecoration:'none',color:"#000000"}}>
+    <Link to={`/home/123`} style={{textDecoration:'none',color:"#000000"}}>
     <div className='card__product p-5'>
       <img src={image} alt="producto" className='w-60 h-52 rounded-md' style={{width:''}} />
       <div className="w-full text-left">

@@ -4,29 +4,22 @@ import { Logo } from "../Logo/Logo";
 
 export const Footer = () => {
   return (
-    <footer className="mt-auto bg-blue-800">
-      <div className="hidden bg-neutral-lightest justify-between px-20 py-24 laptop:flex">
-        
-      </div>
-
-      <div className="bg-brand-black flex flex-col items-center justify-center gap-3 py-8 laptop:py-9">
-        <Link to="/" >
+    <footer className="mt-auto h-40 bg-blue-800 py-8">
+      <div className="flex flex-col items-center justify-center gap-3">
           <Logo />
-        </Link>
-
         <ul className="text-white text-center laptop:hidden">
           <li>
-            <Link to="/"  className="block p-4">
+            <Link to="/"  className="block" style={{textDecoration:'none',color:'#fff'}}>
               Home
             </Link>
           </li>
           <li>
-            <Link to="/about-us"  className="block p-4">
+            <Link to="/about-us"  className="block" style={{textDecoration:'none',color:'#fff'}}>
               About Us
             </Link>
           </li>
           <li>
-            <Link to="/contact" className="block p-4">
+            <Link to="/contact" className="block" style={{textDecoration:'none',color:'#fff'}}>
               Contact
             </Link>
           </li>

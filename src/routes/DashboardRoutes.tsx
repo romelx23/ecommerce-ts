@@ -12,6 +12,8 @@ import {
   ProfilePage,
   UpadateProfilePage,
   ConfigurePage,
+  CategoryPage,
+  FilterPage,
 
 } from "../pages";
 
@@ -23,6 +25,8 @@ export const DashboardRoutes = () => {
           {/* Products Page */}
           <Route path="/home" element={<ProductsPage />} />
           <Route path="/home/:id" element={<DetailPage />} />
+          <Route path="/home/category/:category" element={<CategoryPage />} />
+          <Route path="/home/filter" element={<FilterPage />} />
           {/* Auth Page */}
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />

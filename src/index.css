@@ -21,12 +21,21 @@ code {
   h-auto flex flex-col justify-center items-center shadow-md border transition-[border] hover:border hover:border-gray-400
 }
 
-.link{
+/* .link{
   @apply text-blue-500 hover:text-blue-700 no-underline
+} */
+
+.link-title{
+  text-decoration: none;
+  color: #000000;
 }
 
 .animation{
   animation: fadeIn 0.5s ease-in-out;
+}
+
+.animation__bounce{
+  animation: bounceUp 2.5s ease-in-out infinite;
 }
 
 @keyframes fadeIn {
@@ -35,5 +44,17 @@ code {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes bounceUp {
+  0%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-50px);
+  }
+  100%{
+    transform:translateY(0px);
   }
 }

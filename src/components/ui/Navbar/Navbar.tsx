@@ -6,6 +6,7 @@ export const Navbar = () => {
   return (
     <nav>
       <NavTop />
+      <hr className='my-2'/>
       <NavBottom />
     </nav>
   )

@@ -7,7 +7,7 @@ interface Props {
 
 export const LayoutProducts:FC<Props> = ({children}) => {
   return (
-    <div className="animation">
+    <div className="animation min-h-screen flex flex-col justify-between">
       <div className='p-4 w-full'>
       <Header/>
         {children}
