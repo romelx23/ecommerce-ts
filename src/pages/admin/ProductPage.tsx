@@ -1,7 +1,8 @@
 import React from 'react'
+import { LayoutProfile } from '../../components/layout'
 
 export const ProductPage = () => {
   return (
-    <div>ProductPage</div>
+    <LayoutProfile>ProductPage</LayoutProfile>
   )
 }

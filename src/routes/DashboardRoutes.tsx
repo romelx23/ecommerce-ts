@@ -14,6 +14,7 @@ import {
   ConfigurePage,
   CategoryPage,
   FilterPage,
+  DashBoardPage
 
 } from "../pages";
 
@@ -36,9 +37,11 @@ export const DashboardRoutes = () => {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/admin/product" element={<ProductPage />} />
           {/* User Page */}
-          <Route path="/user" element={<ProfilePage />} />
+          <Route path="/user/profile" element={<ProfilePage />} />
           <Route path="/user/update/:id" element={<UpadateProfilePage />} />
           <Route path="/user/configure" element={<ConfigurePage />} />
+          <Route path="/user/dashboard" element={<DashBoardPage />} />
+          
 
           <Route path="/" element={<ProductsPage />} />
           <Route path="*" element={<NotFound />} />

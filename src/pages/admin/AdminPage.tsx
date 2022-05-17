@@ -1,7 +1,8 @@
 import React from 'react'
+import { LayoutProfile } from '../../components/layout/LayoutProfile';
 
 export const AdminPage = () => {
   return (
-    <div>AdminPage</div>
+    <LayoutProfile>AdminPage</LayoutProfile>
   )
 }

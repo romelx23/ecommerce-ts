@@ -5,3 +5,7 @@ export * from './Sidebar/Sidebar';
 export * from './Typography/Typography';
 export * from './Logo/Logo';
 export * from './Accordion/Accordion';
+// ADMIN
+export * from './Navbar/NavAdmin';
+export * from './Footer/FooterAdmin';
+export * from './Drawer/Drawer';

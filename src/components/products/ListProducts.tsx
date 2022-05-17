@@ -8,7 +8,7 @@ interface Props{
 export const ListProducts:FC<Props> = ({title}) => {
   return (
     <div className='w-full pt-2'>
-      <h1 className='text-2xl font-bold text-black text-left mb-3'>{title?title:'Nuevos Productos'}</h1>
+      <h1 className='text-2xl font-bold text-black text-left mb-3 ml-3'>{title?title:'Nuevos Productos'}</h1>
       <div className='grid grid-cols-simple gap-4 place-items-center'>
         {
             products.map(product => (

@@ -17,3 +17,4 @@ export * from './admin/ProductPage';
 export * from './user/ProfilePage';
 export * from './user/UpadateProfilePage';
 export * from './user/ConfigurePage';
+export * from './user/DashboardPage';
