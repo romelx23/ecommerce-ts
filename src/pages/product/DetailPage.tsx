@@ -13,7 +13,7 @@ export const DetailPage = () => {
           />
         </div>
         <div className="flex flex-col items-start px-3 text-left">
-          <h1 className="font-semibold text-xl">Title</h1>
+          <h1 className="font-semibold text-xl">Primor</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi rerum
             odio dolores eligendi tempora cumque.
@@ -34,7 +34,7 @@ export const DetailPage = () => {
               grande
             </button>
           </div>
-          <button className="my-2 w-full bg-gray-300 rounded-md py-2 flex justify-center space-x-2 focus:opacity-80">
+          <button className="my-2 w-full bg-gray-300 rounded-md py-2 flex justify-center space-x-2 focus:opacity-80 hover:bg-slate-400 hover:text-white transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"

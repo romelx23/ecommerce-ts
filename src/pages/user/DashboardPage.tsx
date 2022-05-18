@@ -25,10 +25,10 @@ export const DashBoardPage = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        // position: "top" as const,
       },
       title: {
-        display: true,
+        // display: true,
         text: "Registro de compras",
         style: {
           fontSize: "24px",
@@ -92,16 +92,18 @@ export const DashBoardPage = () => {
   };
   return (
     <LayoutProfile>
-      <div className="flex flex-col">
-        <div className="py-4 px-8">
-          <div className="px-8">
-          <Bar options={options} data={data} />;
+      <div className="flex flex-col min-h-[80vh]">
+        <div className="py-4 px-2 md:px-8 flex flex-col items-center">
+          <div className="px-4 md:px-8 w-4/5 md:w-full h-72 md:h-full">
+          <Bar options={options} data={data} />
           </div>
-          <div className="flex justify-around">
+          <div className="w-full flex justify-around flex-col items-center md:flex-row">
             <div className="w-60">
+              <h1>Titulo del Gráfico</h1>
               <Doughnut data={data} />
             </div>
             <div className="w-60">
+              <h1>Titulo del Gráfico</h1>
               <Doughnut title="Ventas" data={data2} />
             </div>
           </div>

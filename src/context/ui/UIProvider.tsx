@@ -5,11 +5,13 @@ interface Props {
 }
 
 export interface UIState {
-  ToggleMenu: boolean
+  ToggleMenu: boolean;
+  ToggleCart: boolean;
 }
 
 export const UI_INITIAL_STATE: UIState = {
-  ToggleMenu: true
+  ToggleMenu: true,
+  ToggleCart:false
 }
 
 export const UIProvider: FC<Props> = ({ children }) => {
@@ -17,12 +19,15 @@ export const UIProvider: FC<Props> = ({ children }) => {
   const toggleMenu=(value:boolean)=>{
     dispatch({type:'[UI] - Toggle Sidebar',payload:value})
   }
+  const toggleCart=(value:boolean)=>{
+    dispatch({type:'[UI] - Toggle Cart',payload:value})
+  }
   return (
     <UIContext.Provider
       value={{
         ...state,
-        toggleMenu
-
+        toggleMenu,
+        toggleCart
       }}
     >
       {children}

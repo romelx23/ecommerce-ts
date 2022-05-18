@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { LayoutProducts } from "../../components/layout/LayoutProducts";
 import { ListProducts } from "../../components/products/ListProducts";
 import { Accordion } from "../../components/ui";
 
 export const FilterPage = () => {
+  const [active, setActive] = useState(false);
   return (
     <LayoutProducts>
       <div className="flex">
         <div className="w-96 min-h-full  p-2">
           <div className="flex flex-col">
             <div className="flex rounded-md bg-blue-100 p-2 justify-between mt-4 mb-1 hover:bg-blue-300 transition">
-              <div className="flex">
+              <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1em"
@@ -23,37 +24,35 @@ export const FilterPage = () => {
                 </svg>
                 <p>Filtros</p>
               </div>
-              <div className="flex hover:cursor-pointer">
-                <p>Expandir Todo</p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
-                </svg>
-              </div>
+              <button
+                onClick={() => setActive(!active)}
+                className="flex items-center hover:cursor-pointer"
+              >
+                {active ? "Expandir Todo" : "Retraer Todo"}
+                {active ? (
+                  <h1 className="px-2 font-semibold text-xl">+</h1>
+                ) : (
+                  <h1 className="px-2 font-semibold text-xl">-</h1>
+                )}
+              </button>
             </div>
-            <Accordion title="Categorías">
+            <Accordion title="Categorías" active={active}>
               <h1>Abarrotes</h1>
               <h1>Verduras</h1>
               <h1>Legumbres</h1>
               <h1>Aceites</h1>
             </Accordion>
-            <Accordion title="Marcas">
+            <Accordion title="Marcas" active={active}>
               <h1>Ace</h1>
               <h1>Sapolio</h1>
               <h1>Magi</h1>
               <h1>Alacena</h1>
             </Accordion>
-            <Accordion title="Precios">
+            <Accordion title="Precios" active={active}>
               <h1>Ace</h1>
               <h1>Sapolio</h1>
             </Accordion>
-            <Accordion title="Tamaño">
+            <Accordion title="Tamaño" active={active}>
               <h1>Chico</h1>
               <h1>Mediano</h1>
               <h1>Grande</h1>

@@ -18,3 +18,8 @@ export * from './user/ProfilePage';
 export * from './user/UpadateProfilePage';
 export * from './user/ConfigurePage';
 export * from './user/DashboardPage';
+
+// Others
+export * from './others/NotFound';
+export * from './others/FaqPage';
+export * from './others/PaymentPage';

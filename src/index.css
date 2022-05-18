@@ -50,6 +50,26 @@ code {
   @apply px-4 py-1.5 text-sm  border  rounded transition duration-300 hover:text-white focus:outline-none 
 }
 
+.accordion-show{
+  @apply scale-100 h-auto
+}
+.accordion-hidden{
+  @apply scale-0 h-0
+}
+
+.btn-favorite{
+  @apply text-black absolute right-6 top-4
+}
+
+.btn-product{
+  text-decoration: none;
+  color: #000000;
+}
+
+.hidden-scroll{
+  @apply overflow-hidden
+}
+
 /* Drawer Styles */
 .w-layout{
   width: calc(100% - 240px);

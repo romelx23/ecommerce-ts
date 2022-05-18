@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { UIContext } from "../../../context/ui";
 
 export const NavTop = () => {
+  const { toggleCart, ToggleCart } = useContext(UIContext);
   return (
     <div className="flex justify-between">
       <div className="flex flex-1">
@@ -10,7 +12,7 @@ export const NavTop = () => {
         </Link>
       </div>
       <div className="flex justify-center items-center">
-        <button className="flex justify-center items-center gap-2 p-2 h-9">
+        <NavLink to="/others/faq" className="flex justify-center items-center gap-2 p-2 h-9">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -22,7 +24,7 @@ export const NavTop = () => {
             <path d="M19 14v4h-2v-4h2M7 14v4H6c-.55 0-1-.45-1-1v-3h2m5-13a9 9 0 00-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h4v1h-7v2h6c1.66 0 3-1.34 3-3V10a9 9 0 00-9-9z"></path>
           </svg>
           <p>Soporte</p>
-        </button>
+        </NavLink>
         <button className="flex justify-center items-center gap-2 p-2 h-9">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +67,9 @@ export const NavTop = () => {
           </svg>
         </NavLink>
         {/* Carrito */}
-        <button className="h-9 p-2">
+        <button 
+        onClick={()=>toggleCart(!ToggleCart)}
+        className="h-9 p-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"

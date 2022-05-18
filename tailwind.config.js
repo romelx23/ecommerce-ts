@@ -40,7 +40,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         // Simple auto column grid
-        'simple': 'repeat(auto-fit, minmax(300px, 1fr))',
+        'simple': 'repeat(auto-fit, minmax(320px, 1fr))',
         'message': '250px 400px',
       },
       height:{
