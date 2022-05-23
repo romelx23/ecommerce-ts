@@ -8,6 +8,7 @@ export * from './Logo/Logo';
 export * from './Accordion/Accordion';
 export * from './Star/Star';
 export * from './Zoom/Zoom';
+export * from './Badge/Badge';
 // ADMIN
 export * from './Navbar/NavAdmin';
 export * from './Footer/FooterAdmin';

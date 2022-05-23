@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { CartContext } from "../../../context/cart";
 import { UIContext } from "../../../context/ui";
+import { Badge } from '../Badge/Badge';
 
 export const NavTop = () => {
   const { toggleCart, ToggleCart } = useContext(UIContext);
+  const { cart } = useContext(CartContext);
   return (
     <div className="flex justify-between">
       <div className="flex flex-1">
@@ -69,7 +72,7 @@ export const NavTop = () => {
         {/* Carrito */}
         <button 
         onClick={()=>toggleCart(!ToggleCart)}
-        className="h-9 p-2">
+        className="h-9 p-2 relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -84,6 +87,10 @@ export const NavTop = () => {
               d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
             />
           </svg>
+          <Badge
+            content={cart.length}
+            className="bg-red-600"
+            />
         </button>
       </div>
     </div>

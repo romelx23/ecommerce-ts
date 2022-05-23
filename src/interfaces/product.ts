@@ -23,6 +23,17 @@ export interface Producto {
   categoria:    Categoria;
   img?:         string;
 }
+export interface ProductoCarrito {
+  precio:       number;
+  disponible:   boolean;
+  _id:          string;
+  nombre:       string;
+  descripcion?: string;
+  usuario:      Categoria;
+  categoria:    Categoria;
+  img?:         string;
+  cantidad:     number;
+}
 
 export interface ProductoId {
   producto:Producto

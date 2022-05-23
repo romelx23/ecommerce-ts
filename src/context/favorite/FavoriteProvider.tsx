@@ -28,7 +28,6 @@ export const FavoriteProvider: FC<Props> = ({ children }) => {
   }
   const getFavorites = () => {
     const favorites:string[]=JSON.parse(localStorage.getItem("favorites")||"[]");
-    console.log(favorites);
     dispatch({ type: "[Favorite] - Get favorite", payload: favorites });
 
   };

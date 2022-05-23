@@ -1,13 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LayoutProducts } from "../../components/layout/LayoutProducts";
 import { Star, Zoom } from "../../components/ui";
+import { CartContext } from "../../context/cart";
 import { formatPrice } from "../../helpers";
-import { ProductoId, Producto } from "../../interfaces/product";
+import { ProductoId, Producto, ProductoCarrito } from "../../interfaces/product";
+const confetti = require('canvas-confetti');
 
 export const DetailPage = () => {
   const { id } = useParams();
   const [producto, setProducto] = useState<Producto>({} as Producto);
+  const {addToCart}=useContext(CartContext)
+  const [cantidad, setCantidad] = useState(1);
+  const addQuantity = () => {
+    setCantidad(cantidad + 1);
+  };
+  const removeQuantity = () => {
+    if (cantidad > 1) {
+      setCantidad(cantidad - 1);
+    }
+  };
+
+  const addToCartHandler = (producto:Producto) => {
+    const productoCarrito:ProductoCarrito={
+      ...producto,
+      cantidad
+    }
+    addToCart(productoCarrito);
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  }
 
   const getProductId = async () => {
     // const product = `https://rest-server-cafe-romel.herokuapp.com/api/productos/${id}`;
@@ -81,6 +106,21 @@ export const DetailPage = () => {
           <h2 className="text-red-700 font-bold text-xl">
             {formatPrice(producto.precio)}
           </h2>
+          <div className="w-full flex flex-wrap gap-2 my-2">
+            <button
+              onClick={() => removeQuantity()}
+             className="btn hover:text-black">-</button>
+            <input
+              type="number"
+              className="text-center"
+              value={cantidad}
+              min={1}
+              onChange={(e) => setCantidad(parseInt(e.target.value))}
+            />
+            <button 
+            onClick={() => addQuantity()}
+            className="btn hover:text-black">+</button>
+          </div>
           <div className="w-full flex flex-wrap gap-2">
             <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
               chico
@@ -92,7 +132,9 @@ export const DetailPage = () => {
               grande
             </button>
           </div>
-          <button className="my-2 w-full bg-gray-300 rounded-md py-2 flex justify-center space-x-2 focus:opacity-80 hover:bg-slate-400 hover:text-white transition">
+          <button 
+          onClick={()=>addToCartHandler(producto)}
+          className="my-2 w-full bg-gray-300 rounded-md py-2 flex justify-center space-x-2 focus:opacity-80 hover:bg-slate-400 hover:text-white transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
