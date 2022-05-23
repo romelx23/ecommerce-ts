@@ -3,7 +3,7 @@ import { ButtonToggle } from "../Button/ButtonToggle";
 
 export const NavAdmin = () => {
   return (
-    <nav className="p-4 w-full flex justify-between print:hidden">
+    <nav className="p-4 w-full flex justify-between print:hidden overflow-hidden">
       <div className="flex items-center space-x-2">
         <ButtonToggle/>
         <h1 className="font-bold text-2xl">Overview</h1>

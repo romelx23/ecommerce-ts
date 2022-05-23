@@ -4,6 +4,7 @@ import "./App.css";
 import { ProductsPage } from "./pages/product/ProductsPage";
 import { AppRouter } from "./routes/AppRouter";
 import { UIProvider } from "./context/ui/UIProvider";
+import { FavoriteProvider } from "./context/favorite";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,7 +13,9 @@ function App() {
     <div className="App">
       {/* <ProductsPage/> */}
       <UIProvider>
-        <AppRouter />
+        <FavoriteProvider>
+          <AppRouter />
+        </FavoriteProvider>
       </UIProvider>
     </div>
   );

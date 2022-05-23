@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -51,10 +55,10 @@ code {
 }
 
 .accordion-show{
-  @apply scale-100 h-auto
+  @apply scale-y-100 h-auto opacity-100
 }
 .accordion-hidden{
-  @apply scale-0 h-0
+  @apply scale-y-0 h-0 opacity-0
 }
 
 .btn-favorite{
@@ -76,7 +80,7 @@ code {
 }
 
 .container-drawer{
-  @apply bg-gray-900 w-60 min-h-screen flex flex-col items-center pt-5 p-2 transition print:hidden
+  @apply bg-gray-900 sm:w-60 sm:relative min-h-screen flex flex-col items-center pt-5 p-2 transition print:hidden
 }
 
 .drawer-item{
@@ -90,6 +94,11 @@ code {
 
 .drawer-show{
   transform: translateX(0%);
+}
+
+/* Link Style */
+.link-category{
+  @apply p-2 hover:bg-gray-200 transition rounded-lg
 }
 
 @keyframes fadeIn {

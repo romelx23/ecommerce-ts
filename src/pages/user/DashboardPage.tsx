@@ -94,7 +94,7 @@ export const DashBoardPage = () => {
     <LayoutProfile>
       <div className="flex flex-col min-h-[80vh]">
         <div className="py-4 px-2 md:px-8 flex flex-col items-center">
-          <div className="px-4 md:px-8 w-4/5 md:w-full h-72 md:h-full">
+          <div className="px-4 md:px-8 w-4/5 md:w-full h-full">
           <Bar options={options} data={data} />
           </div>
           <div className="w-full flex justify-around flex-col items-center md:flex-row">

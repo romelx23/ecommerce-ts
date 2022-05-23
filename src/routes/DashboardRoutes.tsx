@@ -16,7 +16,9 @@ import {
   FilterPage,
   DashBoardPage,
   FaqPage,
-  PaymentPage
+  PaymentPage,
+  SearchPage,
+  FavoritePage
 } from "../pages";
 
 export const DashboardRoutes = () => {
@@ -30,6 +32,8 @@ export const DashboardRoutes = () => {
           <Route path="/home/category/:category" element={<CategoryPage />} />
           <Route path="/home/filter" element={<FilterPage />} />
           <Route path="/home/pagos" element={<PaymentPage />} />
+          <Route path="/home/favoritos" element={<FavoritePage />} />
+          <Route path="/home/buscar" element={<SearchPage />} />
           {/* Auth Page */}
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
@@ -44,7 +48,7 @@ export const DashboardRoutes = () => {
           <Route path="/user/configure" element={<ConfigurePage />} />
           <Route path="/user/dashboard" element={<DashBoardPage />} />
           {/* Other Page */}
-          <Route path="/others/faq" element={<FaqPage />} />
+          <Route path="/home/faq" element={<FaqPage />} />
 
           <Route path="/" element={<ProductsPage />} />
           <Route path="*" element={<NotFound />} />

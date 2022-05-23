@@ -7,8 +7,8 @@ export const FilterPage = () => {
   const [active, setActive] = useState(false);
   return (
     <LayoutProducts>
-      <div className="flex">
-        <div className="w-96 min-h-full  p-2">
+      <div className="flex flex-col sm:flex-row">
+        <div className="w-full min-h-full p-2 sm:w-96">
           <div className="flex flex-col">
             <div className="flex rounded-md bg-blue-100 p-2 justify-between mt-4 mb-1 hover:bg-blue-300 transition">
               <div className="flex items-center">

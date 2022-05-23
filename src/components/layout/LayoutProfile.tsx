@@ -8,7 +8,7 @@ interface Props {
 export const LayoutProfile: FC<Props> = ({ children }) => {
   const {ToggleMenu}=useContext(UIContext);
   return (
-    <div className="animation min-h-screen flex bg-[#f4f5fc] ">
+    <div className="animation min-h-screen flex bg-[#f4f5fc] overflow-hidden">
         <Drawer/>
       <div className={`flex flex-col justify-between ${ToggleMenu?'w-layout':'w-full'} print:w-full`}>
         <NavAdmin />

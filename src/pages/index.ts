@@ -3,6 +3,8 @@ export * from './product/ProductsPage';
 export * from './product/DetailPage';
 export * from './product/FilterPage';
 export * from './product/CategoryPage';
+export * from './product/FavoritePage';
+export * from './product/SearchPage';
 // Auth Page
 export * from './auth/LoginPage';
 export * from './auth/RegisterPage';

@@ -1,19 +1,35 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
-import { UIContext } from '../../../context/ui/UIContext';
+import { UIContext } from "../../../context/ui/UIContext";
+import { ButtonToggle } from "../Button/ButtonToggle";
 
 export const Drawer = () => {
-  const { ToggleMenu }=useContext(UIContext);
+  const { ToggleMenu,toggleMenu } = useContext(UIContext);
+  // if screen is mobile, then hide the drawer
+  
   return (
-    <div className={`container-drawer ${ToggleMenu?'drawer-show':'drawer-hidden'}`}>
-      <Logo />
-      <h1 className="text-white font-semibold mt-3 w-full text-left
-      ">Usuario</h1>
+    <div
+      className={`container-drawer ${
+        ToggleMenu ? "drawer-show" : "drawer-hidden"
+      } w-full absolute z-20`}
+    >
+      <div className="flex space-x-4">
+        <Logo />
+        <div className="block sm:hidden text-white">
+          <ButtonToggle />
+        </div>
+      </div>
+      <h1
+        className="text-white font-semibold mt-3 w-full text-left
+      "
+      >
+        Usuario
+      </h1>
       <NavLink
         to="/user/profile"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
-        style={{textDecoration:'none'}}
+        style={{ textDecoration: "none" }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +50,7 @@ export const Drawer = () => {
       <NavLink
         to="/user/dashboard"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
-        style={{textDecoration:'none'}}
+        style={{ textDecoration: "none" }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +71,7 @@ export const Drawer = () => {
       <NavLink
         to=""
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
-        style={{textDecoration:'none'}}
+        style={{ textDecoration: "none" }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -73,13 +89,17 @@ export const Drawer = () => {
         </svg>
         <p className="font-bold">Boletas</p>
       </NavLink>
-      
-      <h1 className="text-white font-semibold mt-3 w-full text-left
-      ">Admin</h1>
+
+      <h1
+        className="text-white font-semibold mt-3 w-full text-left
+      "
+      >
+        Admin
+      </h1>
       <NavLink
         to="/admin"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
-        style={{textDecoration:'none'}}
+        style={{ textDecoration: "none" }}
       >
         <i className="fas fa-user-shield"></i>
         <p className="font-bold">Admin</p>
@@ -87,18 +107,22 @@ export const Drawer = () => {
       <NavLink
         to="/admin/product"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
-        style={{textDecoration:'none'}}
+        style={{ textDecoration: "none" }}
       >
         <i className="fas fa-user-shield"></i>
         <p className="font-bold text-overflow w-32">Admin Productos</p>
       </NavLink>
-      
-       <h1 className="text-white font-semibold mt-3 w-full text-left
-      ">General</h1>
+
+      <h1
+        className="text-white font-semibold mt-3 w-full text-left
+      "
+      >
+        General
+      </h1>
       <NavLink
         to="/user/configure"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
-        style={{textDecoration:'none'}}
+        style={{ textDecoration: "none" }}
       >
         <svg
           fill="#ffffff"
