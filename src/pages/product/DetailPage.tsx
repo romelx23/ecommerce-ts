@@ -1,17 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LayoutProducts } from "../../components/layout/LayoutProducts";
-import { Star, Zoom } from "../../components/ui";
+import { Star, Toast, Zoom } from "../../components/ui";
 import { CartContext } from "../../context/cart";
 import { formatPrice } from "../../helpers";
-import { ProductoId, Producto, ProductoCarrito } from "../../interfaces/product";
-const confetti = require('canvas-confetti');
+import {
+  ProductoId,
+  Producto,
+  ProductoCarrito,
+} from "../../interfaces/product";
 
 export const DetailPage = () => {
   const { id } = useParams();
   const [producto, setProducto] = useState<Producto>({} as Producto);
-  const {addToCart}=useContext(CartContext)
+  const { addToCart } = useContext(CartContext);
   const [cantidad, setCantidad] = useState(1);
+  const [showToast, setShowToast] = useState(false);
+
   const addQuantity = () => {
     setCantidad(cantidad + 1);
   };
@@ -21,18 +26,14 @@ export const DetailPage = () => {
     }
   };
 
-  const addToCartHandler = (producto:Producto) => {
-    const productoCarrito:ProductoCarrito={
+  const addToCartHandler = (producto: Producto) => {
+    setShowToast(true);
+    const productoCarrito: ProductoCarrito = {
       ...producto,
-      cantidad
-    }
+      cantidad,
+    };
     addToCart(productoCarrito);
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-  }
+  };
 
   const getProductId = async () => {
     // const product = `https://rest-server-cafe-romel.herokuapp.com/api/productos/${id}`;
@@ -62,7 +63,7 @@ export const DetailPage = () => {
     if (zoomImg.current) {
       zoomImg.current.style.transform = `translate(0px, 0px) scale(1)`;
     }
-  }
+  };
 
   useEffect(() => {
     getProductId();
@@ -109,7 +110,10 @@ export const DetailPage = () => {
           <div className="w-full flex flex-wrap gap-2 my-2">
             <button
               onClick={() => removeQuantity()}
-             className="btn hover:text-black">-</button>
+              className="btn hover:text-black"
+            >
+              -
+            </button>
             <input
               type="number"
               className="text-center"
@@ -117,9 +121,12 @@ export const DetailPage = () => {
               min={1}
               onChange={(e) => setCantidad(parseInt(e.target.value))}
             />
-            <button 
-            onClick={() => addQuantity()}
-            className="btn hover:text-black">+</button>
+            <button
+              onClick={() => addQuantity()}
+              className="btn hover:text-black"
+            >
+              +
+            </button>
           </div>
           <div className="w-full flex flex-wrap gap-2">
             <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
@@ -132,9 +139,10 @@ export const DetailPage = () => {
               grande
             </button>
           </div>
-          <button 
-          onClick={()=>addToCartHandler(producto)}
-          className="my-2 w-full bg-gray-300 rounded-md py-2 flex justify-center space-x-2 focus:opacity-80 hover:bg-slate-400 hover:text-white transition">
+          <button
+            onClick={() => addToCartHandler(producto)}
+            className="my-2 w-full bg-gray-300 rounded-md py-2 flex justify-center space-x-2 focus:opacity-80 hover:bg-slate-400 hover:text-white transition"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -153,6 +161,13 @@ export const DetailPage = () => {
           </button>
         </div>
       </div>
+        <Toast
+          show={showToast}
+          onClose={(show:boolean) => setShowToast(show)}
+          message="Se agrego al carrito"
+          icon="fas fa-info-circle"
+          positionY="bottom-3"
+        />
     </LayoutProducts>
   );
 };

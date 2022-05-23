@@ -9,6 +9,7 @@ export * from './Accordion/Accordion';
 export * from './Star/Star';
 export * from './Zoom/Zoom';
 export * from './Badge/Badge';
+export * from './Toast/Toast';
 // ADMIN
 export * from './Navbar/NavAdmin';
 export * from './Footer/FooterAdmin';
