@@ -50,6 +50,8 @@ code {
   white-space: nowrap;
 }
 
+/* Buttons */
+
 .btn{
   @apply px-4 py-1.5 text-sm  border  rounded transition duration-300 hover:text-white focus:outline-none 
 }
@@ -57,6 +59,12 @@ code {
 .btn-remove{
   @apply absolute right-0 bg-red-500 text-white w-8 h-8 px-2 py-1 rounded-full transition duration-300 hover:bg-red-700 focus:outline-none opacity-0
 }
+
+.btn-submit{
+  @apply max-w-md w-full flex justify-center gap-2 mt-3 p-3 border-2 shadow-md rounded-3xl hover:bg-blue-600 disabled:bg-blue-400 hover:text-white transition
+}
+
+/* Cards */
 
 .product-cart{
   @apply w-full flex justify-between items-center px-2 relative hover:bg-gray-100 transition
@@ -85,6 +93,12 @@ code {
 .hidden-scroll{
   @apply overflow-hidden
 }
+/* Table */
+
+.th{
+  @apply px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider print:border-none
+}
+
 
 /* Drawer Styles */
 .w-layout{

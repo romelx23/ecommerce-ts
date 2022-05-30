@@ -12,17 +12,17 @@ export const ProfilePage = () => {
        <div className="flex justify-center">
        <div className="w-64 h-60 bg-blue-900 rounded-lg flex flex-col items-center p-4 print:hidden">
           <img
-            src="https://scontent.flim17-1.fna.fbcdn.net/v/t39.30808-6/281342430_4110845899040701_3159781186097599122_n.jpg?_nc_cat=105&ccb=1-6&_nc_sid=730e14&_nc_eui2=AeEtWzA5XKF8oOb_d21MVhLjnS7LjxuuSxOdLsuPG65LE2Acz3JP16673gfdtJHp75eaEV9VKNCbZtXzhj8iuV2W&_nc_ohc=d6dvNnKA7VsAX9mMkoH&_nc_ht=scontent.flim17-1.fna&oh=00_AT8ip7dDE4zdCxxF-HYZR4VGSLW43Xwip1X0X0jeoMb7EQ&oe=628750EF"
+            src="https://pbs.twimg.com/media/FTd2PibXoAEGOjL?format=png&name=small"
             alt="avatar"
-            className="rounded-full h-28 w-28 mb-2"
+            className="rounded-full h-28 w-28 mb-2 object-cover"
             style={{border: "4px solid #fff"}}
           />
           <h1 className="text-xl font-semibold text-white">Carlos David</h1>
           <h2 className="text-base font-semibold text-green-500">Cliente</h2>
         </div>
        </div>
+        <h1 className="text-left mb-2 text-xl ml-6 font-bold">Boletas Emitidas</h1>
         <div className="py-2 overflow-x-auto px-6 pr-10 ">
-        <h1 className="text-left mb-2 text-xl font-bold">Boletas Emitidas</h1>
           <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-gray-900 shadow-dashboard px-8 pt-3 rounded-lg min-h-min print:bg-black print:px-0 print:pl-6 print:break-before-avoid-page">
             <table className="min-w-full print:overflow-hidden">
               <thead>
@@ -74,8 +74,7 @@ export const ProfilePage = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
                     <img
-                      src="https://scontent.flim17-1.fna.fbcdn.net/v/t39.30808-6/281342430_4110845899040701_3159781186097599122_n.jpg?_nc_cat=105&ccb=1-6&_nc_sid=730e14&_nc_eui2=AeEtWzA5XKF8oOb_d21MVhLjnS7LjxuuSxOdLsuPG65LE2Acz3JP16673gfdtJHp75eaEV9VKNCbZtXzhj8iuV2W&_nc_ohc=d6dvNnKA7VsAX9mMkoH&_nc_ht=scontent.flim17-1.fna&oh=00_AT8ip7dDE4zdCxxF-HYZR4VGSLW43Xwip1X0X0jeoMb7EQ&oe=628750EF"
-                      alt="coffe"
+                      src="https://pbs.twimg.com/media/FTd2PibXoAEGOjL?format=png&name=small"
                       className="w-12 h-12 object-cover"
                     />
                   </td>

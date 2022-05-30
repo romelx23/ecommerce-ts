@@ -12,9 +12,9 @@ export const Drawer = () => {
     <div
       className={`container-drawer ${
         ToggleMenu ? "drawer-show" : "drawer-hidden"
-      } w-full absolute z-20`}
+      } w-full fixed z-20 overflow-y-auto`}
     >
-      <div className="flex space-x-4">
+      <div className="flex w-full justify-between sm:justify-center sm:space-x-4">
         <Logo />
         <div className="block sm:hidden text-white">
           <ButtonToggle />

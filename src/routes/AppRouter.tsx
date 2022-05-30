@@ -34,7 +34,7 @@ export const AppRouter = () => {
   //     });
   // }, [dispatch,setChecking,setIsLoggedIn])
   useEffect(() => {
-    localStorage.setItem("uid", "123");
+    // localStorage.setItem("uid", "123");
   }, []);
   
 

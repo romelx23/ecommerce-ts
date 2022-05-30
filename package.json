@@ -8,10 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "formik": "^2.2.9",
     "react": "^18.0.0",
     "react-chartjs-2": "^4.1.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "sweetalert2": "^11.4.16",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "^17.0.33",

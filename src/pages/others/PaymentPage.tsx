@@ -16,27 +16,20 @@ export const PaymentPage = () => {
         Compras Realizadas
       </h1>
       <div className="py-2 overflow-x-auto px-6 pr-10 ">
-        <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-gray-900 shadow-dashboard px-8 pt-3 rounded-lg min-h-min print:bg-black print:px-0 print:pl-6 print:break-before-avoid-page">
+        <div
+          className="align-middle inline-block min-w-full shadow overflow-hidden bg-gray-900 shadow-dashboard 
+        print:shadow-none px-8 pt-3 rounded-lg min-h-min print:bg-black print:px-0 print:pl-6 print:break-before-avoid-page"
+        >
           <table className="min-w-full print:overflow-hidden">
             <thead>
               <tr>
-                <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-                  ID
-                </th>
-                <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-                  Nombre
-                </th>
-                <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-                  Precio
-                </th>
-                <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-                  Descripción
-                </th>
-                <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-                  Imagen
-                </th>
+                <th className="th">ID</th>
+                <th className="th">Nombre</th>
+                <th className="th">Precio</th>
+                <th className="th">Descripción</th>
+                <th className="th">Imagen</th>
                 {
-                  <th className="px-6 py-3 border-b-2 border-gray-300 text-white">
+                  <th className="px-6 py-3 border-b-2 border-gray-300 text-white print:border-none">
                     <button
                       onClick={handlePrint}
                       className="btn border-cyan-500 text-cyan-500 hover:bg-cyan-700 print:hidden"
@@ -49,33 +42,48 @@ export const PaymentPage = () => {
             </thead>
             <tbody className="">
               {cart.map((producto, i) => (
-                <tr className="font-semibold text-lg" key={producto._id}>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 print:border-none">
+                <tr
+                  className="font-semibold text-lg border-b border-gray-500 print:border-none"
+                  key={producto._id}
+                >
+                  <td className="px-6 py-4 whitespace-no-wrap">
                     <div className="flex items-center">
                       <div>
                         <div className=" leading-5 text-white">{i + 1}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-left">
+                  <td
+                    className="px-6 py-4 whitespace-no-wrap text-left"
+                  >
                     <div className=" leading-5 text-white">
                       {producto.nombre}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5 text-left">
+                  <td
+                    className="px-6 py-4 whitespace-no-wrap 
+                  text-white print:border-none 
+                    leading-5 text-left"
+                  >
                     {formatPrice(producto.precio * producto.cantidad)}
                   </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5 text-left">
+                  <td
+                    className="px-6 py-4 whitespace-no-wrap 
+                   text-white leading-5 text-left"
+                  >
                     {producto.descripcion}
                   </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
+                  <td
+                    className="px-6 py-4 whitespace-no-wrap 
+                   text-white leading-5"
+                  >
                     <img
                       src={producto.img}
                       alt={producto.nombre}
                       className="w-12 h-12 object-cover"
                     />
                   </td>
-                  <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5 space-x-2 print:hidden">
+                  <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 space-x-2 print:hidden">
                     <div className="flex justify-center gap-2 items-center">
                       <button className="btn border-blue-500 text-blue-500 hover:bg-blue-700">
                         <i className="fas fa-minus"></i>
@@ -95,11 +103,11 @@ export const PaymentPage = () => {
             </tbody>
           </table>
         </div>
+      </div>
         <div className="w-full my-2">
           <h1>Comuniquese con el bodeguero</h1>
           <p>Número de Teléfono: 593486364</p>
         </div>
-      </div>
     </LayoutProducts>
   );
 };

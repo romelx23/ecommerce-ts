@@ -11,9 +11,9 @@ export const NavAdmin = () => {
       <div className="flex justify-center items-center space-x-2" style={{minWidth:'48px'}}>
         <p className="font-semibold hidden sm:block">admin@gmail.com</p>
         <img
-          src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/ed/edc07cbc8ce51afa24a52731701bda9b5edf94e6.jpg"
+          src="https://cdn.motor1.com/images/mgl/Oov6qy/s3/uif.jpg"
           alt="avatar"
-          className="border-2 border-gray-300 rounded-full h-12 w-12"
+          className="border-2 border-gray-300 rounded-full h-12 w-12 object-cover"
           style={{width: "48px",height: "48px"}}
         />
       </div>
