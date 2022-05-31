@@ -1,5 +1,7 @@
 import * as Yup from "yup";
 import { withFormik, FormikProps, FormikErrors, Form, Field } from "formik";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/auth";
 interface FormValues {
   email: string;
   password: string;
@@ -10,11 +12,18 @@ interface OtherProps {
 }
 
 const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
-  const { touched, errors, isSubmitting, message } = props;
+  const { touched, errors, isSubmitting, message,values} = props;
+  const {startLogin}=useContext(AuthContext);
+  const handleLogin=(e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault();
+    const {email,password}=values;
+    startLogin(email,password);
+    // console.log(values,"values");
+  }
 
   return (
     <div className="w-full flex justify-center">
-      <Form className="flex flex-col gap-2 w-full items-center ">
+      <Form className="flex flex-col gap-2 w-full items-center " onSubmit={handleLogin}>
         <h1>{message}</h1>
         <Field
           type="email"
@@ -36,8 +45,8 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
           <p className="text-red-600 text-left max-w-md w-full">{errors.password}</p>
         )}
 
-        <button type="submit" className="btn-submit" disabled={isSubmitting}>
-          Submit
+        <button onClick={()=>handleLogin} type="submit" className="btn-submit" disabled={isSubmitting}>
+          Ingresar
         </button>
         <button onClick={() => {}} className="btn-submit">
           <img
@@ -89,5 +98,7 @@ export const MyForm = withFormik<MyFormProps, FormValues>({
   handleSubmit: (values) => {
     // do submitting things
     console.log(values);
+    
   },
+  
 })(InnerForm);

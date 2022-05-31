@@ -3,25 +3,27 @@ import { LayoutProfile } from "../../components/layout";
 
 export const ProfilePage = () => {
   const handlePrint = () => {
-    // imprime el contenido del div
     window.print();
   };
   return (
     <LayoutProfile>
       <div className="w-full min-h-[80vh] print:flex print:justify-center">
-       <div className="flex justify-center">
-       <div className="w-64 h-60 bg-blue-900 rounded-lg flex flex-col items-center p-4 print:hidden">
-          <img
-            src="https://pbs.twimg.com/media/FTd2PibXoAEGOjL?format=png&name=small"
-            alt="avatar"
-            className="rounded-full h-28 w-28 mb-2 object-cover"
-            style={{border: "4px solid #fff"}}
-          />
-          <h1 className="text-xl font-semibold text-white">Carlos David</h1>
-          <h2 className="text-base font-semibold text-green-500">Cliente</h2>
+        <div className="flex justify-center">
+          <div className="w-64 h-60 bg-blue-900 rounded-lg flex flex-col items-center p-4 print:hidden">
+            <img
+              src="https://pbs.twimg.com/media/FTd2PibXoAEGOjL?format=png&name=small"
+              alt="avatar"
+              className="rounded-full h-28 w-28 mb-2 object-cover"
+              style={{ border: "4px solid #fff" }}
+            />
+            <h1 className="text-xl font-semibold text-white">Carlos David</h1>
+            <h2 className="text-base font-semibold text-green-500">Cliente</h2>
+          </div>
         </div>
-       </div>
-        <h1 className="text-left mb-2 text-xl ml-6 font-bold">Boletas Emitidas</h1>
+        {/* tabla boletas */}
+        <h1 className="text-left mb-2 text-xl ml-6 font-bold">
+          Boletas Emitidas
+        </h1>
         <div className="py-2 overflow-x-auto px-6 pr-10 ">
           <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-gray-900 shadow-dashboard px-8 pt-3 rounded-lg min-h-min print:bg-black print:px-0 print:pl-6 print:break-before-avoid-page">
             <table className="min-w-full print:overflow-hidden">

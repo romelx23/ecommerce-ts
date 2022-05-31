@@ -18,7 +18,9 @@ import {
   FaqPage,
   PaymentPage,
   SearchPage,
-  FavoritePage
+  FavoritePage,
+  DetailProductPage,
+  AddProductPage
 } from "../pages";
 
 export const DashboardRoutes = () => {
@@ -42,6 +44,8 @@ export const DashboardRoutes = () => {
           {/* Admin Page */}
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/admin/product" element={<ProductPage />} />
+          <Route path="/admin/product/:id" element={<DetailProductPage />} />
+          <Route path="/admin/product/add" element={<AddProductPage />} />
           {/* User Page */}
           <Route path="/user/profile" element={<ProfilePage />} />
           <Route path="/user/update/:id" element={<UpadateProfilePage />} />

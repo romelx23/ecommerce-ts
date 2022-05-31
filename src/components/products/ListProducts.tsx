@@ -21,7 +21,7 @@ export const ListProducts: FC<Props> = ({ title, productsProps }) => {
       <h1 className="text-2xl font-bold text-black text-left mb-3 ml-3">
         {title ? title : "Nuevos Productos"}
       </h1>
-      <div className="grid grid-cols-simple gap-4 place-items-center min-h-screen">
+      <div className="grid grid-cols-simple gap-4 place-items-center ">
         {productsProps
           ? productsProps.map((product) => (
               <Product key={product._id} product={product} />
