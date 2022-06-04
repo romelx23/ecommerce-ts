@@ -20,7 +20,10 @@ import {
   SearchPage,
   FavoritePage,
   DetailProductPage,
-  AddProductPage
+  AddProductPage,
+  DetailUserPage,
+  AddUserPage,
+  UserPage
 } from "../pages";
 
 export const DashboardRoutes = () => {
@@ -43,9 +46,12 @@ export const DashboardRoutes = () => {
           <Route path="/sales" element={<SalesPage />} />
           {/* Admin Page */}
           <Route path="/admin" element={<AdminPage />} />
-          <Route path="/admin/product" element={<ProductPage />} />
+          <Route path="/admin/products" element={<ProductPage />} />
           <Route path="/admin/product/:id" element={<DetailProductPage />} />
           <Route path="/admin/product/add" element={<AddProductPage />} />
+          <Route path="/admin/user" element={<UserPage />} />
+          <Route path="/admin/user/detail" element={<DetailUserPage />} />
+          <Route path="/admin/user/add" element={<AddUserPage />} />
           {/* User Page */}
           <Route path="/user/profile" element={<ProfilePage />} />
           <Route path="/user/update/:id" element={<UpadateProfilePage />} />

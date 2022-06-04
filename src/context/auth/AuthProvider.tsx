@@ -27,8 +27,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       { correo:email, password },
       "POST"
     );
-    const body:UserBody = await resp.json();
-    console.log(body);
+    const body:UserBody = await resp!.json();
+    // console.log(body);
     if (body.token) {
       const {token,usuario} = body;
       localStorage.setItem("token", body.token);
@@ -39,7 +39,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         },
       });
     } else {
-      Swal.fire("Error", body.msg, "error");
+      return Swal.fire("Error", body.msg, "error");
     }
   };
 
@@ -74,12 +74,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     // }
 
  const startCheking=async()=>{
-            // checkingStart();
             const resp=await fetchContoken('api/auth');
-            const body:UserBody =await resp.json();
-            // console.log(body)
+            const body:UserBody =await resp!.json();
             if(body.token){
-              console.log(body,"body");
+              // console.log(body,"body");
                 const {token,usuario} = body;
                 localStorage.setItem('token',body.token);
                 dispatch({

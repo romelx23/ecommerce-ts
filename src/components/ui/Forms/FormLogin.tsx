@@ -2,6 +2,7 @@ import * as Yup from "yup";
 import { withFormik, FormikProps, FormikErrors, Form, Field } from "formik";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/auth";
+import Swal from "sweetalert2";
 interface FormValues {
   email: string;
   password: string;
@@ -48,7 +49,14 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
         <button onClick={()=>handleLogin} type="submit" className="btn-submit" disabled={isSubmitting}>
           Ingresar
         </button>
-        <button onClick={() => {}} className="btn-submit">
+        <button onClick={() => {
+          Swal.fire({
+            title: '¿Estas seguro?',
+            text: "No podras revertir esto!",
+            icon: 'warning',
+            timer: 5000,
+          })
+        }} className="btn-submit">
           <img
             className="google-icon"
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"

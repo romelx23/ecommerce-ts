@@ -9,37 +9,70 @@ export interface ProductI {
 
 // prod
 export interface ProductsI {
-  total:     number;
+  total: number;
   productos: Producto[];
 }
 
 export interface Producto {
-  precio:       number;
-  disponible:   boolean;
-  _id:          string;
-  nombre:       string;
+  precio: number;
+  disponible: boolean;
+  _id: string;
+  nombre: string;
   descripcion?: string;
-  usuario:      Categoria;
-  categoria:    Categoria;
-  img?:         string;
+  usuario: Categoria;
+  categoria: Categoria;
+  img?: string;
 }
 export interface ProductoCarrito {
-  precio:       number;
-  disponible:   boolean;
-  _id:          string;
-  nombre:       string;
+  precio: number;
+  disponible: boolean;
+  _id: string;
+  nombre: string;
   descripcion?: string;
-  usuario:      Categoria;
-  categoria:    Categoria;
-  img?:         string;
-  cantidad:     number;
+  usuario: Categoria;
+  categoria: Categoria;
+  img?: string;
+  cantidad: number;
 }
 
 export interface ProductoId {
-  producto:Producto
+  producto: Producto;
 }
 
 export interface Categoria {
-  _id:    string;
+  _id: string;
   nombre: string;
+}
+
+export interface ProductoResponse {
+  activo: boolean;
+  categoria: string;
+  descripcion: string;
+  disponible: boolean;
+  idProducto: string;
+  img: string;
+  mac: string;
+  nombre: string;
+  precio: number;
+  usuario: string;
+  _id: string;
+}
+
+export interface ProductoResponseError {
+  error: ProductError[];
+}
+
+export interface ProductError {
+  location: string;
+  value: string;
+  msg: string;
+  param: string;
+}
+
+export interface ProductForm {
+  name: string;
+  price: string;
+  description: string;
+  category: string;
+  image: string;
 }

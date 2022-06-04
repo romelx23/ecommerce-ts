@@ -37,7 +37,7 @@ export const Product: FC<Props> = ({ product }) => {
       </button>
       <Link to={`/home/${_id}`} className="card__product p-5 py-8">
         <img
-          src={img}
+          src={img?img:"https://www.giulianisgrupo.com/wp-content/uploads/2018/05/nodisponible.png"}
           alt="producto"
           className="w-60 h-52 rounded-md object-cover"
           style={{ width: "" }}

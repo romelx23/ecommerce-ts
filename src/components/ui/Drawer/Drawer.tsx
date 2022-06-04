@@ -98,6 +98,7 @@ export const Drawer = () => {
       </h1>
       <NavLink
         to="/admin"
+        title="Admin"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
         style={{ textDecoration: "none" }}
       >
@@ -105,12 +106,22 @@ export const Drawer = () => {
         <p className="font-bold">Admin</p>
       </NavLink>
       <NavLink
-        to="/admin/product"
+        to="/admin/products"
+        title="Admin Productos"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
         style={{ textDecoration: "none" }}
       >
         <i className="fas fa-user-shield"></i>
         <p className="font-bold text-overflow w-32">Admin Productos</p>
+      </NavLink>
+      <NavLink
+        to="/admin/user"
+        title="Admin Usuarios"
+        className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+        style={{ textDecoration: "none" }}
+      >
+        <i className="fas fa-user-shield"></i>
+        <p className="font-bold text-overflow w-32">Admin Usuarios</p>
       </NavLink>
 
       <h1
@@ -121,6 +132,7 @@ export const Drawer = () => {
       </h1>
       <NavLink
         to="/user/configure"
+        title="Configuracion"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
         style={{ textDecoration: "none" }}
       >

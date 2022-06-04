@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import { fetchContoken } from "../../helpers";
 import { Producto } from "../../interfaces";
 interface Props {
   products: Producto[];
@@ -10,17 +11,27 @@ export const TableProducts: FC<Props> = ({ products }) => {
     window.print();
   };
   // Agregar Funcion Eliminar producto
+  const handleDelete = async (id: string) => {
+    try {
+      const resp = await fetchContoken(`api/productos/${id}`, {},'DELETE');
+      const product = await resp!.json();
+      console.log(product);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="w-full">
       <div className="flex justify-between mx-6">
-        <h1 className="text-left mb-2 text-xl font-bold">
-            Gestión Productos
-        </h1>
+        <h1 className="text-left mb-2 text-xl font-bold">Gestión Productos</h1>
         <div className="flex justify-center items-center gap-2">
-            <h1 className="font-semibold">Agregar Producto</h1>
-            <Link to="/admin/product/add" className="btn border-green-500 text-green-500 hover:bg-green-700">
-                <i className="fas fa-plus"></i>
-            </Link>
+          <h1 className="font-semibold">Agregar Producto</h1>
+          <Link
+            to="/admin/product/add"
+            className="btn border-green-500 text-green-500 hover:bg-green-700"
+          >
+            <i className="fas fa-plus"></i>
+          </Link>
         </div>
       </div>
       <div className="py-2 overflow-x-auto px-6 pr-10 ">
@@ -59,17 +70,19 @@ export const TableProducts: FC<Props> = ({ products }) => {
               </tr>
             </thead>
             <tbody className="">
-              {products.map((product,i) => (
+              {products.map((product, i) => (
                 <tr className="font-semibold text-lg" key={product._id}>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 print:border-none">
                     <div className="flex items-center">
                       <div>
-                        <div className=" leading-5 text-white">{i+1}</div>
+                        <div className=" leading-5 text-white">{i + 1}</div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                    <div className=" leading-5 text-white text-left">{product.nombre}</div>
+                    <div className=" leading-5 text-white text-left">
+                      {product.nombre}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
                     {product.precio}
@@ -79,7 +92,11 @@ export const TableProducts: FC<Props> = ({ products }) => {
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
                     <img
-                      src={product.img?product.img:"https://pbs.twimg.com/media/FTd2PibXoAEGOjL?format=png&name=small"}
+                      src={
+                        product.img
+                          ? product.img
+                          : "https://www.giulianisgrupo.com/wp-content/uploads/2018/05/nodisponible.png"
+                      }
                       className="w-12 h-12 object-cover"
                     />
                   </td>
@@ -88,13 +105,16 @@ export const TableProducts: FC<Props> = ({ products }) => {
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5 space-x-2 print:hidden">
                     <div className="flex justify-center gap-2 items-center">
-
-                      <Link to={`/admin/product/${product._id}`} className="btn border-blue-500 text-blue-500 hover:bg-blue-700">
+                      <Link
+                        to={`/admin/product/${product._id}`}
+                        className="btn border-blue-500 text-blue-500 hover:bg-blue-700"
+                      >
                         <i className="fas fa-edit"></i>
                       </Link>
 
-                      <button className="btn hover:bg-red-700 border-red-500 text-red-500">
-                      <i className="fas fa-trash-alt"></i>
+                      <button onClick={()=>handleDelete(product._id)} 
+                      className="btn hover:bg-red-700 border-red-500 text-red-500">
+                        <i className="fas fa-trash-alt"></i>
                       </button>
                     </div>
                   </td>
@@ -103,6 +123,67 @@ export const TableProducts: FC<Props> = ({ products }) => {
             </tbody>
           </table>
         </div>
+          <nav aria-label="Page navigation example">
+            <ul className="inline-flex -space-x-px">
+              <li>
+                <a
+                  href="#"
+                  className="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  Previous
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  1
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  2
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  aria-current="page"
+                  className="py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                >
+                  3
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  4
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  5
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  Next
+                </a>
+              </li>
+            </ul>
+          </nav>
       </div>
     </div>
   );

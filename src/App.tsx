@@ -7,6 +7,7 @@ import { UIProvider } from "./context/ui/UIProvider";
 import { FavoriteProvider } from "./context/favorite";
 import { CartProvider } from "./context/cart";
 import { AuthProvider } from "./context/auth";
+import { ProductProvider } from "./context/product";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,7 +19,9 @@ function App() {
         <AuthProvider>
           <FavoriteProvider>
             <CartProvider>
-              <AppRouter />
+              <ProductProvider>
+                <AppRouter />
+              </ProductProvider>
             </CartProvider>
           </FavoriteProvider>
         </AuthProvider>
