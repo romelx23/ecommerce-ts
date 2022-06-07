@@ -85,7 +85,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
           <div className="flex mt-3 md:mt-0 items-center gap-2 md:justify-center">
             <h1 className="font-semibold">Agregar Producto</h1>
             <Link
-              to="/admin/product/add"
+              to={(user.rol==="ADMIN_ROLE")?"/admin/product/add":"/gestion/product/add"}
               className="btn border-green-500 text-green-500 hover:bg-green-700"
             >
               <i className="fas fa-plus"></i>
