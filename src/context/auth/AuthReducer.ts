@@ -3,6 +3,7 @@ import { User } from '../../interfaces/user';
 
 type AuthActionType = 
 | {type:'[Auth] - Login',payload:{user:User}}
+| {type:'[Auth] - Register',payload:{user:User}}
 | {type:'[Auth] - Logout'}
 | {type:'[Auth] - Checking',payload:{checking:boolean}}
 
@@ -15,13 +16,13 @@ export const AuthReducer = (state:AuthState,action:AuthActionType):AuthState => 
                     ...action.payload.user
                 }
             }
-        // case "[Auth] - Register":
-        //     return {
-        //         ...state,
-        //         register:{
-        //             ...action.payload.register
-        //         }
-        //     }
+        case "[Auth] - Register":
+            return {
+                ...state,
+                user:{
+                    ...action.payload.user
+                }
+            }
         case "[Auth] - Logout":
             return {
                 ...state,

@@ -9,6 +9,7 @@ import {
   Producto,
   ProductoCarrito,
 } from "../../interfaces/product";
+import { baseUrl } from "../../utils";
 
 export const DetailPage = () => {
   const { id } = useParams();
@@ -36,12 +37,16 @@ export const DetailPage = () => {
   };
 
   const getProductId = async () => {
-    // const product = `https://rest-server-cafe-romel.herokuapp.com/api/productos/${id}`;
-    const product = `https://node-restserver-cascaron.herokuapp.com/api/productos/${id}`;
+    try {
+      const product = `${baseUrl}/api/productos/${id}`;
+    // const product = `https://node-restserver-cascaron.herokuapp.com/api/productos/${id}`;
     const resp = await fetch(product);
     const { producto }: ProductoId = await resp.json();
     setProducto(producto);
     // console.log(producto);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const zoomArea = React.useRef<HTMLDivElement>(null);

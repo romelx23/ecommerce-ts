@@ -1,5 +1,5 @@
 import React, { FC, useContext } from "react";
-import { Drawer, FooterAdmin, NavAdmin } from "../ui";
+import { ButtonWhatsApp, Drawer, FooterAdmin, NavAdmin } from "../ui";
 import { UIContext } from '../../context/ui/UIContext';
 interface Props {
   children: React.ReactNode;
@@ -15,6 +15,7 @@ export const LayoutProfile: FC<Props> = ({ children }) => {
         {children}
         <FooterAdmin />
       </div>
+      <ButtonWhatsApp/>
     </div>
   );
 };

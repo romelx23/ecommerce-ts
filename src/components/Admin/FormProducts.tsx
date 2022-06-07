@@ -1,9 +1,5 @@
 import {
-  withFormik,
-  FormikProps,
   FormikErrors,
-  Form,
-  Field,
   useFormik,
 } from "formik";
 import React, { FC, useContext, useEffect, useState } from "react";
@@ -51,21 +47,6 @@ export const FormProducts: FC<Props> = ({ producto }) => {
       category: "",
       image: "",
     },
-    // validationSchema: Yup.object({
-    //   name: Yup.string()
-    //     .max(15, "Máximo de 20 caracteres")
-    //     .required("El nombre es requerido"),
-    //   price: Yup.number()
-    //     .typeError("El precio debe ser un número")
-    //     .required("El precio es requerido"),
-    //   description: Yup.string()
-    //   .max(50, "Máximo de 50 caracteres")
-    //   .required("El nombre es requerido"),
-    //   category: Yup.string()
-    //   .required("La categoría es requerida"),
-    //   image: Yup.string()
-    //   .required("La imagen es requerida"),
-    // }),
     validate: (values: FormValues) => {
       let errors: FormikErrors<FormValues> = {};
       if (!values.name) {
@@ -73,6 +54,9 @@ export const FormProducts: FC<Props> = ({ producto }) => {
       }
       if (!values.price) {
         errors.price = "El precio es requerida";
+      }
+      if (parseInt(values.price) <= 0) {
+        errors.price = "El precio debe ser mayor a 0";
       }
       if (!values.description) {
         errors.description = "La descripción es requerida";
@@ -207,7 +191,6 @@ export const FormProducts: FC<Props> = ({ producto }) => {
             <input
               type="number"
               name="price"
-              min={0}
               value={values.price}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -249,6 +232,7 @@ export const FormProducts: FC<Props> = ({ producto }) => {
               onChange={handleChange}
               className="w-full border-2 border-gray-300 px-2 py-1"
             >
+              <option value="">Seleccione una categoría</option>
               {category.map((item: CategoriaI) => {
                 return (
                   <option key={item._id} value={item._id}>

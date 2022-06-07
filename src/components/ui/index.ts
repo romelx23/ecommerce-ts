@@ -11,8 +11,13 @@ export * from './Star/Star';
 export * from './Zoom/Zoom';
 export * from './Badge/Badge';
 export * from './Toast/Toast';
+export * from './Button/ButtonLocation';
+export * from './Button/ButtonWhatsApp';
+export * from './Search/SearchBar';
+export * from './Select/SelectRole';
 // Forms
 export * from './Forms/FormLogin';
+export * from './Forms/FormRegister';
 
 // ADMIN
 export * from './Navbar/NavAdmin';

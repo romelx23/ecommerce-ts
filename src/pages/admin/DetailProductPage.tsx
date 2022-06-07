@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FormProducts } from '../../components/Admin/FormProducts';
 import { LayoutProfile } from '../../components/layout'
 import { Producto, ProductoId } from '../../interfaces';
+import { baseUrl } from '../../utils';
 
 export const DetailProductPage = () => {
   // Actualizar el producto
@@ -11,7 +12,7 @@ export const DetailProductPage = () => {
   const [producto, setProducto] = useState<Producto>({} as Producto);
   const getProductId = async () => {
      try{
-      const product = `https://node-restserver-cascaron.herokuapp.com/api/productos/${id}`;
+      const product = `${baseUrl}/api/productos/${id}`;
       const resp = await fetch(product);
       const { producto }: ProductoId = await resp.json();
       if(producto._id){

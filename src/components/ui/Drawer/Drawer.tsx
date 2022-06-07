@@ -3,11 +3,13 @@ import { NavLink } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 import { UIContext } from "../../../context/ui/UIContext";
 import { ButtonToggle } from "../Button/ButtonToggle";
+import { AuthContext } from "../../../context/auth";
 
 export const Drawer = () => {
-  const { ToggleMenu,toggleMenu } = useContext(UIContext);
+  const { ToggleMenu, toggleMenu } = useContext(UIContext);
+  const { user } = useContext(AuthContext);
   // if screen is mobile, then hide the drawer
-  
+
   return (
     <div
       className={`container-drawer ${
@@ -28,6 +30,7 @@ export const Drawer = () => {
       </h1>
       <NavLink
         to="/user/profile"
+        title="Perfil"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
         style={{ textDecoration: "none" }}
       >
@@ -49,6 +52,7 @@ export const Drawer = () => {
       </NavLink>
       <NavLink
         to="/user/dashboard"
+        title="Dashboard"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
         style={{ textDecoration: "none" }}
       >
@@ -70,6 +74,7 @@ export const Drawer = () => {
       </NavLink>
       <NavLink
         to=""
+        title="Boletas"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
         style={{ textDecoration: "none" }}
       >
@@ -90,39 +95,80 @@ export const Drawer = () => {
         <p className="font-bold">Boletas</p>
       </NavLink>
 
-      <h1
-        className="text-white font-semibold mt-3 w-full text-left
+      {user.rol === "ADMIN_ROLE" && (
+        <>
+          <h1
+            className="text-white font-semibold mt-3 w-full text-left
       "
-      >
-        Admin
-      </h1>
-      <NavLink
-        to="/admin"
-        title="Admin"
-        className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
-        style={{ textDecoration: "none" }}
-      >
-        <i className="fas fa-user-shield"></i>
-        <p className="font-bold">Admin</p>
-      </NavLink>
-      <NavLink
-        to="/admin/products"
-        title="Admin Productos"
-        className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
-        style={{ textDecoration: "none" }}
-      >
-        <i className="fas fa-user-shield"></i>
-        <p className="font-bold text-overflow w-32">Admin Productos</p>
-      </NavLink>
-      <NavLink
-        to="/admin/user"
-        title="Admin Usuarios"
-        className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
-        style={{ textDecoration: "none" }}
-      >
-        <i className="fas fa-user-shield"></i>
-        <p className="font-bold text-overflow w-32">Admin Usuarios</p>
-      </NavLink>
+          >
+            Admin
+          </h1>
+          <NavLink
+            to="/admin"
+            title="Admin"
+            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold">Admin</p>
+          </NavLink>
+          <NavLink
+            to="/admin/products"
+            title="Admin Productos"
+            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32">Admin Productos</p>
+          </NavLink>
+          <NavLink
+            to="/admin/category"
+            title="Admin Categorias"
+            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32">Admin Categorias</p>
+          </NavLink>
+          <NavLink
+            to="/admin/user"
+            title="Admin Usuarios"
+            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32">Admin Usuarios</p>
+          </NavLink>
+        </>
+      )}
+      {user.rol === "BODEGUERO_ROLE" && (
+        <>
+        <h1
+            className="text-white font-semibold mt-3 w-full text-left
+      "
+          >
+            Bodeguero
+          </h1>
+          <NavLink
+            to="/gestion/products"
+            title="Admin Productos"
+            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32">Gestionar Productos</p>
+          </NavLink>
+          <NavLink
+            to="/gestion/category"
+            title="Admin Categorias"
+            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32">Gestionar Categorias</p>
+          </NavLink>
+        </>
+      )}
 
       <h1
         className="text-white font-semibold mt-3 w-full text-left

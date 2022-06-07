@@ -2,13 +2,16 @@ import { FC, useReducer } from "react";
 import Swal from "sweetalert2";
 import { ProductContext, ProductReducer } from ".";
 import { fileUpload } from "../../helpers/fileUpload";
-import { ProductForm } from "../../interfaces";
+import { CategoryForm, ProductForm } from "../../interfaces";
 export interface ProductContextProps {
   children: React.ReactNode;
 }
 
 export interface ProductState {
   product: ProductForm;
+  category:CategoryForm;
+  products: ProductForm[];
+  categories: CategoryForm[];
 }
 
 export const Product_INITIAL_STATE: ProductState = {
@@ -19,6 +22,11 @@ export const Product_INITIAL_STATE: ProductState = {
     category: "",
     image: "",
   },
+  category:{
+    name:"",
+  },
+  products: [],
+  categories: [],
 };
 
 export const ProductProvider: FC<ProductContextProps> = ({ children }) => {
@@ -54,6 +62,15 @@ export const ProductProvider: FC<ProductContextProps> = ({ children }) => {
     console.log(url);
     Swal.close();
   };
+  const addCategory = (category: CategoryForm) => {
+    dispatch({
+      type: "[Category] - Add Category",
+      payload: {
+        category,
+      },
+    });
+  };
+
   return (
     <ProductContext.Provider
       value={{

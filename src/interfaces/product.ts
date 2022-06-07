@@ -76,3 +76,20 @@ export interface ProductForm {
   category: string;
   image: string;
 }
+
+// Category
+
+export interface CategoryForm{
+  name:string;
+}
+
+export interface CategoryI {
+  nombre: string;
+  _id: string;
+  usuario: string;
+}
+
+export interface CategoryResponse {
+  categorias: CategoryI[];
+  total: number;
+}

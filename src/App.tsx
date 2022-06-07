@@ -8,6 +8,8 @@ import { FavoriteProvider } from "./context/favorite";
 import { CartProvider } from "./context/cart";
 import { AuthProvider } from "./context/auth";
 import { ProductProvider } from "./context/product";
+import { PlacesProvider } from "./context/places";
+import { MapProvider } from "./context/map";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,11 +20,15 @@ function App() {
       <UIProvider>
         <AuthProvider>
           <FavoriteProvider>
-            <CartProvider>
-              <ProductProvider>
-                <AppRouter />
-              </ProductProvider>
-            </CartProvider>
+            <PlacesProvider>
+              <MapProvider>
+                <CartProvider>
+                  <ProductProvider>
+                    <AppRouter />
+                  </ProductProvider>
+                </CartProvider>
+              </MapProvider>
+            </PlacesProvider>
           </FavoriteProvider>
         </AuthProvider>
       </UIProvider>

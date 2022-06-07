@@ -1,8 +1,9 @@
 import { createContext } from "react";
-import { ProductForm } from "../../interfaces";
+import { ProductForm,CategoryForm } from "../../interfaces";
 
 interface ContextProps {
   product: ProductForm;
+  category:CategoryForm
   addProduct: (product: ProductForm) => void;
   startUploading: (file: File) => void;
 }

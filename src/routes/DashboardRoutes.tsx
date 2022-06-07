@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
-import { NotFound } from '../pages/others/NotFound';
-import { 
+import { NotFound } from "../pages/others/NotFound";
+import {
   ProductsPage,
   ProductPage,
   DetailPage,
@@ -22,11 +22,13 @@ import {
   DetailProductPage,
   AddProductPage,
   DetailUserPage,
-  AddUserPage,
-  UserPage
+  UserPage,
+  CategoryAdminPage,
 } from "../pages";
+import { AuthContext } from "../context/auth";
 
 export const DashboardRoutes = () => {
+  const { user } = useContext(AuthContext);
   return (
     <>
       <div className="">
@@ -34,7 +36,7 @@ export const DashboardRoutes = () => {
           {/* Products Page */}
           <Route path="/home" element={<ProductsPage />} />
           <Route path="/home/:id" element={<DetailPage />} />
-          <Route path="/home/category/:category" element={<CategoryPage />} />
+          <Route path="/home/categoria/:category" element={<CategoryPage />} />
           <Route path="/home/filter" element={<FilterPage />} />
           <Route path="/home/pagos" element={<PaymentPage />} />
           <Route path="/home/favoritos" element={<FavoritePage />} />
@@ -45,13 +47,33 @@ export const DashboardRoutes = () => {
           {/* Sales Page */}
           <Route path="/sales" element={<SalesPage />} />
           {/* Admin Page */}
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/admin/products" element={<ProductPage />} />
-          <Route path="/admin/product/:id" element={<DetailProductPage />} />
-          <Route path="/admin/product/add" element={<AddProductPage />} />
-          <Route path="/admin/user" element={<UserPage />} />
-          <Route path="/admin/user/detail" element={<DetailUserPage />} />
-          <Route path="/admin/user/add" element={<AddUserPage />} />
+          {user && user.rol === "ADMIN_ROLE" && (
+            <>
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/products" element={<ProductPage />} />
+              <Route
+                path="/admin/product/:id"
+                element={<DetailProductPage />}
+              />
+              <Route path="/admin/product/add" element={<AddProductPage />} />
+              <Route path="/admin/user" element={<UserPage />} />
+              <Route path="/admin/user/detail" element={<DetailUserPage />} />
+              <Route path="/admin/category" element={<CategoryAdminPage />} />
+            </>
+          )}
+          {
+            user && user.rol === "BODEGUERO_ROLE" && (
+              <>
+                <Route path="/gestion/products" element={<ProductPage />} />
+              <Route
+                path="/gestion/product/:id"
+                element={<DetailProductPage />}
+              />
+              <Route path="/gestion/product/add" element={<AddProductPage />} />
+              <Route path="/gestion/category" element={<CategoryAdminPage />} />
+              </>
+            )
+          }
           {/* User Page */}
           <Route path="/user/profile" element={<ProfilePage />} />
           <Route path="/user/update/:id" element={<UpadateProfilePage />} />

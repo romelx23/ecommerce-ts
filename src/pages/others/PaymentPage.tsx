@@ -15,7 +15,9 @@ export const PaymentPage = () => {
       <h1 className="text-left mb-2 text-xl font-bold ml-6">
         Compras Realizadas
       </h1>
-      <div className="py-2 overflow-x-auto px-6 pr-10 ">
+      {
+        cart.length > 0 ? (
+          <div className="py-2 overflow-x-auto px-6 pr-10 ">
         <div
           className="align-middle inline-block min-w-full shadow overflow-hidden bg-gray-900 shadow-dashboard 
         print:shadow-none px-8 pt-3 rounded-lg min-h-min print:bg-black print:px-0 print:pl-6 print:break-before-avoid-page"
@@ -53,9 +55,7 @@ export const PaymentPage = () => {
                       </div>
                     </div>
                   </td>
-                  <td
-                    className="px-6 py-4 whitespace-no-wrap text-left"
-                  >
+                  <td className="px-6 py-4 whitespace-no-wrap text-left">
                     <div className=" leading-5 text-white">
                       {producto.nombre}
                     </div>
@@ -104,10 +104,31 @@ export const PaymentPage = () => {
           </table>
         </div>
       </div>
-        <div className="w-full my-2">
-          <h1>Comuniquese con el bodeguero</h1>
-          <p>Número de Teléfono: 593486364</p>
+        ) : (
+          <div className="p-2 w-full min-h-[68vh] flex justify-center items-center">
+          <div className="flex flex-col items-center opacity-60">
+            <h1 className="font-extralight">No Has Añadido Productos al Carrito</h1>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+          </div>
         </div>
+        )
+      }
+      <div className="w-full my-2">
+        <h1>Comuniquese con el bodeguero</h1>
+        <p>Número de Teléfono: 593486364</p>
+      </div>
     </LayoutProducts>
   );
 };

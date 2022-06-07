@@ -1,15 +1,53 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../../context/auth";
 import { ButtonToggle } from "../Button/ButtonToggle";
-
+const routesName=[
+  {
+    name: "Admin General",
+    path: "/admin",
+  },
+  {
+    name: "Productos",
+    path: "/admin/products",
+  },
+  {
+    name: "Dashboard",
+    path: "/user/dashboard",
+  },
+  {
+    name: "Usuarios",
+    path: "/admin/user",
+  },
+  {
+    name: "Categorias",
+    path: "/admin/category",
+  },
+  {
+    name: "Perfil del Usuario",
+    path: "/user/profile",
+  },
+]
 export const NavAdmin = () => {
   const {user,logOut}=useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
+  const {pathname}=useLocation();
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    if(routesName)
+    routesName.map((item)=>{
+      if(pathname.includes(item.path)){
+        setTitle(item.name);
+      }
+    })
+  }, [pathname]);
+  
   return (
     <nav className="p-4 w-full flex justify-between print:hidden">
       <div className="flex items-center space-x-2">
         <ButtonToggle />
-        <h1 className="font-bold text-2xl">Overview</h1>
+        <h1 className="font-bold text-2xl">{title}</h1>
       </div>
       <div
         className="flex justify-center items-center space-x-2"

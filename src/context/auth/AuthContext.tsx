@@ -5,6 +5,7 @@ interface ContextProps{
     checking:boolean;
     user:User;
     startLogin: (email:string,password:string)=>void;
+    startRegister: (name:string,email:string,password:string,password2:string)=>void;
     startCheking:()=>void;
     logOut:()=>void;
 }

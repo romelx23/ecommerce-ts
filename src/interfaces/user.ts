@@ -16,3 +16,20 @@ export interface User {
     rol: string;
     uid: string;
 }
+
+// 
+export interface UsuariosResponse {
+    usuario: Usuario[];
+    total:   number;
+}
+
+export interface Usuario {
+    rol:      string;
+    estado:   boolean;
+    google:   boolean;
+    telefono: number;
+    nombre:   string;
+    correo:   string;
+    img:      string;
+    uid:      string;
+}

@@ -3,7 +3,7 @@ import { Producto, ProductsI } from "../interfaces/product";
 
 export const useProducts = () => {
   const baseUrl =
-    "https://bodegass.herokuapp.com/api/productos?limite=30";
+    "https://bodegass.herokuapp.com/api/productos?limite=5";
     // "https://node-restserver-cascaron.herokuapp.com/api/productos?limite=30";
   const [products, setProducts] = useState<Producto[]>([]);
   const [loading, setLoading] = useState(false);

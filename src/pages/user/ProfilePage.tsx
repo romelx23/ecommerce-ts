@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LayoutProfile } from "../../components/layout";
+import { AuthContext } from '../../context/auth/AuthContext';
 
 export const ProfilePage = () => {
+  const {user}=useContext(AuthContext);
+  const {nombre,img,rol}=user;
   const handlePrint = () => {
     window.print();
   };
@@ -11,17 +14,17 @@ export const ProfilePage = () => {
         <div className="flex justify-center">
           <div className="w-64 h-60 bg-blue-900 rounded-lg flex flex-col items-center p-4 print:hidden">
             <img
-              src="https://pbs.twimg.com/media/FTd2PibXoAEGOjL?format=png&name=small"
+              src={user.img?"https://aztecsolar.com/wp-content/uploads/2020/05/placeholder-user.jpg":"https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"}
               alt="avatar"
               className="rounded-full h-28 w-28 mb-2 object-cover"
               style={{ border: "4px solid #fff" }}
             />
-            <h1 className="text-xl font-semibold text-white">Carlos David</h1>
+            <h1 className="text-xl font-semibold text-white">{nombre}</h1>
             <h2 className="text-base font-semibold text-green-500">Cliente</h2>
           </div>
         </div>
         {/* tabla boletas */}
-        <h1 className="text-left mb-2 text-xl ml-6 font-bold">
+        {/* <h1 className="text-left mb-2 text-xl ml-6 font-bold">
           Boletas Emitidas
         </h1>
         <div className="py-2 overflow-x-auto px-6 pr-10 ">
@@ -99,7 +102,7 @@ export const ProfilePage = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
       </div>
     </LayoutProfile>
   );

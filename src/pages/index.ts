@@ -18,7 +18,7 @@ export * from './admin/DetailProductPage';
 export * from './admin/AddProductPage';
 export * from './admin/UserPage';
 export * from './admin/DetailUserPage';
-export * from './admin/AddUserPage';
+export * from './admin/CategoryAdminPage';
 
 // User Page
 export * from './user/ProfilePage';
