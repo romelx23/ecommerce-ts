@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getCategories } from "../../../helpers/products";
+import { Categoria } from "../../../interfaces";
 
 export const NavBottom = () => {
+  const [categories, setCategories] = useState<Categoria[]>([]);
+
+  useEffect(() => {
+    getCategories()
+      .then((res) => {
+        setCategories(res.categorias);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="flex gap-3 relative">
       <Link
@@ -13,8 +27,21 @@ export const NavBottom = () => {
       </Link>
       <div className="">
         <div className="flex flex-col md:flex-row absolute md:relative bg-white h-10 md:h-auto overflow-hidden px-2 pb-2 md:pb-0 hover:h-auto transition">
-          <h1 className="p-2 md:hidden mb-1 text-sm md:text-base">Ver Categorías</h1>
-          <Link
+          <h1 className="p-2 md:hidden mb-1 text-sm md:text-base">
+            Ver Categorías
+          </h1>
+          {categories.map((category) => (
+            <Link
+              key={category._id}
+              title={category.nombre}
+              to={`/home/categoria/${category.nombre.toLocaleLowerCase()}`}
+              className="link-category"
+              style={{ color: "#000", textDecoration: "none" }}
+            >
+              {category.nombre}
+            </Link>
+          ))}
+          {/* <Link
             to="/home/categoria/diario"
             className="link-category"
             style={{ color: "#000", textDecoration: "none" }}
@@ -48,7 +75,7 @@ export const NavBottom = () => {
             style={{ color: "#000", textDecoration: "none" }}
           >
             Limpieza
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

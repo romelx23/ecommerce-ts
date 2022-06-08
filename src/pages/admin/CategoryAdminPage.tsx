@@ -78,7 +78,7 @@ export const CategoryAdminPage = () => {
   };
   const handleCateogries = async () => {
     const resp = await fetchSintoken(
-      `api/categorias?desde=0&limit=10`,
+      `api/categorias?desde=0&limit=20`,
       {},
       "GET"
     );

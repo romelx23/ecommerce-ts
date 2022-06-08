@@ -55,7 +55,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
   const prevPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 5);
-      console.log("prevPage");
+      // console.log("prevPage");
     }
   };
   const searchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +108,10 @@ export const TableProducts: FC<Props> = ({ products }) => {
                   Precio
                 </th>
                 <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-                  Ingredientes
+                  Descripción
+                </th>
+                <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                  Categoría
                 </th>
                 <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                   Imagen
@@ -148,8 +151,11 @@ export const TableProducts: FC<Props> = ({ products }) => {
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
                     {product.precio}
                   </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
+                  <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500 leading-5 text-left">
                     {product.descripcion}
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
+                    {product.categoria.nombre}
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
                     <img

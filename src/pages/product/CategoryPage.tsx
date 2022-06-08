@@ -3,34 +3,70 @@ import { useLocation, useParams } from 'react-router-dom'
 import { ListProducts } from '../../components/products'
 import { LayoutProducts } from '../../components/layout/LayoutProducts';
 import { Banner } from '../../components/ui';
+import { fetchSintoken } from '../../helpers';
+import { Producto, ProductsI } from '../../interfaces/product';
 const routesName=[
   {
-    name: "Alimentos del día",
-    path: "/categoria/diario",
+    name: "Golosinas",
+    path: "/categoria/golosinas",
   },
   {
-    name: "Ofertas Especiales",
-    path: "/categoria/ofertas",
+    name: "Verduras",
+    path: "/categoria/verduras",
   },
   {
-    name: "Abarrotes",
-    path: "/categoria/abarrotes",
+    name: "Bebidas",
+    path: "/categoria/bebidas",
   },
   {
-    name: "Frutas y Verduras",
-    path: "/categoria/frutas-y-verduras",
+    name: "Lejías",
+    path: "/categoria/lejías",
   },
   {
     name: "Limpieza",
     path: "/categoria/limpieza",
   },
+  {
+    name: "Escobas",
+    path: "/categoria/escobas",
+  },
+  {
+    name: "Papeles",
+    path: "/categoria/papeles",
+  },
+  {
+    name: "Menestras",
+    path: "/categoria/menestra",
+  },
+  {
+    name: "Shampoos",
+    path: "/categoria/Shampoo",
+  },
+  {
+    name: "Cereales",
+    path: "/categoria/cereales",
+  },
+  {
+    name: "Frutas",
+    path: "/categoria/frutas",
+  },
 ]
 
 export const CategoryPage = () => {
     // get the category from react-router-dom
-    const category = useParams().category
+    const category = useParams().category || "";
     const {pathname}=useLocation();
     const [title, setTitle] = useState("");
+    const [products, setProducts] = useState<Producto[]>([]);
+
+    const handleProductsCategory = async() => {
+      const response = await fetchSintoken(`api/productos/categoria/${category.toUpperCase()}`,{},"GET");
+      const data:ProductsI = await response!.json()
+      // console.log(data.productos);
+      setProducts(data.productos);
+      // setTitle(data.category.nombre)
+      // return data.products
+    }
   
     useEffect(() => {
       if(routesName)
@@ -40,6 +76,9 @@ export const CategoryPage = () => {
         }
       })
     }, [pathname]);
+    useEffect(() => {
+      handleProductsCategory();
+    }, [category]);
   return (
     <LayoutProducts>
       <Banner
@@ -47,6 +86,7 @@ export const CategoryPage = () => {
         description={`10% de descuento en ${title} en la tienda don pepito`}
       />
         <ListProducts
+            productsProps={products}
             title= {`Productos de la categoria: ${title}`}
         />
     </LayoutProducts>

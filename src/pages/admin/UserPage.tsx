@@ -16,7 +16,7 @@ export const UserPage = () => {
     const data: UsuariosResponse = await resp!.json();
     // console.log(resp);
     setUser(data.usuario);
-    console.log(data);
+    // console.log(data);
   };
 
   const handleDelete = async (id: string) => {

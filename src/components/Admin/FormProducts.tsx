@@ -101,6 +101,7 @@ export const FormProducts: FC<Props> = ({ producto }) => {
   };
 
   const updateProduct = async () => {
+    console.log(values, "values");
     console.log(errors, "errors");
     if (Object.keys(errors).length === 0) {
       const resp = await fetchContoken(
