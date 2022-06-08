@@ -130,14 +130,14 @@ export const FormRegister = () => {
         >
           Registrarme
         </button>
-        <button className="max-w-md w-full flex justify-center gap-2 mt-3 p-3 border-2 shadow-md rounded-3xl hover:bg-blue-600 hover:text-white">
+        {/* <button className="max-w-md w-full flex justify-center gap-2 mt-3 p-3 border-2 shadow-md rounded-3xl hover:bg-blue-600 hover:text-white">
           <img
             className="google-icon"
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             alt="google button"
           />
           Registrarme con Google
-        </button>
+        </button> */}
       </div>
     </form>
   );

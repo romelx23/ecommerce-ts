@@ -49,7 +49,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
         <button onClick={()=>handleLogin} type="submit" className="btn-submit" disabled={isSubmitting}>
           Ingresar
         </button>
-        <button onClick={() => {
+        {/* <button onClick={() => {
           Swal.fire({
             title: '¿Estas seguro?',
             text: "No podras revertir esto!",
@@ -63,7 +63,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
             alt="google button"
           />
           Iniciar sesión con Google
-        </button>
+        </button> */}
         {
             isSubmitting && (
                 <p className="text-green-600 text-center max-w-md w-full">Formulario enviado correctamente</p>

@@ -12,6 +12,7 @@ interface FormValues {
 
 export const CategoryAdminPage = () => {
   const [categories, setCategories] = useState<CategoryI[]>([]);
+  const [active, setActive] = useState(false);
   const {
     errors,
     values,
@@ -65,7 +66,6 @@ export const CategoryAdminPage = () => {
         confirmButtonText: "Ok",
       });
       const data: CategoryI = await resp!.json();
-
     } catch (error) {
       Swal.fire({
         title: "Error",
@@ -77,35 +77,50 @@ export const CategoryAdminPage = () => {
     }
   };
   const handleCateogries = async () => {
-    const resp = await fetchSintoken(`api/categorias?desde=0&limit=10`, {}, "GET");
+    const resp = await fetchSintoken(
+      `api/categorias?desde=0&limit=10`,
+      {},
+      "GET"
+    );
     const data: CategoryResponse = await resp!.json();
     setCategories(data.categorias);
   };
-  const handleDelete=async(id:string)=>{
-    const resp=await fetchContoken(`api/categorias/${id}`,{},'DELETE')
-    const data=await resp!.json()
+  const handleDelete = async (id: string) => {
+    const resp = await fetchContoken(`api/categorias/${id}`, {}, "DELETE");
+    const data = await resp!.json();
     Swal.fire({
       title: "Eliminado",
       text: "La categoría se ha eliminado correctamente",
       icon: "success",
       confirmButtonText: "Ok",
     });
-    handleCateogries()
-  }
-  const handleUpdate=async(id:string)=>{
-    const resp=await fetchContoken(`api/categorias/${id}`,{
-      nombre:values.name,
-      estado:values.status
-    },'PUT')
-    const data=await resp!.json()
+    handleCateogries();
+  };
+  const handleUpdate = async (id: string) => {
+    const resp = await fetchContoken(
+      `api/categorias/${id}`,
+      {
+        nombre: values.name,
+        estado: values.status,
+      },
+      "PUT"
+    );
+    const data = await resp!.json();
     Swal.fire({
       title: "Actualizado",
       text: "La categoría se ha actualizado correctamente",
       icon: "success",
       confirmButtonText: "Ok",
     });
-    handleCateogries()
-  }
+    handleCateogries();
+  };
+  const setName = (name: string) => {
+    setActive(true);
+    setValues({
+      name: name,
+      status: true,
+    });
+  };
 
   useEffect(() => {
     handleCateogries();
@@ -165,12 +180,21 @@ export const CategoryAdminPage = () => {
                 {errors.status}
               </p>
             )}
-            <button
-              type="submit"
-              className="w-full btn my-2 bg-blue-500 text-white hover:bg-blue-700"
-            >
-              Agregar Categoría
-            </button>
+            {active ? (
+              <button
+                type="submit"
+                className="w-full btn my-2 bg-purple-500 text-white hover:bg-purple-700"
+              >
+                Actualizar Categoría
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="w-full btn my-2 bg-blue-500 text-white hover:bg-blue-700"
+              >
+                Agregar Categoría
+              </button>
+            )}
           </div>
         </form>
         <div className="w-full">
@@ -219,14 +243,18 @@ export const CategoryAdminPage = () => {
                       <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5 space-x-2 print:hidden">
                         <div className="flex gap-2 items-center">
                           <button
-                            onClick={() => {}}
+                            onClick={() => {
+                              setName(category.nombre);
+                            }}
                             className="btn border-blue-500 text-blue-500 hover:bg-blue-700"
                           >
                             <i className="fas fa-edit"></i>
                           </button>
 
                           <button
-                            onClick={() => {handleDelete(category._id)}}
+                            onClick={() => {
+                              handleDelete(category._id);
+                            }}
                             className="btn hover:bg-red-700 border-red-500 text-red-500"
                           >
                             <i className="fas fa-trash-alt"></i>
