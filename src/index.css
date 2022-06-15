@@ -4,6 +4,7 @@
 
 :root{
   scroll-behavior: smooth;
+  /* background: #000; */
 }
 
 body {
@@ -48,6 +49,10 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.text-overflow:hover{
+  overflow: visible;
 }
 
 /* Buttons */
@@ -140,8 +145,21 @@ code {
 
 .menu-admin{
   /* opacity: 0; */
-  @apply p-2 absolute flex h-12 w-40 right-0 z-20
+  @apply p-2 absolute flex flex-col h-12 w-44 right-0 z-20
 }
+
+.btn-admin{
+  @apply text-sm bg-slate-600 hover:bg-slate-400 w-full text-white flex justify-between items-center font-semibold px-3 py-1 transition duration-300
+}
+
+.btn-add{
+  @apply btn bg-blue-500 text-white hover:bg-blue-700
+}
+
+.btn-update{
+  @apply btn bg-purple-500 text-white hover:bg-purple-700
+}
+
 .menu-admin::before{
   /* content: "";
   position: absolute;

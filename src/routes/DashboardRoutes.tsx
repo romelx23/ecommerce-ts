@@ -26,6 +26,7 @@ import {
   CategoryAdminPage,
 } from "../pages";
 import { AuthContext } from "../context/auth";
+import { MarketPage } from "../pages/admin/MarketPage";
 
 export const DashboardRoutes = () => {
   const { user } = useContext(AuthContext);
@@ -71,12 +72,13 @@ export const DashboardRoutes = () => {
               />
               <Route path="/gestion/product/add" element={<AddProductPage />} />
               <Route path="/gestion/category" element={<CategoryAdminPage />} />
+              <Route path="/gestion/bodega" element={<MarketPage />} />
               </>
             )
           }
           {/* User Page */}
           <Route path="/user/profile" element={<ProfilePage />} />
-          <Route path="/user/update/:id" element={<UpadateProfilePage />} />
+          <Route path="/user/profile/edit/:id" element={<UpadateProfilePage />} />
           <Route path="/user/configure" element={<ConfigurePage />} />
           <Route path="/user/dashboard" element={<DashBoardPage />} />
           {/* Other Page */}

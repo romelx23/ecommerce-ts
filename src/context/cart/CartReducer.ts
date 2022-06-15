@@ -5,6 +5,7 @@ type CartActionType =
 | {type:'[Cart] - Add to cart', payload: {product: ProductoCarrito}}
 | {type:'[Cart] - Remove from cart', payload: {id:string}}
 | {type:'[Cart] - Update from cart', payload: {id:string,product:ProductoCarrito}}
+| {type:'[Cart] - Clear cart'}
 
 export const CartReducer = (state:CartState,action:CartActionType):CartState => { 
     switch (action.type) {
@@ -28,6 +29,12 @@ export const CartReducer = (state:CartState,action:CartActionType):CartState => 
                     return product;
                 })
             }; 
+        case '[Cart] - Clear cart':
+            return {
+                ...state,
+                cart: []
+            };
+
         
     
         default:

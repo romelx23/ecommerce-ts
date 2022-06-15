@@ -167,6 +167,24 @@ export const Drawer = () => {
             <i className="fas fa-user-shield"></i>
             <p className="font-bold text-overflow w-32">Gestionar Categorias</p>
           </NavLink>
+          <NavLink
+            to="/gestion/bodega"
+            title="Gestionar Bodega"
+            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32">Gestionar Bodega</p>
+          </NavLink>
+          <NavLink
+            to="/gestion/pedido"
+            title="Gestionar Pedidos"
+            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32">Gestionar Pedidos</p>
+          </NavLink>
         </>
       )}
 

@@ -45,6 +45,11 @@ export const CartProvider: FC<Props> = ({ children }) => {
       }
     })
   }
+  const clearCart = () => {
+    dispatch({
+      type: '[Cart] - Clear cart',
+    })
+  }
    
 
   return (
@@ -53,7 +58,8 @@ export const CartProvider: FC<Props> = ({ children }) => {
         ...state,
         addToCart,
         removeFromCart,
-        updateCart
+        updateCart,
+        clearCart
       }}
     >
       {children}

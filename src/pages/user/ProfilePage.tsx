@@ -14,7 +14,7 @@ export const ProfilePage = () => {
         <div className="flex justify-center">
           <div className="w-64 h-60 bg-blue-900 rounded-lg flex flex-col items-center p-4 print:hidden">
             <img
-              src={user.img?"https://aztecsolar.com/wp-content/uploads/2020/05/placeholder-user.jpg":"https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"}
+              src={user.img.length!==0?user.img:"https://aztecsolar.com/wp-content/uploads/2020/05/placeholder-user.jpg"}
               alt="avatar"
               className="rounded-full h-28 w-28 mb-2 object-cover"
               style={{ border: "4px solid #fff" }}

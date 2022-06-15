@@ -1,4 +1,4 @@
-import { FC, useReducer } from "react";
+import { FC, useContext, useReducer } from "react";
 import Swal from "sweetalert2";
 import { AuthContext, AuthReducer } from ".";
 import { fetchContoken, fetchSintoken } from "../../helpers";
@@ -20,7 +20,7 @@ export const Auth_INITIAL_STATE: AuthState = {
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, Auth_INITIAL_STATE);
-
+ 
   const startLogin = async (email: string, password: string) => {
     const resp = await fetchSintoken(
       "api/auth/login",
@@ -112,6 +112,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       type: "[Auth] - Logout",
     });
   };
+  const updateUser = (user: User) =>{
+    dispatch({
+      type: "[User] - Update",
+      payload: { user },
+    });
+  }
 
   return (
     <AuthContext.Provider
@@ -120,6 +126,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         startLogin,
         startRegister,
         startCheking,
+        updateUser,
         logOut,
       }}
     >

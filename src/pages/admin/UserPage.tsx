@@ -104,7 +104,7 @@ export const UserPage = () => {
                           src={usuario.img?usuario.img:"https://jsl-online.com/wp-content/uploads/2017/01/placeholder-user.png"}
                           alt="imagen"
                           title={usuario.nombre}
-                          className="w-12 h-12"
+                          className="w-12 h-12 object-cover"
                         />
                         </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500 leading-5 text-left">

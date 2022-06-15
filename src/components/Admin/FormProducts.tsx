@@ -12,7 +12,6 @@ import { useUpload } from "../../hooks";
 import { ProductoResponseError } from "../../interfaces";
 import { CategoriaI } from "../../interfaces/category";
 import { Producto } from "../../interfaces/product";
-import * as Yup from "yup";
 
 interface FormValues {
   name: string;

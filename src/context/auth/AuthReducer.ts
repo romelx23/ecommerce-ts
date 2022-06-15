@@ -6,6 +6,7 @@ type AuthActionType =
 | {type:'[Auth] - Register',payload:{user:User}}
 | {type:'[Auth] - Logout'}
 | {type:'[Auth] - Checking',payload:{checking:boolean}}
+| {type:'[User] - Update',payload:{user:User}}
 
 export const AuthReducer = (state:AuthState,action:AuthActionType):AuthState => { 
     switch (action.type) {
@@ -33,6 +34,13 @@ export const AuthReducer = (state:AuthState,action:AuthActionType):AuthState => 
             return {
                 ...state,
                 checking:action.payload.checking,
+            }
+        case "[User] - Update":
+            return {
+                ...state,
+                user:{
+                    ...action.payload.user
+                }
             }
         
     

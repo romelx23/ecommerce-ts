@@ -26,7 +26,7 @@ export const NavBottom = () => {
         Categoría de Productos
       </Link>
       <div className="">
-        <div className="flex flex-col md:flex-row absolute md:relative bg-white h-10 md:h-auto overflow-hidden px-2 pb-2 md:pb-0 hover:h-auto transition">
+        <div className="flex flex-col flex-wrap md:flex-row absolute md:relative bg-white h-10 md:h-auto overflow-hidden px-2 pb-2 md:pb-0 hover:h-auto transition">
           <h1 className="p-2 md:hidden mb-1 text-sm md:text-base">
             Ver Categorías
           </h1>

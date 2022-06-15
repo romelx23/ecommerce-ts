@@ -15,6 +15,8 @@ export interface User {
     img: string;
     rol: string;
     uid: string;
+    telefono: string;
+    direccion: string;
 }
 
 // 
