@@ -7,6 +7,8 @@ interface ContextProps{
         toggleCart:(value:boolean)=>void;
         ToggleModal:boolean;
         toggleModal:(value:boolean)=>void;
+        logoMarket:string;
+        SetLogo:(image:string)=>void;
 }
 
 export const UIContext=createContext({} as ContextProps)

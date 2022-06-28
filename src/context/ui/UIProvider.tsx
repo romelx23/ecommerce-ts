@@ -8,12 +8,14 @@ export interface UIState {
   ToggleMenu: boolean;
   ToggleCart: boolean;
   ToggleModal:boolean;
+  logoMarket:string;
 }
 
 export const UI_INITIAL_STATE: UIState = {
   ToggleMenu: true,
   ToggleCart:false,
   ToggleModal:false,
+  logoMarket:'',
 }
 
 export const UIProvider: FC<Props> = ({ children }) => {
@@ -27,13 +29,17 @@ export const UIProvider: FC<Props> = ({ children }) => {
   const toggleModal=(value:boolean)=>{
     dispatch({type:'[UI] - Toggle Modal',payload:value})
   }
+  const SetLogo=(image:string)=>{
+    dispatch({type:'[UI] - Set LogoMarket',payload:image})
+  }
   return (
     <UIContext.Provider
       value={{
         ...state,
         toggleMenu,
         toggleCart,
-        toggleModal
+        toggleModal,
+        SetLogo
       }}
     >
       {children}

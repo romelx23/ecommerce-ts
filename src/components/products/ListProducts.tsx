@@ -6,7 +6,7 @@ import { FavoriteContext } from "../../context/favorite/FavoriteContext";
 import { useProducts } from "../../hooks";
 interface Props {
   title?: string;
-  productsProps: Producto[];
+  productsProps?: Producto[];
 }
 
 export const ListProducts: FC<Props> = ({ title, productsProps }) => {
@@ -30,7 +30,7 @@ export const ListProducts: FC<Props> = ({ title, productsProps }) => {
               <Product key={product._id} product={product} />
             ))}
         {
-          productsProps.length<0&&
+          productsProps&&productsProps.length<0&&
           <div className="flex flex-col items-center opacity-60">
             <h1 className="font-extralight">
               No Has Añadido Productos al Carrito

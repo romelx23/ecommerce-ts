@@ -4,6 +4,7 @@ type UIActionType =
 | {type:'[UI] - Toggle Sidebar', payload:boolean}
 | {type:'[UI] - Toggle Cart', payload:boolean}
 | {type:'[UI] - Toggle Modal', payload:boolean}
+| {type:'[UI] - Set LogoMarket', payload:string}
 
 export const UIReducer = (state:UIState,action:UIActionType):UIState => { 
     switch (action.type) {
@@ -22,6 +23,11 @@ export const UIReducer = (state:UIState,action:UIActionType):UIState => {
                 ...state,
                 ToggleModal: action.payload
             };
+        case '[UI] - Set LogoMarket':
+            return {
+                ...state,
+                logoMarket:action.payload
+            }
     
         default:
             return state;

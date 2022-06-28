@@ -1,17 +1,24 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { CartContext } from "../../../context/cart";
 import { UIContext } from "../../../context/ui";
 import { Badge } from '../Badge/Badge';
 
 export const NavTop = () => {
-  const { toggleCart, ToggleCart } = useContext(UIContext);
+  const { toggleCart, ToggleCart, logoMarket } = useContext(UIContext);
   const { cart } = useContext(CartContext);
+  const {pathname}=useLocation();
+  // console.log(pathname.split('/')[1]==='bodega');
   return (
     <div className="flex justify-between">
       <div className="flex flex-1">
         <Link to="/" style={{textDecoration:'none',color:'#000000'}}>
-        <h1 className="text-2xl font-bold">La Esquina de Chente</h1>
+          {
+            logoMarket!='' && pathname.split('/')[1]==='bodega' ?
+            <img src={logoMarket} alt="logo" className="h-16"/>
+            :<h1 className="text-2xl font-bold">La Esquina de Chente</h1>
+          }
+        {/* <h1 className="text-2xl font-bold">La Esquina de Chente</h1> */}
         </Link>
       </div>
       <div className="flex justify-center items-center">
