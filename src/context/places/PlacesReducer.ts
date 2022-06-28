@@ -1,3 +1,4 @@
+import { Market } from '../../interfaces';
 import { Feature } from '../../interfaces/places';
 import { PlacesState } from './PlacesProvider';
 
@@ -5,6 +6,7 @@ type PlacesActionType =
 | {type:'[Places] - setUserLocation',payload:[number,number]}
 | {type:'[Places] - GetPlaces'}
 | {type:'[Places] - setPlaces',payload:Feature[]}
+| {type:'[Places] - setMarkets',payload:Market[]}
 | {type:'[Places] - setLoadingPlaces'}
 
 export const PlacesReducer = (state:PlacesState,action:PlacesActionType):PlacesState => { 
@@ -31,7 +33,11 @@ export const PlacesReducer = (state:PlacesState,action:PlacesActionType):PlacesS
             return {
                 ...state,
             };
-    
+        case '[Places] - setMarkets':
+            return {
+                ...state,
+                markets:action.payload,
+            };
         default:
             return state;
     }

@@ -5,6 +5,8 @@ interface ContextProps{
         toggleMenu:(value:boolean)=>void;
         ToggleCart:boolean;
         toggleCart:(value:boolean)=>void;
+        ToggleModal:boolean;
+        toggleModal:(value:boolean)=>void;
 }
 
 export const UIContext=createContext({} as ContextProps)

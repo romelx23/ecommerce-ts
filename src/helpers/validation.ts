@@ -42,15 +42,19 @@ export const SignupSchema = Yup.object().shape({
     email: Yup.string()
         .email('Email no válido')
         .required('El email es requerido'),
-    schedule: Yup.string()
-        .required('El horario es requerido'),
-    category: Yup.string()
-        .required('La categoría es requerida'),
+    h_start: Yup.string()
+        .required('La hora de inicio es requerida'),
+    h_end: Yup.string()
+        .required('La hora de cierre es requerida'),
+    longitude: Yup.string()
+        .required('La longitud es requerida'),
+    latitude: Yup.string()
+        .required('La latitud es requerida'),
     owner: Yup.string()
         .required('El dueño es requerido'),
-    latitude: Yup.number()
-        .required('La latitud es requerida'),
-    longitude: Yup.number() 
-        .required('La longitud es requerida'),
+    // lat: Yup.number()
+    //     .required('La latitud es requerida'),
+    // lng: Yup.number() 
+    //     .required('La longitud es requerida'),
   }
   );

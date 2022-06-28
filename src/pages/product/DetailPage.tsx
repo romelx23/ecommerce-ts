@@ -39,11 +39,12 @@ export const DetailPage = () => {
   const getProductId = async () => {
     try {
       const product = `${baseUrl}/api/productos/${id}`;
-    // const product = `https://node-restserver-cascaron.herokuapp.com/api/productos/${id}`;
-    const resp = await fetch(product);
-    const { producto }: ProductoId = await resp.json();
-    setProducto(producto);
-    // console.log(producto);
+      // const product = `https://node-restserver-cascaron.herokuapp.com/api/productos/${id}`;
+      const resp = await fetch(product);
+      const { producto }: ProductoId = await resp.json();
+      if(producto.nombre)
+      setProducto(producto);
+      // console.log(producto);
     } catch (error) {
       console.log(error);
     }
@@ -166,13 +167,13 @@ export const DetailPage = () => {
           </button>
         </div>
       </div>
-        <Toast
-          show={showToast}
-          onClose={(show:boolean) => setShowToast(show)}
-          message="Se agrego al carrito"
-          icon="fas fa-info-circle"
-          positionY="bottom-3"
-        />
+      <Toast
+        show={showToast}
+        onClose={(show: boolean) => setShowToast(show)}
+        message="Se agrego al carrito"
+        icon="fas fa-info-circle"
+        positionY="bottom-3"
+      />
     </LayoutProducts>
   );
 };

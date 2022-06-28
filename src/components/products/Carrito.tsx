@@ -33,9 +33,7 @@ export const Carrito = () => {
           ))
         }
         <div className="flex-1 flex flex-col justify-end">
-          <h1>Total: {formatPrice(total)}</h1>
-          <button className="bg-gray-400 py-2 
-          rounded-lg">Comprar</button>
+          <h1 className="font-bold">Total: {formatPrice(total)}</h1>
           <Link to="/home/pagos" className="my-2 hover:text-blue-600">
             ver detalle
           </Link>

@@ -7,11 +7,13 @@ interface Props {
 export interface UIState {
   ToggleMenu: boolean;
   ToggleCart: boolean;
+  ToggleModal:boolean;
 }
 
 export const UI_INITIAL_STATE: UIState = {
   ToggleMenu: true,
-  ToggleCart:false
+  ToggleCart:false,
+  ToggleModal:false,
 }
 
 export const UIProvider: FC<Props> = ({ children }) => {
@@ -22,12 +24,16 @@ export const UIProvider: FC<Props> = ({ children }) => {
   const toggleCart=(value:boolean)=>{
     dispatch({type:'[UI] - Toggle Cart',payload:value})
   }
+  const toggleModal=(value:boolean)=>{
+    dispatch({type:'[UI] - Toggle Modal',payload:value})
+  }
   return (
     <UIContext.Provider
       value={{
         ...state,
         toggleMenu,
-        toggleCart
+        toggleCart,
+        toggleModal
       }}
     >
       {children}

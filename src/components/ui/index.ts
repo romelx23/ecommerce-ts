@@ -15,6 +15,7 @@ export * from './Button/ButtonLocation';
 export * from './Button/ButtonWhatsApp';
 export * from './Search/SearchBar';
 export * from './Select/SelectRole';
+export * from './Modal/Modal'
 // Forms
 export * from './Forms/FormLogin';
 export * from './Forms/FormRegister';

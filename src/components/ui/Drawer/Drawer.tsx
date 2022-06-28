@@ -73,7 +73,7 @@ export const Drawer = () => {
         <p className="font-bold">Menú</p>
       </NavLink>
       <NavLink
-        to=""
+        to="/user/orders"
         title="Boletas"
         className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
         style={{ textDecoration: "none" }}
@@ -92,7 +92,7 @@ export const Drawer = () => {
             d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
           />
         </svg>
-        <p className="font-bold">Boletas</p>
+        <p className="font-bold">Pedidos</p>
       </NavLink>
 
       {user.rol === "ADMIN_ROLE" && (
@@ -177,7 +177,7 @@ export const Drawer = () => {
             <p className="font-bold text-overflow w-32">Gestionar Bodega</p>
           </NavLink>
           <NavLink
-            to="/gestion/pedido"
+            to="/gestion/pedidos"
             title="Gestionar Pedidos"
             className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
             style={{ textDecoration: "none" }}

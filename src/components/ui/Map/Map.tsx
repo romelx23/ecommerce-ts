@@ -29,6 +29,7 @@ export const MyMapComponent = () => {
   // if(isLoading){
   //   return <div>Cargando...</div>
   // }
+  // Tareas de mañana: crear un array de bodegas
 
   return (
     <div className="relative">

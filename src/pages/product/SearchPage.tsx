@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { LayoutProducts } from "../../components/layout/LayoutProducts";
 import { MyMapComponent } from "../../components/ui/Map/Map";
+import { PlacesContext } from "../../context/places";
 
 export const SearchPage = () => {
+  const { getMarkets } = useContext(PlacesContext);
   if (!navigator.geolocation) {
     return (
       <h1 className="text-yellow-300 font-semibold">
@@ -10,6 +12,9 @@ export const SearchPage = () => {
       </h1>
     );
   }
+  useEffect(() => {
+    getMarkets();
+  }, []);
   // useEffect(() => {
   //   document.title = "Search";
   // }, []);

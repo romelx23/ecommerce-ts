@@ -24,10 +24,13 @@ import {
   DetailUserPage,
   UserPage,
   CategoryAdminPage,
+  OrderPage,
+  OrderManagementPage,
+  MarketAddPage,
+  MarketPage,
+  MarketDetailPage
 } from "../pages";
 import { AuthContext } from "../context/auth";
-import { MarketPage } from "../pages/admin/MarketPage";
-
 export const DashboardRoutes = () => {
   const { user } = useContext(AuthContext);
   return (
@@ -42,6 +45,7 @@ export const DashboardRoutes = () => {
           <Route path="/home/pagos" element={<PaymentPage />} />
           <Route path="/home/favoritos" element={<FavoritePage />} />
           <Route path="/home/buscar" element={<SearchPage />} />
+          <Route path="/bodega/:id" element={<MarketDetailPage />} />
           {/* Auth Page */}
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
@@ -73,6 +77,9 @@ export const DashboardRoutes = () => {
               <Route path="/gestion/product/add" element={<AddProductPage />} />
               <Route path="/gestion/category" element={<CategoryAdminPage />} />
               <Route path="/gestion/bodega" element={<MarketPage />} />
+              <Route path="/gestion/bodega/agregar" element={<MarketAddPage />} />
+              <Route path="/gestion/bodega/actualizar" element={<MarketAddPage />} />
+              <Route path="/gestion/pedidos" element={<OrderManagementPage />} />
               </>
             )
           }
@@ -81,6 +88,7 @@ export const DashboardRoutes = () => {
           <Route path="/user/profile/edit/:id" element={<UpadateProfilePage />} />
           <Route path="/user/configure" element={<ConfigurePage />} />
           <Route path="/user/dashboard" element={<DashBoardPage />} />
+          <Route path="/user/orders" element={<OrderPage />} />
           {/* Other Page */}
           <Route path="/home/faq" element={<FaqPage />} />
 

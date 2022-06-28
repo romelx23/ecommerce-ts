@@ -28,6 +28,26 @@ const routesName = [
     name: "Perfil del Usuario",
     path: "/user/profile",
   },
+  {
+    name: "Pedidos",
+    path: "/user/orders",
+  },
+  {
+    name: "Gestionar Pedidos",
+    path: "/gestion/pedidos",
+  },
+  {
+    name: "Gestionar Bodega",
+    path: "/gestion/bodega",
+  },
+  {
+    name: "Agregar Bodega",
+    path: "/gestion/bodega/agregar",
+  },
+  {
+    name: "Actualizar Bodega",
+    path: "/gestion/bodega/actualizar",
+  },
 ];
 export const NavAdmin = () => {
   const { user, logOut } = useContext(AuthContext);

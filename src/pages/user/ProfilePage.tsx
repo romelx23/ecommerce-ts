@@ -20,7 +20,9 @@ export const ProfilePage = () => {
               style={{ border: "4px solid #fff" }}
             />
             <h1 className="text-xl font-semibold text-white">{nombre}</h1>
-            <h2 className="text-base font-semibold text-green-500">Cliente</h2>
+            <h2 className="text-base font-semibold text-green-500">
+              {user.rol==='BODEGUERO_ROLE'?'Bodeguero':user.rol==='ADMIN_ROLE'?'Admin':'Cliente'}
+            </h2>
           </div>
         </div>
         {/* tabla boletas */}

@@ -20,7 +20,7 @@ export const Map_INITIAL_STATE: MapState = {
 
 export const MapProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(MapReducer, Map_INITIAL_STATE);
-  const { places } = useContext(PlacesContext);
+  const { places,markets } = useContext(PlacesContext);
   useEffect(() => {
     console.log(places);
     state.markers.forEach((marker) => marker.remove());
@@ -43,7 +43,34 @@ export const MapProvider: FC<Props> = ({ children }) => {
         type: "[Map] - setMarkers",
         payload: newMarkes,
     })
-  }, [places]);
+  }, [places]);  
+
+  useEffect(() => {
+    // state.markers.forEach((marker) => marker.remove());
+    const newMarkes: Marker[] = [];
+    for (const market of markets) {
+      const [lng, lat] = [market.longitudDeBodega,market.latitudDeBodega];
+      const popup = new Popup().setHTML(`
+        <div class="flex flex-col items-center">
+          <h3 class="font-semibold">${market.nombre}</h3>
+          <img src=${market.imagen} alt="market" width="50px" height="50px"/>
+          <p>cel. ${market.telefono}</p>
+          <a class="btn-add" href="/bodega/${market._id}" target="_blank" >Ir a la bodega</a>
+        </div>
+        `);
+        const newMarker = new Marker({
+            color: "red",
+        })
+        .setLngLat([lng, lat])
+        .setPopup(popup).addTo(state.map!);
+        newMarkes.push(newMarker);
+    }
+    // todo limpiar polyline
+    dispatch({
+        type: "[Map] - setMarkers",
+        payload: newMarkes,
+    })
+  }, [markets]);
 
   const setMap = (map: Map) => {
     const myLocationPopup = new Popup().setHTML(`

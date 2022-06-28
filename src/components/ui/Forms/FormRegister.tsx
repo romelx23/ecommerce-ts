@@ -22,6 +22,9 @@ export const FormRegister = () => {
       validate: (values: FormValues) => {
         let errors: FormikErrors<FormValues> = {};
         //   validacion password==password2
+        if(!values.password2){
+          errors.password2="Ingrese denuevo la contraseña"
+        }
         if (values.password !== values.password2) {
           errors.password2 = "Las contraseñas no coinciden";
         }

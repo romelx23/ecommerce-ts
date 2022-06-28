@@ -23,6 +23,12 @@ export interface Producto {
   categoria: Categoria;
   img?: string;
 }
+
+export interface ProductoBodega{
+  success:boolean;
+  productos:Producto[]
+}
+
 export interface ProductoCarrito {
   precio: number;
   disponible: boolean;
