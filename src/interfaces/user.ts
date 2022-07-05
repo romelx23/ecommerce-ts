@@ -17,6 +17,8 @@ export interface User {
     uid: string;
     telefono: string;
     direccion: string;
+    latitud: string;
+    longitud: string;
 }
 
 // 

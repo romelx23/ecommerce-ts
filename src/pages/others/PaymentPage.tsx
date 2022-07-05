@@ -7,7 +7,7 @@ import { fetchContoken } from "../../helpers";
 import { formatPrice } from "../../helpers/format";
 
 export const PaymentPage = () => {
-  const { cart } = useContext(CartContext);
+  const { cart,removeFromCart,handleMore,handleRemove } = useContext(CartContext);
   const { user }=useContext(AuthContext)
   const handlePrint = () => {
     // imprime el contenido del div
@@ -19,7 +19,8 @@ export const PaymentPage = () => {
       nombre: user.nombre,
       importe:total,
       fecha:new Date(),
-      productos:cart
+      productos:cart,
+      status:true
     },
     "POST",
     )
@@ -111,15 +112,21 @@ export const PaymentPage = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 space-x-2 print:hidden">
                       <div className="flex justify-center gap-2 items-center">
-                        <button className="btn border-blue-500 text-blue-500 hover:bg-blue-700">
+                        <button 
+                        onClick={()=>{handleRemove(producto._id)}}
+                        className="btn border-blue-500 text-blue-500 hover:bg-blue-700">
                           <i className="fas fa-minus"></i>
                         </button>
                         <h1 className="text-white">{producto.cantidad}</h1>
-                        <button className="btn border-blue-500 text-blue-500 hover:bg-blue-700">
+                        <button 
+                        onClick={()=>{handleMore(producto._id)}}
+                        className="btn border-blue-500 text-blue-500 hover:bg-blue-700">
                           <i className="fas fa-plus"></i>
                         </button>
 
-                        <button className="btn hover:bg-red-700 border-red-500 text-red-500">
+                        <button 
+                        onClick={()=>removeFromCart(producto._id)}
+                        className="btn hover:bg-red-700 border-red-500 text-red-500">
                           <i className="fas fa-backspace"></i>
                         </button>
                       </div>

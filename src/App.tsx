@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/auth";
 import { ProductProvider } from "./context/product";
 import { PlacesProvider } from "./context/places";
 import { MapProvider } from "./context/map";
+import { SocketProvider } from "./context/socket";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -24,7 +25,9 @@ function App() {
               <MapProvider>
                 <CartProvider>
                   <ProductProvider>
-                    <AppRouter />
+                    <SocketProvider>
+                      <AppRouter />
+                    </SocketProvider>
                   </ProductProvider>
                 </CartProvider>
               </MapProvider>

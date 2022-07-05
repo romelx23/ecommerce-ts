@@ -2,9 +2,13 @@ import { useFormik } from "formik";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LayoutProfile } from "../../components/layout";
+import { MyMapComponent } from "../../components/ui/Map/Map";
 import { AuthContext } from "../../context/auth";
 import { EditProfileSchema, fetchContoken, fetchSintoken } from "../../helpers";
+import { MapContext } from '../../context/map/MapContext';
+import Swal from "sweetalert2";
 export const UpadateProfilePage = () => {
+  const {MyLocation} = useContext(MapContext);
   const navigate= useNavigate();
   const {
     errors,
@@ -20,6 +24,8 @@ export const UpadateProfilePage = () => {
       cellphone: "",
       address: "",
       img: "",
+      lat:"",
+      lng:"",
     },
     validationSchema: EditProfileSchema,
     onSubmit: (values) => {
@@ -45,6 +51,8 @@ export const UpadateProfilePage = () => {
         cellphone: "",
         address: "",
         img: "",
+        lat:"",
+        lng:"",
       });
       updateUser({
         ...user,
@@ -52,6 +60,14 @@ export const UpadateProfilePage = () => {
         telefono:values.cellphone,
         direccion:values.address,
         img:values.img,
+        latitud:values.lat,
+        longitud:values.lng,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Se actualizo correctamente",
+        showConfirmButton: false,
+        timer: 1500,
       });
       navigate("/user/profile");
     } catch (error) {
@@ -60,13 +76,16 @@ export const UpadateProfilePage = () => {
   }
 
   useEffect(() => {
+    console.log(user);
     setValues({
       name: user.nombre,
       cellphone: user.telefono,
       address: user.direccion || "",
       img: user.img,
+      lat:`${MyLocation[0]}`,
+      lng:`${MyLocation[1]}`,
     });
-  }, [])
+  }, [MyLocation])
   
 
   return (
@@ -129,6 +148,43 @@ export const UpadateProfilePage = () => {
                 </p>
               )}
             </div>
+            <div className="text-left">
+              <label htmlFor="lat">Latitud</label>
+              <input
+                type="text"
+                name="lat"
+                id="lat"
+                value={values.lat}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full border-2 border-gray-300 px-2 py-1"
+                placeholder="Ingrese la dirección"
+              />
+              {touched.lat && errors.lat && (
+                <p className="text-red-600 text-left max-w-md w-full">
+                  {errors.lat}
+                </p>
+              )}
+            </div>
+            <div className="text-left">
+              <label htmlFor="lng">Longitud</label>
+              <input
+                type="text"
+                name="lng"
+                id="lng"
+                value={values.lng}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full border-2 border-gray-300 px-2 py-1"
+                placeholder="Ingrese la dirección"
+              />
+              {touched.lng && errors.lng && (
+                <p className="text-red-600 text-left max-w-md w-full">
+                  {errors.lng}
+                </p>
+              )}
+            </div>
+            <MyMapComponent/>
             <div className="text-left">
               <label htmlFor="img">Imagen</label>
               <input

@@ -25,7 +25,7 @@ export const Carrito = () => {
         onClick={() => toggleCart(!ToggleCart)}
         className="w-full min-h-screen h-auto bg-[#00001099]"
       ></div>
-      <div className="absolute top-0 right-0 w-72 min-h-screen flex flex-col bg-white p-2 space-y-3">
+      <div className="carrito">
         <h1>Carrito</h1>
         {
           cart.map((producto) => (

@@ -33,6 +33,10 @@ const routesName = [
     path: "/user/orders",
   },
   {
+    name: "Configuración",
+    path: "/user/configure",
+  },
+  {
     name: "Gestionar Pedidos",
     path: "/gestion/pedidos",
   },

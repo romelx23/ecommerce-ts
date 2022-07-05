@@ -16,6 +16,7 @@ export const OrderPage = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [detail, setDetail] = useState<DetallePedido[]>([]);
   const { toggleModal } = useContext(UIContext);
+  const [show, setShow] = useState(true);
 
   const loadOrders = async () => {
     const resp = await fetchContoken(`api/pedido/user`, {}, "GET");
@@ -60,7 +61,7 @@ export const OrderPage = () => {
                 <h1>{item.nombre}</h1>
               </div>
               <h1 className="flex justify-center font-semibold">
-                S/.{item.importe}
+                S/.{item.importe.toFixed(2)}
               </h1>
               <div className="flex justify-between">
                 <h1 className="text-lg">
@@ -85,48 +86,89 @@ export const OrderPage = () => {
       </div>
       <Modal>
         <div className="w-full h-full flex justify-center">
-          <div className="w-full md:w-[80vh] my-5 p-5 bg-[#f4f5fc]">
-            <h1 className="font-semibold text-2xl">Detalle Pedido</h1>
-            <div className="flex flex-col">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Item</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Imagen</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {detail.map((item, i) => {
-                    return (
-                      <tr key={item._id}>
-                        <td>
-                          <p className="font-semibold">{i + 1}.-</p>
-                        </td>
-                        <td>
-                          <p className="text-left">{item.producto.nombre}</p>
-                        </td>
-                        <td>
-                          <p>{item.precio}</p>
-                        </td>
-                        <td>
-                          <p>x{item.cantidad}</p>
-                        </td>
-                        <td className="flex justify-center items-center">
-                          <img
-                            className="w-12 h-12 border"
-                            alt={item.producto.nombre}
-                            src={item.producto.img}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+          <div className="modal_page">
+            <div className="modal_page_header">
+              <button
+                onClick={() => setShow(true)}
+                className="btn_modal_header"
+              >
+                <p className="font-semibold">Pedido</p>
+                <i className="far fa-clipboard"></i>
+              </button>
+              <button
+                onClick={() => setShow(false)}
+                className="btn_modal_header"
+              >
+                <p className="font-semibold">Estado</p>
+                <i className="fas fa-search-location"></i>
+              </button>
             </div>
+            {show ? (
+              <>
+                <h1 className="font-semibold text-2xl">Detalle Pedido</h1>
+                <div className="flex flex-col">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Imagen</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {detail.map((item, i) => {
+                        return (
+                          <tr key={item._id}>
+                            <td>
+                              <p className="font-semibold">{i + 1}.-</p>
+                            </td>
+                            <td>
+                              <p className="text-left">
+                                {item.producto.nombre}
+                              </p>
+                            </td>
+                            <td>
+                              <p>S/.{item.precio.toPrecision(2)}</p>
+                            </td>
+                            <td>
+                              <p>x{item.cantidad}</p>
+                            </td>
+                            <td className="flex justify-center items-center">
+                              <img
+                                className="w-12 h-12 border"
+                                alt={item.producto.nombre}
+                                src={item.producto.img}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            ) : (
+              <>
+                <h1 className="font-semibold text-2xl" >Estado del Pedido</h1>
+                <div className="flex justify-center items-center">
+                  <div className="w-14 h-14 rounded-full border-8 border-white flex justify-center items-center">
+                  <i className="fas fa-shopping-basket"></i>
+                  </div>
+                  <div className="h-4 w-16 bg-white">
+                  </div>
+                  <div className="w-14 h-14 rounded-full border-8 border-white flex justify-center items-center">
+                  <i className="fas fa-dolly"></i>
+                  </div>
+                  <div className="h-4 w-16 bg-white"></div>
+                  <div className="w-14 h-14 rounded-full border-8 border-white flex justify-center items-center">
+                  <i className="fas fa-check-circle"></i>
+                  </div>
+                </div>
+              </>
+            )}
+
             {/* <p>Total: {detail.reduce((total,item)=>total+item.precio)}</p> */}
           </div>
         </div>

@@ -8,7 +8,7 @@ import { useForm } from "../../hooks";
 
 export const RegisterPage = () => {
   return (
-    <div className="w-full h-screen p-3">
+    <div className="register-page">
       <NavbarAuth />
       <div className="flex justify-center items-center">
         <FormRegister/>

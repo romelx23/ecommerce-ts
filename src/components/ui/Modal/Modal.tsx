@@ -8,10 +8,17 @@ type Props = {
 export const Modal = ({ children }: Props) => {
     const {ToggleModal,toggleModal} = useContext(UIContext)
     return (
-        <div 
-        onClick={()=>toggleModal(false)}
-        className={`container__modal ${ToggleModal?'modal__visible':'modal__hidden'}`}>
-            {children}
+        <div
+        className={`container__modal ${ToggleModal?'modal__visible':'modal__hidden'}`}
+        >
+            <div 
+            className='w-full h-full'
+            onClick={()=>toggleModal(false)}
+            >
+            </div>
+            <div className='absolute h-full'>
+                {children}
+            </div>
         </div>
     )
 }

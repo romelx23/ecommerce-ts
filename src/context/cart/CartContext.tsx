@@ -7,6 +7,8 @@ interface ContextProps{
         removeFromCart: (id: string) => void;
         updateCart: (id: string, product: ProductoCarrito) => void;
         clearCart: () => void;
+        handleMore:(id:string)=>void;
+        handleRemove:(id:string)=>void;
 }
 
 export const CartContext=createContext({} as ContextProps)

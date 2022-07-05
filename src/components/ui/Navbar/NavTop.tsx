@@ -12,7 +12,7 @@ export const NavTop = () => {
   return (
     <div className="flex justify-between">
       <div className="flex flex-1">
-        <Link to="/" style={{textDecoration:'none',color:'#000000'}}>
+        <Link to="/" className="link-navbar" >
           {
             logoMarket!='' && pathname.split('/')[1]==='bodega' ?
             <img src={logoMarket} alt="logo" className="h-16"/>

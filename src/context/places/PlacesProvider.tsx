@@ -3,6 +3,7 @@ import { PlacesContext, PlacesReducer } from ".";
 import { getUserLocation } from "../../helpers";
 import { Market, MarketsResponse } from "../../interfaces";
 import { Feature, PlacesResponse } from "../../interfaces/places";
+import { baseUrl } from "../../utils";
 
 export interface Props {
   children: React.ReactNode;
@@ -59,7 +60,7 @@ export const PlacesProvider: FC<Props> = ({ children }) => {
     return data.features;
   };
   const getMarkets = async (): Promise<Market[]> => {
-    const response = await fetch("https://bodegass.herokuapp.com/api/bodega");
+    const response = await fetch(`${baseUrl}/api/bodega`);
     const data: MarketsResponse = await response.json();
     console.log(data.bodegas);
     dispatch({

@@ -15,6 +15,7 @@ export const ButtonLocation = () => {
     }
   return (
     <button 
+    type='button'
     onClick={handleCLick}
     className='btn-location absolute top-2 right-5 z-10'>
         <i className="fas fa-map-marker-alt"></i>

@@ -8,6 +8,7 @@ export interface UIState {
   ToggleMenu: boolean;
   ToggleCart: boolean;
   ToggleModal:boolean;
+  ToggleTheme:boolean;
   logoMarket:string;
 }
 
@@ -15,6 +16,7 @@ export const UI_INITIAL_STATE: UIState = {
   ToggleMenu: true,
   ToggleCart:false,
   ToggleModal:false,
+  ToggleTheme:localStorage.getItem('theme') === 'false' ? false : true,
   logoMarket:'',
 }
 
@@ -32,6 +34,10 @@ export const UIProvider: FC<Props> = ({ children }) => {
   const SetLogo=(image:string)=>{
     dispatch({type:'[UI] - Set LogoMarket',payload:image})
   }
+  const toggleTheme=(value:boolean)=>{
+    localStorage.setItem('theme',`${value}`)
+    dispatch({type:'[UI] - Toggle Theme',payload:value})
+  }
   return (
     <UIContext.Provider
       value={{
@@ -39,6 +45,7 @@ export const UIProvider: FC<Props> = ({ children }) => {
         toggleMenu,
         toggleCart,
         toggleModal,
+        toggleTheme,
         SetLogo
       }}
     >

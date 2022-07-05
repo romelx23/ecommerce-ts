@@ -14,7 +14,7 @@ export const LayoutProducts: FC<Props> = ({ children }) => {
     getFavorites();
   },[]);
   return (
-    <div className="animation min-h-screen flex flex-col justify-between">
+    <div className="layout-products">
       <div className="p-4 w-full">
       <Carrito/>
         <Header />

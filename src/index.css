@@ -151,7 +151,7 @@ code {
 
 /* Link Style */
 .link-category{
-  @apply p-2 hover:bg-gray-200 transition rounded-lg
+  @apply text-black p-2 hover:bg-gray-200 transition rounded-lg
 }
 
 .menu-admin{
@@ -210,7 +210,13 @@ code {
 }
 
 /* Modal */
+.modal_page_header{
+  @apply flex mb-1
+}
 
+.modal_page_header .btn_modal_header{
+  @apply btn hover:bg-blue-600 w-full flex justify-center items-center gap-2
+}
 .container__modal{
   position: fixed;
   top: 0;
@@ -234,11 +240,112 @@ code {
   visibility: hidden;
 }
 
+/* Theme dark */
+
+/* layout products */
+.layout-products{
+  @apply animation min-h-screen flex flex-col justify-between
+}
+.layout-products .header{
+  @apply z-20 sticky -top-px pt-px transition-shadow bg-white shadow-md py-2 px-4 rounded-lg print:hidden
+}
+
+.dark .layout-products{
+  @apply bg-[#0a192f] text-gray-200
+}
+
+.dark .layout-products .header{
+  @apply bg-[#0a192f] text-gray-200
+}
+
+.link-navbar{
+  @apply no-underline text-black
+}
+
+.dark .link-navbar{
+  @apply text-gray-200
+}
+
+.dark .link-category{
+  @apply text-gray-200 p-2 hover:bg-[#172a46] transition rounded-lg no-underline 
+}
+
+.dark .card__product{
+  @apply bg-[#172a46] text-gray-200 
+}
+
+.dark input,.dark textarea,.dark select{
+  @apply bg-[#172a46] text-gray-200
+}
+.dark input:focus{
+  @apply bg-[#101d30] text-gray-200
+}
+
+.carrito{
+  @apply absolute top-0 right-0 w-72 min-h-screen flex flex-col bg-white p-2 space-y-3
+}
+
+.dark .carrito{
+  @apply bg-[#101d30] text-gray-200
+}
+
+.navbottom-cateogries{
+  @apply bg-white flex flex-col flex-wrap md:flex-row absolute md:relative  h-10 md:h-auto overflow-hidden px-2 pb-2 md:pb-0 hover:h-auto transition rounded-b-md
+}
+
+.dark .navbottom-cateogries{
+  @apply bg-[#0a192f]
+}
+
+.modal_page{
+  @apply w-full md:w-[80vh] my-5 p-5 bg-[#f4f5fc]
+}
+
+.dark .modal_page{
+  @apply bg-[#0a192f]
+}
+
+.register-page,.login-page{
+  @apply w-full min-h-screen p-3 
+}
+
+.dark .register-page,.dark .login-page{
+  @apply bg-[#0a192f] text-gray-200
+}
+
+.pointer-map{
+  @apply flex flex-col items-center p-2
+}
+
+.ligth{
+  @apply bg-white
+}
+
+.dark{
+  @apply bg-[#0a192f] text-gray-200
+}
+
+/* layout profile */
+.layout-profile{
+  @apply min-h-screen flex bg-[#f4f5fc] overflow-hidden
+}
+.dark .layout-profile{
+  @apply bg-[#0a192f] text-gray-200
+}
+
+/* Estado del pedido */
+.estado-pedido-container{
+  @apply flex justify-center items-center
+}
+
+.estado-circle{
+  @apply w-14 h-14 rounded-full border-8 border-white flex justify-center items-center relative
+}
 
 
 @keyframes fadeIn {
   from {
-    opacity: 0;
+    opacity: .7;
   }
   to {
     opacity: 1;

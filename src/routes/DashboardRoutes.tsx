@@ -31,11 +31,13 @@ import {
   MarketDetailPage
 } from "../pages";
 import { AuthContext } from "../context/auth";
+import { UIContext } from "../context/ui";
 export const DashboardRoutes = () => {
   const { user } = useContext(AuthContext);
+  const {ToggleTheme}=useContext(UIContext);
   return (
     <>
-      <div className="">
+      <div className={`${ToggleTheme?'dark':''}`}>
         <Routes>
           {/* Products Page */}
           <Route path="/home" element={<ProductsPage />} />

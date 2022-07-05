@@ -12,7 +12,7 @@ export const LoginPage = () => {
     // dispatch(LoginWithGoogle())
   };
   return (
-    <div className="w-full h-screen p-3">
+    <div className="login-page">
       <NavbarAuth />
       <div className="lg:grid lg:grid-cols-2 lg:h-[90vh] flex flex-col items-center">
         <h3 className="lg:text-left lg:text-5xl mt-10 mb-5 text-blue-600 font-semibold text-lg ">

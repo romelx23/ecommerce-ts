@@ -24,6 +24,10 @@ export const SignupSchema = Yup.object().shape({
         .matches(/^[0-9]{9}$/, 'El celular debe tener 9 dígitos'),
     address: Yup.string()
         .required('La dirección es requerida'),
+    lng: Yup.number()
+        .required('La longitud es requerida'),
+    lat: Yup.number()
+        .required('La latitud es requerida')
   }
   );
 

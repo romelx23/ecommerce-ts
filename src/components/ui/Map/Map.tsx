@@ -4,12 +4,14 @@ import { PlacesContext } from '../../../context/places/PlacesContext';
 import { MapContext } from '../../../context/map/MapContext';
 import { ButtonLocation } from "../Button/ButtonLocation";
 import { SearchBar } from "../Search/SearchBar";
+import { UIContext } from "../../../context/ui";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoicm9tZWx4MjMiLCJhIjoiY2tzZHA2Y2M0MHQyMjJvbXNsMmVjZW41aCJ9.2As_5QylbPvQj6mFtsHD_g";
 
 export const MyMapComponent = () => {
   const {isLoading}=useContext(PlacesContext);
+  const {ToggleTheme} = useContext(UIContext);
   const {setMap}=useContext(MapContext);
   const mapContainer = useRef<HTMLDivElement>(null);
   // const map = useRef<Map<any, any>>(null);
@@ -20,7 +22,7 @@ export const MyMapComponent = () => {
     if (!mapContainer.current) return;
     const map = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: ToggleTheme?"mapbox://styles/mapbox/dark-v10":"mapbox://styles/mapbox/streets-v11",
       center: [lng, lat],
       zoom: zoom,
     });

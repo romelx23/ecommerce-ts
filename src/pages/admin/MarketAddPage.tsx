@@ -3,16 +3,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { LayoutProfile } from "../../components/layout";
+import { MyMapComponent } from "../../components/ui/Map/Map";
 import { AuthContext } from "../../context/auth";
+import { MapContext } from "../../context/map";
 import { fetchContoken, MarketShema } from "../../helpers";
 import { MarketForm } from "../../interfaces/market";
 import { baseUrl } from "../../utils";
 
 export const MarketAddPage = () => {
   const { user } = useContext(AuthContext);
+  const {MyLocation} = useContext(MapContext);
   const [id, setId] = useState("");
-  const {pathname}=useLocation();
-  const path=pathname.split('/')[3];
+  const { pathname } = useLocation();
+  const path = pathname.split("/")[3];
   const {
     errors,
     values,
@@ -29,10 +32,10 @@ export const MarketAddPage = () => {
       phone: "",
       email: "",
       owner: "",
-      latitude:"",
-      longitude:"",
-      h_start:"",
-      h_end:"",
+      latitude: "",
+      longitude: "",
+      h_start: "",
+      h_end: "",
       // social: "",
       // socialMedia: [],
       image: "",
@@ -40,10 +43,8 @@ export const MarketAddPage = () => {
     validationSchema: MarketShema,
     onSubmit: () => {
       console.log("submit");
-      if(path==='agregar')
-      addMarket();
-      if(path==='actualizar')
-      updateMarket();
+      if (path === "agregar") addMarket();
+      if (path === "actualizar") updateMarket();
     },
   });
   // console.log(values,"values");
@@ -160,7 +161,7 @@ export const MarketAddPage = () => {
   };
 
   // console.log(values);
-  console.log(errors);
+  // console.log(errors);
   // if market is not null then we are editing
 
   const chargeMarket = async () => {
@@ -184,19 +185,21 @@ export const MarketAddPage = () => {
         owner: bodega[0].nombrePropietario || "",
         h_start: bodega[0].h_inicio || "",
         h_end: bodega[0].h_final || "",
-        latitude: bodega[0].latitudDeBodega || "",
-        longitude: bodega[0].longitudDeBodega || "",
+        // latitude: bodega[0].latitudDeBodega?bodega[0].latitudDeBodega:MyLocation[0],
+        // longitude: bodega[0].longitudDeBodega?bodega[0].longitudDeBodega:MyLocation[1],
+        latitude:`${MyLocation[1]}`,
+        longitude:`${MyLocation[0]}`,
         // socialMedia: bodega[0].socialMedia || "",
         image: bodega[0].imagen || "",
       });
       // set Id
-      setId(bodega[0]._id)
+      setId(bodega[0]._id);
     }
   };
 
   useEffect(() => {
     chargeMarket();
-  }, []);
+  }, [MyLocation]);
 
   // console.log(errors, "errors");
   return (
@@ -356,6 +359,9 @@ export const MarketAddPage = () => {
               </p>
             )}
           </div>
+          <div className="h-96 overflow-hidden my-5">
+            <MyMapComponent />
+          </div>
           <div className="text-left">
             <label htmlFor="longitude">Longitud</label>
             <input
@@ -392,7 +398,7 @@ export const MarketAddPage = () => {
               </p>
             )}
           </div>
-            {/* dinamic input for add social media */}
+          {/* dinamic input for add social media */}
           {/* <div className="text-left">
             <label htmlFor="social">Redes Sociales</label>
             <div className="w-full flex">
@@ -484,7 +490,7 @@ export const MarketAddPage = () => {
               className="max-w-md max-h-48 mx-auto object-cover"
             />
           </div>
-          {(path==='actualizar') ? (
+          {path === "actualizar" ? (
             <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

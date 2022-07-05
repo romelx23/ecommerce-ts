@@ -20,13 +20,12 @@ export const NavBottom = () => {
     <div className="flex gap-3 relative">
       <Link
         to="/home/filter"
-        className="link-category text-sm md:text-base"
-        style={{ color: "#000", textDecoration: "none" }}
+        className="link-category text-sm md:text-base "
       >
         Categoría de Productos
       </Link>
       <div className="">
-        <div className="flex flex-col flex-wrap md:flex-row absolute md:relative bg-white h-10 md:h-auto overflow-hidden px-2 pb-2 md:pb-0 hover:h-auto transition">
+        <div className="navbottom-cateogries">
           <h1 className="p-2 md:hidden mb-1 text-sm md:text-base">
             Ver Categorías
           </h1>
@@ -36,7 +35,6 @@ export const NavBottom = () => {
               title={category.nombre}
               to={`/home/categoria/${category.nombre.toLocaleLowerCase()}`}
               className="link-category"
-              style={{ color: "#000", textDecoration: "none" }}
             >
               {category.nombre}
             </Link>
