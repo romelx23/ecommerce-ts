@@ -52,6 +52,26 @@ const routesName = [
     name: "Actualizar Bodega",
     path: "/gestion/bodega/actualizar",
   },
+  {
+    name: "Gestión Productos",
+    path: "/gestion/productos",
+  },
+  {
+    name: "Gestión Marcas",
+    path: "/gestion/marcas",
+  },
+  {
+    name: "Gestión Categorías",
+    path: "/gestion/categorias",
+  },
+  {
+    name: "Gestión Usuarios",
+    path: "/admin/user",
+  },
+  {
+    name: "Gestión Pedidos",
+    path: "/dashboard/pedidos",
+  }
 ];
 export const NavAdmin = () => {
   const { user, logOut } = useContext(AuthContext);

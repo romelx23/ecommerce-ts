@@ -1,12 +1,15 @@
-import { CategoryForm, ProductForm } from '../../interfaces';
+import { CategoryForm, Filter, ProductForm, Producto } from '../../interfaces';
 import { ProductState } from './ProductProvider';
 
 type ProductActionType = 
 | {type:'[Product] - Add Product', payload:{product:ProductForm}}
 | {type:'[Product] - Upload Product Image', payload:{product:ProductForm}}
 | {type:'[Product] - Load Product', payload:{products:[]}}
+| {type:'[Product] - add Filter', payload:{filters:Filter}}
+| {type:'[Product] - Filter Product', payload:{products:Producto[]}}
 | {type:'[Category] - Add Category', payload:{category:CategoryForm}}
 | {type:'[Category] - Load Category', payload:{categories:[]}}
+| {type:'[Product] - Clear Filter',payload:{filters:Filter}}
 
 export const ProductReducer = (state:ProductState,action:ProductActionType):ProductState => { 
     switch (action.type) {
@@ -35,7 +38,23 @@ export const ProductReducer = (state:ProductState,action:ProductActionType):Prod
                 ...state,
                 products: action.payload.products
             };
+        case '[Product] - Filter Product':
+            return {
+                ...state,
+                productsFilter: action.payload.products
+            };
+        case '[Product] - add Filter':
+            return {
+                ...state,
+                filters: action.payload.filters
+            };
     
+        case '[Product] - Clear Filter':
+            return {
+                ...state,
+                filters:action.payload.filters
+            };
+
         default:
             return state;
     }

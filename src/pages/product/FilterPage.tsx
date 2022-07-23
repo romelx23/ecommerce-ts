@@ -1,65 +1,71 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LayoutProducts } from "../../components/layout/LayoutProducts";
 import { ListProducts } from "../../components/products/ListProducts";
-import { Accordion } from "../../components/ui";
+import {
+  Accordion,
+  FilterBrand,
+  FilterCategory,
+  FilterPrice,
+} from "../../components/ui";
+import { ProductContext } from "../../context/product";
+import { useProducts } from "../../hooks";
 
 export const FilterPage = () => {
-  const [active, setActive] = useState(false);
+  const { productFilter, productsFilter, clearFilter } =
+    useContext(ProductContext);
+  // hook para obtener los productos
+  const { products } = useProducts();
+  // estado para controlar los productos si se filtran o no
+  const [productos, setProductos] = useState(products);
+  // efecto para controlar los productos si se filtran o no
+
+  const cleanFilter = () => {
+    setProductos(products);
+    clearFilter();
+  };
+
+  useEffect(() => {
+    setProductos(products);
+  }, [products]);
+
+  useEffect(() => {
+    setProductos(productsFilter);
+  }, [productsFilter]);
+
   return (
     <LayoutProducts>
       <div className="flex flex-col sm:flex-row">
         <div className="w-full min-h-full p-2 sm:w-96">
           <div className="flex flex-col">
-            <div className="flex rounded-md bg-blue-100 p-2 justify-between mt-4 mb-1 hover:bg-blue-300 transition">
-              <div className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></path>
-                </svg>
-                <p>Filtros</p>
-              </div>
-              <button
-                onClick={() => setActive(!active)}
-                className="flex items-center hover:cursor-pointer"
-              >
-                {active ? "Expandir Todo" : "Retraer Todo"}
-                {active ? (
-                  <h1 className="px-2 font-semibold text-xl">+</h1>
-                ) : (
-                  <h1 className="px-2 font-semibold text-xl">-</h1>
-                )}
+            <div className="flex justify-between">
+              <h1 className="text-2xl font-semibold">Filtros</h1>
+              <button 
+              onClick={cleanFilter}
+              className="text-base font-semibold
+              btn hover:bg-blue-600">
+                Limpiar Filtros
+                <i className="fas fa-filter"></i>
               </button>
             </div>
-            <Accordion title="Categorías" active={active}>
-              <h1>Abarrotes</h1>
-              <h1>Verduras</h1>
-              <h1>Legumbres</h1>
-              <h1>Aceites</h1>
-            </Accordion>
-            <Accordion title="Marcas" active={active}>
-              <h1>Ace</h1>
-              <h1>Sapolio</h1>
-              <h1>Magi</h1>
-              <h1>Alacena</h1>
-            </Accordion>
-            <Accordion title="Precios" active={active}>
-              <h1>Ace</h1>
-              <h1>Sapolio</h1>
-            </Accordion>
-            <Accordion title="Tamaño" active={active}>
+            <FilterCategory />
+            <FilterBrand />
+            <FilterPrice />
+            {/* <Accordion title="Tamaño" active={active}>
               <h1>Chico</h1>
               <h1>Mediano</h1>
               <h1>Grande</h1>
-            </Accordion>
+            </Accordion> */}
           </div>
+          <button
+            onClick={() => {
+              productFilter(products);
+            }}
+            className="btn w-full btn-add"
+          >
+            <h2>Filtrar Productos</h2>
+          </button>
         </div>
-        <ListProducts title="Productos filtrados" />
+        <ListProducts title="Productos filtrados" productsProps={productos} />
       </div>
     </LayoutProducts>
   );

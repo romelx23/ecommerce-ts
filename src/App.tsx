@@ -1,7 +1,5 @@
-import { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { ProductsPage } from "./pages/product/ProductsPage";
 import { AppRouter } from "./routes/AppRouter";
 import { UIProvider } from "./context/ui/UIProvider";
 import { FavoriteProvider } from "./context/favorite";
@@ -10,11 +8,9 @@ import { AuthProvider } from "./context/auth";
 import { ProductProvider } from "./context/product";
 import { PlacesProvider } from "./context/places";
 import { MapProvider } from "./context/map";
-import { SocketProvider } from "./context/socket";
+// import { SocketProvider } from "./context/socket";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
       {/* <ProductsPage/> */}
@@ -25,9 +21,9 @@ function App() {
               <MapProvider>
                 <CartProvider>
                   <ProductProvider>
-                    <SocketProvider>
+                    {/* <SocketProvider> */}
                       <AppRouter />
-                    </SocketProvider>
+                    {/* </SocketProvider> */}
                   </ProductProvider>
                 </CartProvider>
               </MapProvider>

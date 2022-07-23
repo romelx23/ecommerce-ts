@@ -1,19 +1,20 @@
 import { useFormik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { LayoutProfile } from "../../components/layout";
 import { MyMapComponent } from "../../components/ui/Map/Map";
 import { AuthContext } from "../../context/auth";
 import { MapContext } from "../../context/map";
 import { fetchContoken, MarketShema } from "../../helpers";
+import { useMarket } from "../../hooks/useMarket";
 import { MarketForm } from "../../interfaces/market";
 import { baseUrl } from "../../utils";
 
 export const MarketAddPage = () => {
   const { user } = useContext(AuthContext);
   const {MyLocation} = useContext(MapContext);
-  const [id, setId] = useState("");
+  const {handleExistMarket,id,setId}=useMarket();
   const { pathname } = useLocation();
   const path = pathname.split("/")[3];
   const {
@@ -38,13 +39,14 @@ export const MarketAddPage = () => {
       h_end: "",
       // social: "",
       // socialMedia: [],
+      yape: "",
       image: "",
     },
     validationSchema: MarketShema,
     onSubmit: () => {
       console.log("submit");
-      if (path === "agregar") addMarket();
-      if (path === "actualizar") updateMarket();
+      if (path === "agregar") handleCreate();
+      if (path === "actualizar") handleUpdate();
     },
   });
   // console.log(values,"values");
@@ -91,6 +93,7 @@ export const MarketAddPage = () => {
         nombrePropietario: owner,
         h_inicio: h_start,
         h_final: h_end,
+        direccion: address,
         // facebook:socialMedia[0].url,
         // instagram:socialMedia[1].url,
         // twitter:socialMedia[2].url,
@@ -111,6 +114,34 @@ export const MarketAddPage = () => {
       timerProgressBar: true,
     });
   };
+
+  const handleCreate=()=>{
+    if(id){
+      Swal.fire({
+        icon: "warning",
+        title: "Usted ya tiene una bodega",
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      });
+      return;
+    }
+    Swal.fire({
+      title: "¿Estas seguro?",
+      text: "Esta acción no se puede revertir",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, agregar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.value) {
+        addMarket();
+      }
+    }
+    );
+  }
 
   const updateMarket = async () => {
     const {
@@ -139,6 +170,7 @@ export const MarketAddPage = () => {
         nombrePropietario: owner,
         h_inicio: h_start,
         h_final: h_end,
+        direccion: address,
         // facebook:socialMedia[0].url,
         // instagram:socialMedia[1].url,
         // twitter:socialMedia[2].url,
@@ -159,6 +191,25 @@ export const MarketAddPage = () => {
       timerProgressBar: true,
     });
   };
+
+  const handleUpdate=()=>{
+    Swal.fire({
+      title: "¿Estas seguro?",
+      text: "Esta acción no se puede revertir",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, actualizar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.value) {
+        updateMarket();
+      }
+    }
+    );
+  }
+  
 
   // console.log(values);
   // console.log(errors);
@@ -187,9 +238,12 @@ export const MarketAddPage = () => {
         h_end: bodega[0].h_final || "",
         // latitude: bodega[0].latitudDeBodega?bodega[0].latitudDeBodega:MyLocation[0],
         // longitude: bodega[0].longitudDeBodega?bodega[0].longitudDeBodega:MyLocation[1],
-        latitude:`${MyLocation[1]}`,
-        longitude:`${MyLocation[0]}`,
+        // latitude:`${MyLocation[1]}`,
+        // longitude:`${MyLocation[0]}`,
+        latitude:bodega[0].latitudDeBodega,
+        longitude:bodega[0].longitudDeBodega,
         // socialMedia: bodega[0].socialMedia || "",
+        yape: bodega[0].yape || "",
         image: bodega[0].imagen || "",
       });
       // set Id
@@ -198,8 +252,27 @@ export const MarketAddPage = () => {
   };
 
   useEffect(() => {
-    chargeMarket();
+    if (path === "actualizar") chargeMarket();
+  }, []);
+
+  useEffect(() => {
+    setValues({
+      ...values,
+      latitude: `${MyLocation[1]}`,
+      longitude: `${MyLocation[0]}`,
+    });
+  }, [MyLocation])
+  
+
+  useEffect(() => {
+    if (path === "agregar")
+    setValues({
+      ...values,
+      latitude: `${MyLocation[1]}`,
+      longitude: `${MyLocation[0]}`,
+    });
   }, [MyLocation]);
+  
 
   // console.log(errors, "errors");
   return (
@@ -484,6 +557,41 @@ export const MarketAddPage = () => {
                 values.image
                   ? values.image
                   : "https://upload.wikimedia.org/wikipedia/commons/2/2c/OneWeb_Logo.png"
+              }
+              alt="imagen"
+              title="imagen"
+              className="max-w-md max-h-48 mx-auto object-cover"
+            />
+          </div>
+          <div className="text-left">
+            <label htmlFor="yape">Ingrese su Código qr de yape</label>
+            <input
+              type="text"
+              name="yape"
+              id="yape"
+              value={values.yape}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className="w-full border-2 border-gray-300 px-2 py-1"
+              placeholder="Ingrese el logo de la empresa"
+            />
+            {touched.yape && errors.yape && (
+              <p className="text-red-600 text-left max-w-md w-full">
+                {errors.yape}
+              </p>
+            )}
+            <a href="https://www.youtube.com/watch?v=7ZziKtxpMls">
+              <p className="text-blue-500 text-left max-w-md w-full">
+                ¿No tienes un código qr de yape?
+              </p>
+            </a>
+          </div>
+          <div className="my-2">
+            <img
+              src={
+                values.yape
+                  ? values.yape
+                  : "https://res.cloudinary.com/react-romel/image/upload/v1658199985/yape_xekq41.jpg"
               }
               alt="imagen"
               title="imagen"

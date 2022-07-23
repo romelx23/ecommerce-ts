@@ -1,53 +1,111 @@
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { LayoutProducts } from "../../components/layout/LayoutProducts";
 import { AuthContext } from "../../context/auth";
 import { CartContext } from "../../context/cart";
 import { fetchContoken } from "../../helpers";
 import { formatPrice } from "../../helpers/format";
+import { usePaginate } from "../../hooks";
+import { OrderResponse } from "../../interfaces";
 
 export const PaymentPage = () => {
-  const { cart,removeFromCart,handleMore,handleRemove } = useContext(CartContext);
-  const { user }=useContext(AuthContext)
+  const { cart, removeFromCart, handleMore, handleRemove } =
+    useContext(CartContext);
+  const { user } = useContext(AuthContext);
+  const { currentPage, items, nextPage, prevPage } = usePaginate(cart);
   const handlePrint = () => {
     // imprime el contenido del div
     window.print();
   };
-  const generateOrder = async() => {
-    const resp=await fetchContoken(`api/pedido`,
-    {
-      nombre: user.nombre,
-      importe:total,
-      fecha:new Date(),
-      productos:cart,
-      status:true
-    },
-    "POST",
-    )
-    const data = await resp!.json();
+  const generateOrder = async () => {
+    const resp = await fetchContoken(
+      `api/pedido`,
+      {
+        nombre: user.nombre,
+        importe: total,
+        fecha: new Date(),
+        productos: cart,
+        status: "ordenado",
+      },
+      "POST"
+    );
+    const data: OrderResponse = await resp!.json();
     console.log(data, "data");
-    Swal.fire({
-      title: "Pedido generado",
-      text: "El pedido se ha generado correctamente",
-      icon: "success",
-      confirmButtonText: "Ok",
-    })
+    if (data.success) {
+      Swal.fire({
+        title: "Pedido generado",
+        text: "El pedido se ha generado correctamente",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+    }
+    if (data.success === false) {
+      Swal.fire({
+        title: "Error",
+        text: "El pedido no se ha generado correctamente",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+    }
   };
-  const total = cart.reduce((total, product) => total + product.precio * product.cantidad, 0);
+
+  const handleOrder = () => {
+    // validar que las bodegas sean iguales
+    const bodega = cart.map((item) => item.bodega.nombre);
+    console.log(bodega);
+    const bodegaUnica = [...new Set(bodega)];
+    if (bodegaUnica.length > 1) {
+      Swal.fire({
+        title: "Error",
+        text: "Los productos debe ser de la misma bodega",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+    }
+    if (bodegaUnica.length === 1) {
+      Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¿Deseas generar el pedido?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, generar pedido",
+        cancelButtonText: "No, cancelar",
+      })
+        .then((result) => {
+          if (result.value) {
+            generateOrder();
+            window.location.replace("/");
+          }
+        })
+        .catch(() => {
+          Swal.fire({
+            title: "Cancelado",
+            text: "El pedido no se ha generado",
+            icon: "warning",
+            confirmButtonText: "Ok",
+          });
+        });
+    }
+  };
+  const total = cart.reduce(
+    (total, product) => total + product.precio * product.cantidad,
+    0
+  );
   useEffect(() => {
     console.log(cart);
   }, []);
   return (
     <LayoutProducts>
-      <h1 className="py-2 text-xl font-bold">Pagos</h1>
-      <h1 className="text-left mb-2 text-xl font-bold ml-6">
-        Compras Realizadas
-      </h1>
+      <h1 className="py-2 text-xl font-bold">Realice su Pedido</h1>
+      <h1 className="text-left mb-2 text-xl font-bold ml-6">Lista de Pedido</h1>
       {cart.length > 0 ? (
-        <div className="py-2 overflow-x-auto px-6 pr-10 ">
+        <div className="table-content">
           <div
             className="align-middle inline-block min-w-full shadow overflow-hidden bg-gray-900 shadow-dashboard 
-        print:shadow-none px-8 pt-3 rounded-lg min-h-min print:bg-black print:px-0 print:pl-6 print:break-before-avoid-page"
+        print:shadow-none px-8 pt-3 rounded-lg min-h-[72vh] print:bg-black print:px-0 print:pl-6 print:break-before-avoid-page"
           >
             <table className="min-w-full print:overflow-hidden">
               <thead>
@@ -57,6 +115,8 @@ export const PaymentPage = () => {
                   <th className="th">Precio</th>
                   <th className="th">Descripción</th>
                   <th className="th">Imagen</th>
+                  <th className="th">Bodega</th>
+                  <th className="th">Cantidad</th>
                   {
                     <th className="px-6 py-3 border-b-2 border-gray-300 text-white print:border-none">
                       <button
@@ -70,7 +130,7 @@ export const PaymentPage = () => {
                 </tr>
               </thead>
               <tbody className="">
-                {cart.map((producto, i) => (
+                {items.map((producto, i) => (
                   <tr
                     className="font-semibold text-lg border-b border-gray-500 print:border-none"
                     key={producto._id}
@@ -110,23 +170,46 @@ export const PaymentPage = () => {
                         className="w-12 h-12 object-cover"
                       />
                     </td>
-                    <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 space-x-2 print:hidden">
+                    <td className="leading-5 text-white">
+                      <div className="flex flex-col justify-center items-center flex-1">
+                        <Link
+                          to={`/bodega/${producto.bodega._id}`}
+                        >
+                          <img
+                            src={producto.bodega.imagen}
+                            alt={producto.bodega.nombre}
+                            className="w-10 h-10 object-cover"
+                          />
+                        </Link>
+                        <p className="font-medium text-sm">
+                          {producto.bodega.nombre}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 space-x-2">
                       <div className="flex justify-center gap-2 items-center">
-                        <button 
-                        onClick={()=>{handleRemove(producto._id)}}
-                        className="btn border-blue-500 text-blue-500 hover:bg-blue-700">
+                        <button
+                          onClick={() => {
+                            handleRemove(producto._id);
+                          }}
+                          className="btn border-blue-500 text-blue-500 hover:bg-blue-700 print:hidden"
+                        >
                           <i className="fas fa-minus"></i>
                         </button>
                         <h1 className="text-white">{producto.cantidad}</h1>
-                        <button 
-                        onClick={()=>{handleMore(producto._id)}}
-                        className="btn border-blue-500 text-blue-500 hover:bg-blue-700">
+                        <button
+                          onClick={() => {
+                            handleMore(producto._id);
+                          }}
+                          className="btn border-blue-500 text-blue-500 hover:bg-blue-700 print:hidden"
+                        >
                           <i className="fas fa-plus"></i>
                         </button>
 
-                        <button 
-                        onClick={()=>removeFromCart(producto._id)}
-                        className="btn hover:bg-red-700 border-red-500 text-red-500">
+                        <button
+                          onClick={() => removeFromCart(producto._id)}
+                          className="btn hover:bg-red-700 border-red-500 text-red-500 print:hidden"
+                        >
                           <i className="fas fa-backspace"></i>
                         </button>
                       </div>
@@ -159,19 +242,43 @@ export const PaymentPage = () => {
           </div>
         </div>
       )}
-      <div className="w-full my-2">
-        <div className="flex justify-center">
-          <button
-          onClick={generateOrder}
-            className="btn border-gray-500 text-gray-500 hover:bg-gray-700 py-2 px-2
+      {cart.length > 0 && (
+        <>
+          <div className="">
+            <h1 className="font-semibold text-xl">
+              Total: {formatPrice(total)}
+            </h1>
+          </div>
+          <nav aria-label="flex" className="print:hidden">
+            <ul className="inline-flex -space-x-px">
+              <li
+                onClick={prevPage}
+                className={`btn-prev
+                ${currentPage > 0 && "disabled:bg-gray-300"}
+                `}
+              >
+                Atrás
+              </li>
+              <li className="btn-next" onClick={nextPage}>
+                Adelante
+              </li>
+            </ul>
+          </nav>
+          <div className="w-full my-2">
+            <div className="flex justify-center">
+              <button
+                onClick={handleOrder}
+                className="btn border-gray-500 text-gray-500 hover:bg-gray-700 py-2 px-2
           rounded-lg mb-2"
-          >
-            <h1 className="text-lg font-semibold">Generar Pedido</h1>
-          </button>
-        </div>
-        <h1>Comuniquese con el bodeguero</h1>
-        <p>Número de Teléfono: 593486364</p>
-      </div>
+              >
+                <h1 className="text-lg font-semibold">Generar Pedido</h1>
+              </button>
+            </div>
+            <h1>Comuniquese con el bodeguero</h1>
+            <p>Número de Teléfono: 593486364</p>
+          </div>
+        </>
+      )}
     </LayoutProducts>
   );
 };

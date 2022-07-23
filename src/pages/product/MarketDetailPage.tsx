@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LayoutProducts } from "../../components/layout";
 import { ListProducts } from "../../components/products";
+import { ButtonWhatsApp } from "../../components/ui";
 import { UIContext } from "../../context/ui";
 import { fetchSintoken } from "../../helpers";
 import {
@@ -49,6 +50,10 @@ export const MarketDetailPage = () => {
   return (
     <LayoutProducts>
       <ListProducts title={`Productos Bodega ${title}`} productsProps={products} />
+      <ButtonWhatsApp
+      number={market?.telefono?.toString()}
+      name={market?.nombre}
+      />
     </LayoutProducts>
   );
 };

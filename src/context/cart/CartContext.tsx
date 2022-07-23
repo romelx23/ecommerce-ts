@@ -9,6 +9,7 @@ interface ContextProps{
         clearCart: () => void;
         handleMore:(id:string)=>void;
         handleRemove:(id:string)=>void;
+        saveOrderLocalStorage: (producto: ProductoCarrito) => void;
 }
 
 export const CartContext=createContext({} as ContextProps)

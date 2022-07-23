@@ -2,27 +2,33 @@ import React, { useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { CartContext } from "../../../context/cart";
 import { UIContext } from "../../../context/ui";
-import { Badge } from '../Badge/Badge';
+import { Badge } from "../Badge/Badge";
 
 export const NavTop = () => {
-  const { toggleCart, ToggleCart, logoMarket } = useContext(UIContext);
+  const { toggleCart, ToggleCart, logoMarket, toggleMenu } =
+    useContext(UIContext);
   const { cart } = useContext(CartContext);
-  const {pathname}=useLocation();
+  const { pathname } = useLocation();
   // console.log(pathname.split('/')[1]==='bodega');
   return (
     <div className="flex justify-between">
       <div className="flex flex-1">
-        <Link to="/" className="link-navbar" >
-          {
-            logoMarket!='' && pathname.split('/')[1]==='bodega' ?
-            <img src={logoMarket} alt="logo" className="h-16"/>
-            :<h1 className="text-2xl font-bold">La Esquina de Chente</h1>
-          }
-        {/* <h1 className="text-2xl font-bold">La Esquina de Chente</h1> */}
+        <Link to="/" className="link-navbar">
+          {logoMarket != "" && pathname.split("/")[1] === "bodega" ? (
+            <img src={logoMarket} alt="logo" className="h-16" />
+          ) : (
+            <h1 className="text-xl md:text-2xl font-bold">
+              La Esquina de Chente
+            </h1>
+          )}
+          {/* <h1 className="text-2xl font-bold">La Esquina de Chente</h1> */}
         </Link>
       </div>
       <div className="flex justify-center items-center">
-        <NavLink to="/home/faq" className="flex justify-center items-center gap-2 p-2 h-9">
+        <NavLink
+          to="/home/preguntas-frecuentes"
+          className="flex justify-center items-center gap-2 p-2 h-9 link-top"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -35,7 +41,10 @@ export const NavTop = () => {
           </svg>
           <p className="hidden md:block">Soporte</p>
         </NavLink>
-        <NavLink to="/home/buscar" className="flex justify-center items-center gap-2 p-2 h-9">
+        <NavLink
+          to="/home/buscar"
+          className="flex justify-center items-center gap-2 p-2 h-9 link-top"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 stroke-2"
@@ -51,7 +60,23 @@ export const NavTop = () => {
       </div>
       <div className="flex justify-center items-center">
         {/* Favorito */}
-        <NavLink to="/home/favoritos" className="h-9 p-2">
+        <NavLink to="/" className="h-9 p-2 link-top">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            />
+          </svg>
+        </NavLink>
+        <NavLink to="/home/favoritos" className="h-9 p-2 link-top">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -64,7 +89,11 @@ export const NavTop = () => {
           </svg>
         </NavLink>
         {/* Usuario */}
-        <NavLink to="/user/profile" className="h-9 p-2">
+        <NavLink
+          onClick={() => toggleMenu(false)}
+          to="/user/profile"
+          className="h-9 p-2 link-top"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -77,9 +106,10 @@ export const NavTop = () => {
           </svg>
         </NavLink>
         {/* Carrito */}
-        <button 
-        onClick={()=>toggleCart(!ToggleCart)}
-        className="h-9 p-2 relative">
+        <button
+          onClick={() => toggleCart(!ToggleCart)}
+          className="h-9 p-2 relative"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -94,10 +124,7 @@ export const NavTop = () => {
               d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
             />
           </svg>
-          <Badge
-            content={cart.length}
-            className="bg-red-600"
-            />
+          <Badge content={cart.length} className="bg-red-600" />
         </button>
       </div>
     </div>

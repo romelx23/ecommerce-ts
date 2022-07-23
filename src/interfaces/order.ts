@@ -1,9 +1,12 @@
 import { Producto } from "./product";
+import { Market } from './market';
 
 export interface OrderResponse {
     success: boolean;
     data:    Order[];
 }
+
+type Estado = "ordenado" | "pendiente" | "atendido" | "cancelado";
 
 export interface Order {
     _id:     string;
@@ -11,7 +14,13 @@ export interface Order {
     importe: number;
     fecha:   string;
     usuario: string;
-    bodega:  string;
+    status:  Estado;
+    bodega:  Market;
+}
+
+export interface OrderByIdResponse{
+    success: boolean;
+    pedido:    Order;
 }
 
 // detalle pedido
@@ -29,6 +38,7 @@ export interface DetallePedido {
     cantidad: number;
     producto: Producto;
 }
+
 
 // export interface Producto {
 //     estado:      boolean;

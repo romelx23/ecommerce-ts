@@ -28,7 +28,12 @@ import {
   OrderManagementPage,
   MarketAddPage,
   MarketPage,
-  MarketDetailPage
+  MarketDetailPage,
+  BrandAdminPage,
+  UpdatePassPage,
+  FeedBackPage,
+  DashboardOrderPage,
+  OrderEditPage
 } from "../pages";
 import { AuthContext } from "../context/auth";
 import { UIContext } from "../context/ui";
@@ -43,7 +48,7 @@ export const DashboardRoutes = () => {
           <Route path="/home" element={<ProductsPage />} />
           <Route path="/home/:id" element={<DetailPage />} />
           <Route path="/home/categoria/:category" element={<CategoryPage />} />
-          <Route path="/home/filter" element={<FilterPage />} />
+          <Route path="/home/categorias" element={<FilterPage />} />
           <Route path="/home/pagos" element={<PaymentPage />} />
           <Route path="/home/favoritos" element={<FavoritePage />} />
           <Route path="/home/buscar" element={<SearchPage />} />
@@ -66,33 +71,39 @@ export const DashboardRoutes = () => {
               <Route path="/admin/user" element={<UserPage />} />
               <Route path="/admin/user/detail" element={<DetailUserPage />} />
               <Route path="/admin/category" element={<CategoryAdminPage />} />
+              <Route path="/admin/marcas" element={<BrandAdminPage />} />
             </>
           )}
           {
             user && user.rol === "BODEGUERO_ROLE" && (
               <>
-                <Route path="/gestion/products" element={<ProductPage />} />
+                <Route path="/gestion/productos" element={<ProductPage />} />
               <Route
-                path="/gestion/product/:id"
+                path="/gestion/producto/:id"
                 element={<DetailProductPage />}
               />
-              <Route path="/gestion/product/add" element={<AddProductPage />} />
-              <Route path="/gestion/category" element={<CategoryAdminPage />} />
+              <Route path="/gestion/producto/agregar" element={<AddProductPage />} />
+              <Route path="/gestion/categorias" element={<CategoryAdminPage />} />
+              <Route path="/gestion/marcas" element={<BrandAdminPage />} />
               <Route path="/gestion/bodega" element={<MarketPage />} />
               <Route path="/gestion/bodega/agregar" element={<MarketAddPage />} />
               <Route path="/gestion/bodega/actualizar" element={<MarketAddPage />} />
               <Route path="/gestion/pedidos" element={<OrderManagementPage />} />
+              <Route path="/dashboard/pedidos" element={<DashboardOrderPage />} />
+              <Route path="/gestion/pedidos/actualizar/:id" element={<OrderEditPage />} />
               </>
             )
           }
           {/* User Page */}
           <Route path="/user/profile" element={<ProfilePage />} />
           <Route path="/user/profile/edit/:id" element={<UpadateProfilePage />} />
+          <Route path="/user/profile/edit/password" element={<UpdatePassPage />} />
           <Route path="/user/configure" element={<ConfigurePage />} />
           <Route path="/user/dashboard" element={<DashBoardPage />} />
           <Route path="/user/orders" element={<OrderPage />} />
           {/* Other Page */}
-          <Route path="/home/faq" element={<FaqPage />} />
+          <Route path="/home/preguntas-frecuentes" element={<FaqPage />} />
+          <Route path="/home/respuesta" element={<FeedBackPage />} />
 
           <Route path="/" element={<ProductsPage />} />
           <Route path="*" element={<NotFound />} />

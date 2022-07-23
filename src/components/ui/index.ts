@@ -15,7 +15,13 @@ export * from './Button/ButtonLocation';
 export * from './Button/ButtonWhatsApp';
 export * from './Search/SearchBar';
 export * from './Select/SelectRole';
-export * from './Modal/Modal'
+export * from './Modal/Modal';
+export * from './filter/FilterCategory';
+export * from './filter/FilterPrice';
+export * from './filter/FilterBrand';
+export * from './Table/Table';
+export * from './Spinner/Spinner';
+export * from './Loader/Loader';
 // Forms
 export * from './Forms/FormLogin';
 export * from './Forms/FormRegister';

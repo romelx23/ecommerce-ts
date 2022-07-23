@@ -1,4 +1,4 @@
-import { FC, useReducer } from 'react'
+import { FC, useEffect, useReducer } from 'react'
 import { SocketContext, SocketReducer } from '.'
 import { useSocket } from '../../hooks'
 import { baseUrl } from '../../utils/endpoints';
@@ -18,7 +18,8 @@ export const Socket_INITIAL_STATE: SocketState = {
 export const SocketProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(SocketReducer, Socket_INITIAL_STATE)
   const { socket, online } = useSocket(baseUrl);
-  console.log(socket,online,baseUrl);
+  console.log(socket)
+  
   return (
     <SocketContext.Provider
       value={{

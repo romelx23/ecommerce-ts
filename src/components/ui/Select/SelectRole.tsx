@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { fetchSintoken } from "../../../helpers";
 import {
   Role,
@@ -39,6 +40,27 @@ export const SelectRole: FC<Props> = ({ usuario, handleUsers }) => {
     handleUsers();
   };
 
+  const handleUpdate=()=>{
+    if (select === "") {
+      return;
+    }
+    Swal.fire({
+      title: "¿Estas seguro de actualizar el estado?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, actualizarlo!",
+    }).then((result) => {
+      if (result.value) {
+        updateRole(usuario, select);
+      }
+      setSelect("");
+    }).catch(error=>{
+      console.log(error);
+    })
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "") {
       return;
@@ -53,7 +75,7 @@ export const SelectRole: FC<Props> = ({ usuario, handleUsers }) => {
     <select
       value={select}
       onChange={handleChange}
-      onClick={() => updateRole(usuario, select)}
+      onClick={handleUpdate}
       name="rol"
       id="rol"
       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-44"

@@ -41,6 +41,7 @@ module.exports = {
       gridTemplateColumns: {
         // Simple auto column grid
         'simple': 'repeat(auto-fit, minmax(320px, 1fr))',
+        'small': 'repeat(auto-fit, minmax(240px, 1fr))',
         'message': '250px 400px',
       },
       height:{

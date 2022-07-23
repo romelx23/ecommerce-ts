@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { LayoutProducts } from "../../components/layout/LayoutProducts";
-import { Star, Toast, Zoom } from "../../components/ui";
+import { Loader, Star, Toast, Zoom } from "../../components/ui";
 import { CartContext } from "../../context/cart";
 import { formatPrice } from "../../helpers";
 import {
@@ -10,14 +10,36 @@ import {
   ProductoCarrito,
 } from "../../interfaces/product";
 import { baseUrl } from "../../utils";
+import { Market, MarketResponse } from "../../interfaces/market";
+import { useStock } from "../../hooks";
+
+const initMarket: Market = {
+  _id: "",
+  nombre: "",
+  descripcion: "",
+  nombrePropietario: "",
+  telefono: 79846513,
+  latitudDeBodega: 123456,
+  longitudDeBodega: 132456465,
+  h_inicio: "",
+  h_final: "",
+  youtube: "",
+  Twitter: "",
+  imagen: "",
+  email: "",
+  usuario: "",
+  direccion: "",
+};
 
 export const DetailPage = () => {
   const { id } = useParams();
   const [producto, setProducto] = useState<Producto>({} as Producto);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart,saveOrderLocalStorage } = useContext(CartContext);
+  const { increment, decrement, updateStock } = useStock(id || "");
   const [cantidad, setCantidad] = useState(1);
   const [showToast, setShowToast] = useState(false);
-
+  const [market, setMarket] = useState(initMarket as Market);
+  const navigate = useNavigate();
   const addQuantity = () => {
     setCantidad(cantidad + 1);
   };
@@ -28,23 +50,33 @@ export const DetailPage = () => {
   };
 
   const addToCartHandler = (producto: Producto) => {
-    setShowToast(true);
-    const productoCarrito: ProductoCarrito = {
-      ...producto,
-      cantidad,
-    };
-    addToCart(productoCarrito);
+    if (cantidad > 0 && producto.stock >= cantidad) {
+      setShowToast(true);
+      const productoCarrito: ProductoCarrito = {
+        ...producto,
+        bodega: {
+          ...market,
+        },
+        cantidad,
+      };
+      addToCart(productoCarrito);
+      console.log(producto.stock - cantidad);
+      // actualiza el stock del carrito
+      // updateStock(producto.stock - cantidad);
+      // guarda el pedido en localstorage
+      saveOrderLocalStorage(productoCarrito);
+    }
   };
 
   const getProductId = async () => {
     try {
       const product = `${baseUrl}/api/productos/${id}`;
-      // const product = `https://node-restserver-cascaron.herokuapp.com/api/productos/${id}`;
       const resp = await fetch(product);
-      const { producto }: ProductoId = await resp.json();
-      if(producto.nombre)
-      setProducto(producto);
-      // console.log(producto);
+      const { producto, bodega }: ProductoId = await resp.json();
+      if (producto.nombre) setProducto(producto);
+      console.log(producto);
+      if (bodega.nombre) setMarket(bodega);
+      return producto;
     } catch (error) {
       console.log(error);
     }
@@ -66,10 +98,25 @@ export const DetailPage = () => {
     }
   };
   const zoomAreaOut = () => {
+    // validar modo mobile
     if (zoomImg.current) {
       zoomImg.current.style.transform = `translate(0px, 0px) scale(1)`;
     }
   };
+
+  // const handleMarket = async(id:string)=>{
+  //   try {
+  //     const resp = await fetchSintoken(`api/bodega/usuario/${id}`, {
+  //       method: "GET",
+  //     });
+  //     const {bodega}:MarketResponse = await resp!.json();
+  //     if (bodega) setMarket(bodega);
+  //     console.log("bodega",bodega);
+  //     setMarket(bodega);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   useEffect(() => {
     getProductId();
@@ -79,7 +126,7 @@ export const DetailPage = () => {
     <LayoutProducts>
       <div className="py-3 flex flex-col lg:flex-row  min-h-[600px]">
         <div
-          className="flex justify-center items-center w-full lg:w-1/2 min-h-full bg-[#23263b] overflow-hidden relative"
+          className="flex justify-center items-center w-full lg:w-1/2 min-h-full bg-[#23263b] overflow-hidden relative pointer-events-none md:pointer-events-auto"
           ref={zoomArea}
           onMouseMove={(e) => zoomAreaMove(e)}
           onMouseLeave={() => zoomAreaOut()}
@@ -89,7 +136,7 @@ export const DetailPage = () => {
             src={
               producto.img
                 ? producto.img
-                : "https://plazavea.vteximg.com.br/arquivos/ids/1962885-450-450/20235718.jpg?v=637599230835400000"
+                : "https://www.giulianisgrupo.com/wp-content/uploads/2018/05/nodisponible.png"
             }
             alt="producto"
             placeholder="producto"
@@ -100,42 +147,65 @@ export const DetailPage = () => {
             height={300}
           />
         </div>
-        <div className="flex-1 flex flex-col items-start px-3 text-left">
-          <h1 className="font-semibold text-xl">{producto.nombre}</h1>
-          <p>
-            {producto.descripcion ? producto.descripcion : "no hay descripcion"}
-          </p>
-          {/* <h2>raiting</h2> */}
-          <Star start={4.5} />
-          <div className="my-2 py-1 px-2 bg-[#3f52e8] text-white rounded-lg">
-            Popular
-          </div>
-          <h2 className="text-red-700 font-bold text-xl">
-            {formatPrice(producto.precio)}
-          </h2>
-          <div className="w-full flex flex-wrap gap-2 my-2">
-            <button
-              onClick={() => removeQuantity()}
-              className="btn hover:text-black"
-            >
-              -
-            </button>
-            <input
-              type="number"
-              className="text-center"
-              value={cantidad}
-              min={1}
-              onChange={(e) => setCantidad(parseInt(e.target.value))}
-            />
-            <button
-              onClick={() => addQuantity()}
-              className="btn hover:text-black"
-            >
-              +
-            </button>
-          </div>
-          <div className="w-full flex flex-wrap gap-2">
-            <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
+        {market.nombre ? (
+          <div className="flex-1 flex flex-col items-start px-3 text-left">
+            <h1 className="font-semibold text-xl">{producto.nombre}</h1>
+            <p>
+              {producto.descripcion
+                ? producto.descripcion
+                : "no hay descripcion"}
+            </p>
+            {/* <h2>raiting</h2> */}
+            <Star start={4.5} />
+            <div className="my-2 py-1 px-2 bg-[#3f52e8] text-white rounded-lg">
+              {producto.categoria
+                ? producto.categoria.nombre
+                : "no hay categoria"}
+            </div>
+            <h2 className="text-red-700 font-bold text-xl">
+              {formatPrice(producto.precio)}
+            </h2>
+            <div className="w-full flex flex-wrap gap-2 my-2">
+              <button
+                onClick={() => removeQuantity()}
+                className="btn hover:text-black"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                className="text-center w-32"
+                value={cantidad}
+                readOnly={true}
+                min={1}
+                max={producto.stock ? producto.stock : 10}
+                onChange={(e) => setCantidad(parseInt(e.target.value))}
+              />
+              <button
+                onClick={() => addQuantity()}
+                className="btn hover:text-black"
+              >
+                +
+              </button>
+            </div>
+            {cantidad <= 0 && (
+              <h1 className="text-red-600 font-semibold">
+                La cantidad debe ser mayor que 0
+              </h1>
+            )}
+            {producto.stock <= 0 && (
+              <h1 className="text-red-600 font-semibold">
+                El producto no esta disponible
+              </h1>
+            )}
+            {producto.stock < cantidad && (
+              <h1 className="text-red-600 font-semibold">
+                No hay suficientes productos en stock para la cantidad
+                solicitada
+              </h1>
+            )}
+            <div className="w-full flex flex-wrap gap-2">
+              {/* <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
               chico
             </button>
             <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
@@ -143,29 +213,57 @@ export const DetailPage = () => {
             </button>
             <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
               grande
+            </button> */}
+              <h1 className="font-semibold text-xl">
+                cantidad de productos: {producto.stock}
+              </h1>
+            </div>
+            <button
+              onClick={() => addToCartHandler(producto)}
+              className="btn-producto"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
+              <p className="font-semibold">Agregar al Carrito</p>
             </button>
           </div>
-          <button
-            onClick={() => addToCartHandler(producto)}
-            className="my-2 w-full bg-gray-300 rounded-md py-2 flex justify-center space-x-2 focus:opacity-80 hover:bg-slate-400 hover:text-white transition"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
-            <p className="font-semibold">Agregar al Carrito</p>
-          </button>
-        </div>
+        ) : (
+          <div className="flex-1 flex flex-col items-start px-3 text-left">
+          <Loader message="Cargando Producto" width="w-full"/>
+          </div>
+        )}
+      </div>
+      <div className="flex justify-between">
+        <h1 className="font-semibold text-xl">
+          Bodega {market ? market.nombre.toLocaleLowerCase() : "no hay bodega"}
+        </h1>
+        <Link to={market ? "/bodega/" + market._id : "/"}>
+          <img
+            src={
+              market
+                ? market.imagen
+                : "https://www.giulianisgrupo.com/wp-content/uploads/2018/05/nodisponible.png"
+            }
+            alt={market ? market.nombre : "bodega"}
+            title={market ? market.nombre : "bodega"}
+            placeholder="bodega"
+            loading="lazy"
+            className="object-cover w-12 h-12 cursor-pointer"
+            // onClick={() => navigate(`${market?'/bodega/'+ market._id:'/'}`)}
+          />
+        </Link>
       </div>
       <Toast
         show={showToast}

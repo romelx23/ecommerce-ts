@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutProfile } from "../../components/layout/LayoutProfile";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
@@ -11,6 +11,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { fetchContoken } from "../../helpers";
+import { Order, OrderResponse } from "../../interfaces";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -21,6 +23,8 @@ ChartJS.register(
 );
 ChartJS.register(ArcElement, Tooltip, Legend);
 export const DashBoardPage = () => {
+  const [prices, setPrices] = useState<number[]>([]);
+  const [labels, setLables] = useState<string[]>([]);
   const options = {
     responsive: true,
     plugins: {
@@ -39,30 +43,56 @@ export const DashBoardPage = () => {
       },
     },
   };
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
+  // const labels = [
+  //   "January",
+  //   "February",
+  //   "March",
+  //   "April",
+  //   "May",
+  //   "June",
+  //   "July",
+  //   "August",
+  //   "September",
+  //   "October",
+  //   "November",
+  //   "December",
+  // ];
   const data = {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: [65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Dataset 2",
-        data: [28, 48, 40, 19, 86, 27, 90],
+        label: "Total Pedido",
+        data: prices,
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
+      // {
+      //   label: "Dataset 2",
+      //   data: [28, 48, 40, 19, 60, 27, 50],
+      //   backgroundColor: "rgba(255, 99, 132, 0.5)",
+      // },
     ],
   };
+
+  const loadOrders = async () => {
+    const resp = await fetchContoken(`api/pedido/user`, {}, "GET");
+    const data: OrderResponse = await resp?.json();
+    console.log(data);
+    if (data.success) {
+      const { data: ordenes } = data;
+      const prices = ordenes.map((order) =>
+        parseFloat(order.importe.toFixed(2))
+      );
+      const labels = ordenes.map((order) =>
+        new Date(order.fecha).toLocaleDateString()
+      );
+      setPrices(prices);
+      setLables(labels);
+    }
+  };
+
+  useEffect(() => {
+    loadOrders();
+  }, []);
 
   const data2 = {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -95,7 +125,12 @@ export const DashBoardPage = () => {
       <div className="flex flex-col min-h-[80vh]">
         <div className="py-4 px-2 md:px-8 flex flex-col items-center">
           <div className="px-4 md:px-8 w-4/5 md:w-full h-full">
-          <Bar options={options} data={data} />
+            <h1 className="text-2xl">Gasto de Pedidos por día</h1>
+            <div className="flex justify-center items-center">
+              <h1 className="h-8 -rotate-90 text-center font-semibold">Total</h1>
+              <Bar options={options} data={data} />
+            </div>
+            <h1 className="text-center font-semibold">Fechas</h1>
           </div>
           <div className="w-full flex justify-around flex-col items-center md:flex-row">
             <div className="w-60">

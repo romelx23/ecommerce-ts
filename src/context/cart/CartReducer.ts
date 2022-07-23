@@ -47,9 +47,9 @@ export const CartReducer = (
         ...state,
         cart: state.cart.map((product) => {
           if (product._id === action.payload.id) {
-            product.cantidad += 1;
+            product.cantidad += 0.5;
+            console.log(product)
           }
-          console.log(product)
           return product;
         }),
       };
@@ -61,10 +61,11 @@ export const CartReducer = (
             if (product.cantidad === 1) {
               return product;
             } else {
-              product.cantidad -= 1;
+              console.log(product)
+              product.cantidad -= 0.5;
+              console.log(product)
             }
           }
-          console.log(product)
           return product;
         }),
       };

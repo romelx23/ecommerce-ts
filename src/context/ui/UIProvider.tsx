@@ -13,7 +13,7 @@ export interface UIState {
 }
 
 export const UI_INITIAL_STATE: UIState = {
-  ToggleMenu: true,
+  ToggleMenu: false,
   ToggleCart:false,
   ToggleModal:false,
   ToggleTheme:localStorage.getItem('theme') === 'false' ? false : true,

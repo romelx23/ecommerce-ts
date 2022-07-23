@@ -9,9 +9,10 @@ export const NotFound = () => {
         <h1 className="text-4xl font-semibold text-sky-500">
           Página no Encontrada
         </h1>
+        <div className="flex">
         <svg
-          width="673"
-          height="739"
+          width="100%"
+          height="100%"
           viewBox="0 0 673 739"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -239,6 +240,7 @@ export const NotFound = () => {
             </clipPath>
           </defs>
         </svg>
+        </div>
       </div>
     </LayoutProducts>
   );

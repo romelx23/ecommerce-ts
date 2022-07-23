@@ -1,7 +1,8 @@
 // import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 // import { useDispatch } from "react-redux";
-import { BrowserRouter, Routes,Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Spinner } from "../components/ui";
 import { AuthContext } from "../context/auth";
 // import { login } from "../actions/auth";
 // import { StartloadPost } from "../actions/post";
@@ -11,7 +12,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
 export const AppRouter = () => {
-  const { user,startCheking,checking } = useContext(AuthContext);
+  const { user, startCheking, checking } = useContext(AuthContext);
 
   // const dispatch = useDispatch();
 
@@ -24,34 +25,45 @@ export const AppRouter = () => {
     console.log("startCheking");
     // localStorage.setItem("uid", "123");
   }, [user.nombre]);
-  
 
-  if(checking){
-      return(
-          <h1 className="bg-blue-600 
+  if (checking) {
+    return (
+      <div
+      className="loader-page"
+      >
+        <h1
+          className="
           text-white
            font-bold
             text-3xl
-            h-screen
-            ">
-              Espere....
-              </h1>
-      )
+            "
+        >
+          Espere....
+        </h1>
+        <Spinner/>
+      </div>
+    );
   }
 
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/auth/*" element={
+        <Route
+          path="/auth/*"
+          element={
             <PublicRoute>
-              <DashboardPrivate/>
+              <DashboardPrivate />
             </PublicRoute>
-          }/>
-          <Route path="/*" element={
+          }
+        />
+        <Route
+          path="/*"
+          element={
             <PrivateRoute>
-              <DashboardRoutes/>
+              <DashboardRoutes />
             </PrivateRoute>
-          } />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

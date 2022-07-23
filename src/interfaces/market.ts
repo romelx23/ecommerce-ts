@@ -9,6 +9,7 @@ export interface MarketForm {
   longitude:string;
   h_start:string;
   h_end:string;
+  yape:string;
   // social: string;
   // socialMedia: MarketSocialMedia[];
   image: string;
@@ -45,4 +46,5 @@ export interface Market {
   imagen:            string;
   email:             string;
   usuario:           string;
+  direccion:         string;
 }

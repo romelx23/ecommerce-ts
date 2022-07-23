@@ -1,3 +1,5 @@
+import { Market } from './market';
+
 // dev
 export interface ProductI {
   id: number;
@@ -18,10 +20,12 @@ export interface Producto {
   disponible: boolean;
   _id: string;
   nombre: string;
-  descripcion?: string;
-  usuario: Categoria;
+  descripcion: string;
+  usuario: string;
   categoria: Categoria;
+  stock: number;
   img?: string;
+  marca: Marca;
 }
 
 export interface ProductoBodega{
@@ -35,17 +39,24 @@ export interface ProductoCarrito {
   _id: string;
   nombre: string;
   descripcion?: string;
-  usuario: Categoria;
+  usuario: string;
   categoria: Categoria;
   img?: string;
   cantidad: number;
+  bodega:Market;
 }
 
 export interface ProductoId {
   producto: Producto;
+  bodega: Market;
 }
 
 export interface Categoria {
+  _id: string;
+  nombre: string;
+}
+
+export interface Marca {
   _id: string;
   nombre: string;
 }
@@ -98,4 +109,21 @@ export interface CategoryI {
 export interface CategoryResponse {
   categorias: CategoryI[];
   total: number;
+}
+
+// Product filter
+export interface Filter {
+  categories:string[];
+  prices:{
+    min:number;
+    max:number;
+  };
+  brands:string[];
+}
+
+// favorite products
+
+export interface FavoriteI {
+  msg: string;
+  productos: Producto[];
 }

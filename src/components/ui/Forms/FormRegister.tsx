@@ -41,7 +41,7 @@ export const FormRegister = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-5 bg-white p-5 rounded-2xl">
+      <div className="form-register">
         <h3 className="text-blue-600 font-semibold text-lg ">
           Bienvenido a tú comunidad profesional
         </h3>
@@ -129,7 +129,7 @@ export const FormRegister = () => {
         <button
         onClick={handleRegister}
           type="submit"
-          className="max-w-md w-full flex justify-center gap-2 mt-3 p-3 border-2 shadow-md rounded-3xl hover:bg-blue-600 hover:text-white"
+          className="btn-submit"
         >
           Registrarme
         </button>

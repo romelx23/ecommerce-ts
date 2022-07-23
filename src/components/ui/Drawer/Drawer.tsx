@@ -29,9 +29,12 @@ export const Drawer = () => {
         Usuario
       </h1>
       <NavLink
+        onClick={() => {
+          toggleMenu(false);
+        }}
         to="/user/profile"
         title="Perfil"
-        className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
+        className="drawer-item"
         style={{ textDecoration: "none" }}
       >
         <svg
@@ -51,9 +54,12 @@ export const Drawer = () => {
         <p className="font-bold">Usuario</p>
       </NavLink>
       <NavLink
+        onClick={() => {
+          toggleMenu(false);
+        }}
         to="/user/dashboard"
         title="Dashboard"
-        className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
+        className="drawer-item"
         style={{ textDecoration: "none" }}
       >
         <svg
@@ -73,9 +79,12 @@ export const Drawer = () => {
         <p className="font-bold">Menú</p>
       </NavLink>
       <NavLink
+        onClick={() => {
+          toggleMenu(false);
+        }}
         to="/user/orders"
         title="Boletas"
-        className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
+        className="drawer-item"
         style={{ textDecoration: "none" }}
       >
         <svg
@@ -104,36 +113,60 @@ export const Drawer = () => {
             Admin
           </h1>
           <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
             to="/admin"
             title="Admin"
-            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            className="drawer-item items-center"
             style={{ textDecoration: "none" }}
           >
             <i className="fas fa-user-shield"></i>
             <p className="font-bold">Admin</p>
           </NavLink>
           <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
             to="/admin/products"
             title="Admin Productos"
-            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            className="drawer-item items-center"
             style={{ textDecoration: "none" }}
           >
             <i className="fas fa-user-shield"></i>
             <p className="font-bold text-overflow w-32">Admin Productos</p>
           </NavLink>
           <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
             to="/admin/category"
             title="Admin Categorias"
-            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            className="drawer-item items-center"
             style={{ textDecoration: "none" }}
           >
             <i className="fas fa-user-shield"></i>
             <p className="font-bold text-overflow w-32">Admin Categorias</p>
           </NavLink>
           <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
+            to="/admin/marcas"
+            title="Gestionar Marcas"
+            className="drawer-item items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32">Admin Marcas</p>
+          </NavLink>
+          <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
             to="/admin/user"
             title="Admin Usuarios"
-            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            className="drawer-item items-center"
             style={{ textDecoration: "none" }}
           >
             <i className="fas fa-user-shield"></i>
@@ -143,47 +176,96 @@ export const Drawer = () => {
       )}
       {user.rol === "BODEGUERO_ROLE" && (
         <>
-        <h1
+          <h1
             className="text-white font-semibold mt-3 w-full text-left
       "
           >
             Bodeguero
           </h1>
           <NavLink
-            to="/gestion/products"
-            title="Admin Productos"
-            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            onClick={() => {
+              toggleMenu(false);
+            }}
+            to="/gestion/productos"
+            title="Gestionar Productos"
+            className="drawer-item items-center"
             style={{ textDecoration: "none" }}
           >
             <i className="fas fa-user-shield"></i>
-            <p className="font-bold text-overflow w-32">Gestionar Productos</p>
+            <p className="font-bold text-overflow w-32 text-left">G. Productos</p>
           </NavLink>
           <NavLink
-            to="/gestion/category"
-            title="Admin Categorias"
-            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            onClick={() => {
+              toggleMenu(false);
+            }}
+            to="/gestion/categorias"
+            title="Gestionar Categorias"
+            className="drawer-item items-center"
             style={{ textDecoration: "none" }}
           >
             <i className="fas fa-user-shield"></i>
-            <p className="font-bold text-overflow w-32">Gestionar Categorias</p>
+            <p className="font-bold text-overflow w-32 text-left">G. Categorias</p>
           </NavLink>
           <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
+            to="/gestion/marcas"
+            title="Gestionar Marcas"
+            className="drawer-item items-center"
+            style={{ textDecoration: "none" }}
+          >
+            <i className="fas fa-user-shield"></i>
+            <p className="font-bold text-overflow w-32 text-left">G. Marcas</p>
+          </NavLink>
+          <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
             to="/gestion/bodega"
             title="Gestionar Bodega"
-            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            className="drawer-item items-center"
             style={{ textDecoration: "none" }}
           >
             <i className="fas fa-user-shield"></i>
-            <p className="font-bold text-overflow w-32">Gestionar Bodega</p>
+            <p className="font-bold text-overflow w-32 text-left">G. Bodega</p>
           </NavLink>
           <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
             to="/gestion/pedidos"
             title="Gestionar Pedidos"
-            className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4 items-center"
+            className="drawer-item items-center"
             style={{ textDecoration: "none" }}
           >
             <i className="fas fa-user-shield"></i>
-            <p className="font-bold text-overflow w-32">Gestionar Pedidos</p>
+            <p className="font-bold text-overflow w-32 text-left">G. Pedidos</p>
+          </NavLink>
+          <NavLink
+            onClick={() => {
+              toggleMenu(false);
+            }}
+            to="/dashboard/pedidos"
+            title="Boletas"
+            className="drawer-item"
+            style={{ textDecoration: "none" }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <p className="font-bold">Dashboard Pedidos</p>
           </NavLink>
         </>
       )}
@@ -195,9 +277,12 @@ export const Drawer = () => {
         General
       </h1>
       <NavLink
+        onClick={() => {
+          toggleMenu(false);
+        }}
         to="/user/configure"
         title="Configuracion"
-        className="bg-gray-800 text-white p-2 w-full rounded-lg mt-3 hover:bg-gray-700 transition flex pl-5 space-x-4"
+        className="drawer-item"
         style={{ textDecoration: "none" }}
       >
         <svg

@@ -20,9 +20,12 @@ export * from './admin/AddProductPage';
 export * from './admin/UserPage';
 export * from './admin/DetailUserPage';
 export * from './admin/CategoryAdminPage';
+export * from './admin/BrandAdminPage';
 export * from './admin/OrderManagementPage';
 export * from './admin/MarketAddPage';
 export * from './admin/MarketPage';
+export * from './admin/DashboardOrderPage';
+export * from './admin/OrderEditPage';
 
 // User Page
 export * from './user/ProfilePage';
@@ -30,8 +33,10 @@ export * from './user/UpadateProfilePage';
 export * from './user/ConfigurePage';
 export * from './user/DashboardPage';
 export * from './user/OrderPage';
+export * from './user/UpdatePassPage';
 
 // Others
 export * from './others/NotFound';
 export * from './others/FaqPage';
 export * from './others/PaymentPage';
+export * from './others/FeedBackPage';

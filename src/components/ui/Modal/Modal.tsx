@@ -16,7 +16,7 @@ export const Modal = ({ children }: Props) => {
             onClick={()=>toggleModal(false)}
             >
             </div>
-            <div className='absolute h-full'>
+            <div className='absolute h-full flex justify-center items-center'>
                 {children}
             </div>
         </div>

@@ -28,6 +28,12 @@ export const CartProvider: FC<Props> = ({ children }) => {
       },
     });
   };
+
+  const saveOrderLocalStorage = (producto: ProductoCarrito) => {
+    const cart = [...state.cart, producto];
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
   const removeFromCart = (id: string) => {
     dispatch({
       type: "[Cart] - Remove from cart",
@@ -76,7 +82,8 @@ export const CartProvider: FC<Props> = ({ children }) => {
         updateCart,
         clearCart,
         handleMore,
-        handleRemove
+        handleRemove,
+        saveOrderLocalStorage
       }}
     >
       {children}

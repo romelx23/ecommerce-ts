@@ -1,5 +1,6 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../context/auth";
 import { fetchContoken } from "../../helpers";
 import { Producto } from "../../interfaces";
@@ -16,7 +17,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
     window.print();
   };
   // Agregar Funcion Eliminar producto
-  const handleDelete = async (id: string) => {
+  const deleteProduct = async (id: string) => {
     try {
       const resp = await fetchContoken(`api/productos/${id}`, {}, "DELETE");
       const product = await resp!.json();
@@ -29,6 +30,23 @@ export const TableProducts: FC<Props> = ({ products }) => {
       console.log(error);
     }
   };
+
+  const handleDelete=(id: string)=>{
+    Swal.fire({
+      title: "¿Estas seguro?",
+      text: "Una vez eliminado no podras recuperarlo",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminarlo!",
+    }).then((result) => {
+      if (result.value) {
+        deleteProduct(id);
+      }
+    });
+  }
+
   useEffect(() => {
     setProductos(filteredProducts);
     // console.log(productos);
@@ -75,7 +93,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
           <div className="flex justify-center items-center gap-2 flex-1">
             <h1 className="font-semibold">Buscar Producto:</h1>
             <input
-              className="flex-1 mx-3 bg-gray-200 appearance-none border-2 border-gray-200 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="input-search"
               type="text"
               placeholder="Buscar"
               value={search}
@@ -85,7 +103,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
           <div className="flex mt-3 md:mt-0 items-center gap-2 md:justify-center">
             <h1 className="font-semibold">Agregar Producto</h1>
             <Link
-              to={(user.rol==="ADMIN_ROLE")?"/admin/product/add":"/gestion/product/add"}
+              to={(user.rol==="ADMIN_ROLE")?"/admin/product/add":"/gestion/producto/agregar"}
               className="btn border-green-500 text-green-500 hover:bg-green-700"
             >
               <i className="fas fa-plus"></i>
@@ -93,7 +111,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
           </div>
         </div>
       </div>
-      <div className="py-2 overflow-x-auto px-6 pr-10 ">
+      <div className="table-content">
         <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-gray-900 shadow-dashboard px-8 pt-3 rounded-lg min-h-[55vh] print:bg-black print:px-0 print:pl-6 print:break-before-avoid-page">
           <table className="min-w-full print:overflow-hidden">
             <thead>
@@ -112,6 +130,9 @@ export const TableProducts: FC<Props> = ({ products }) => {
                 </th>
                 <th className="th">
                   Categoría
+                </th>
+                <th className="th">
+                  Marca
                 </th>
                 <th className="th">
                   Imagen
@@ -158,6 +179,9 @@ export const TableProducts: FC<Props> = ({ products }) => {
                     {product.categoria.nombre}
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
+                    {product.marca?product.marca.nombre:""}
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
                     <img
                       src={
                         product.img
@@ -168,12 +192,12 @@ export const TableProducts: FC<Props> = ({ products }) => {
                     />
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
-                    20
+                    {product.stock}
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5 space-x-2 print:hidden">
                     <div className="flex justify-center gap-2 items-center">
                       <Link
-                        to={user.rol==="ADMIN_ROLE"?`${`/admin/product/${product._id}`}`:`${`/gestion/product/${product._id}`}`}
+                        to={user.rol==="ADMIN_ROLE"?`${`/admin/product/${product._id}`}`:`${`/gestion/producto/${product._id}`}`}
                         className="btn border-blue-500 text-blue-500 hover:bg-blue-700"
                       >
                         <i className="fas fa-edit"></i>
