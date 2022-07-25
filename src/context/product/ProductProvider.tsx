@@ -121,6 +121,7 @@ export const ProductProvider: FC<ProductContextProps> = ({ children }) => {
           },
           brands: [],
         },
+        productsFilter: [],
       },
     });
   }

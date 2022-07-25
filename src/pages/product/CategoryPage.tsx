@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
-import { ListProducts } from '../../components/products'
-import { LayoutProducts } from '../../components/layout/LayoutProducts';
-import { Banner } from '../../components/ui';
-import { fetchSintoken } from '../../helpers';
-import { Producto, ProductsI } from '../../interfaces/product';
-const routesName=[
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { ListProducts } from "../../components/products";
+import { LayoutProducts } from "../../components/layout/LayoutProducts";
+import { Banner, Loader } from "../../components/ui";
+import { fetchSintoken } from "../../helpers";
+import { Producto, ProductsI } from "../../interfaces/product";
+import { useProducts, useProductsCategory } from "../../hooks";
+const routesName = [
   {
     name: "Golosinas",
     path: "/categoria/golosinas",
@@ -50,45 +51,40 @@ const routesName=[
     name: "Frutas",
     path: "/categoria/frutas",
   },
-]
+];
 
 export const CategoryPage = () => {
-    // get the category from react-router-dom
-    const category = useParams().category || "";
-    const {pathname}=useLocation();
-    const [title, setTitle] = useState("");
-    const [products, setProducts] = useState<Producto[]>([]);
+  // get the category from react-router-dom
+  const category = useParams().category || "";
+  const { pathname } = useLocation();
+  const [title, setTitle] = useState("");
+  const { products, loading, handleProductsCategory } = useProductsCategory();
 
-    const handleProductsCategory = async() => {
-      const response = await fetchSintoken(`api/productos/categoria/${category.toUpperCase()}`,{},"GET");
-      const data:ProductsI = await response!.json()
-      // console.log(data.productos);
-      setProducts(data.productos);
-      // setTitle(data.category.nombre)
-      // return data.products
-    }
-  
-    useEffect(() => {
-      if(routesName)
-      routesName.map((item)=>{
-        if(pathname.includes(item.path)){
+  useEffect(() => {
+    if (routesName)
+      routesName.map((item) => {
+        if (pathname.includes(item.path)) {
           setTitle(item.name);
         }
-      })
-    }, [pathname]);
-    useEffect(() => {
-      handleProductsCategory();
-    }, [category]);
+      });
+  }, [pathname]);
+  useEffect(() => {
+    handleProductsCategory(category);
+  }, [category]);
   return (
     <LayoutProducts>
       <Banner
         title={`Oferta del día`}
         description={`10% de descuento en ${title} en la tienda don pepito`}
       />
+      {loading ? (
+        <Loader message="Cargando productos" />
+      ) : (
         <ListProducts
-            productsProps={products}
-            title= {`Productos de la categoria: ${title}`}
+          productsProps={products}
+          title={`Productos de la categoria: ${title}`}
         />
+      )}
     </LayoutProducts>
-  )
-}
+  );
+};

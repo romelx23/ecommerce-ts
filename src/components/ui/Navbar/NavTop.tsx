@@ -11,14 +11,14 @@ export const NavTop = () => {
   const { pathname } = useLocation();
   // console.log(pathname.split('/')[1]==='bodega');
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between flex-wrap md:flex-nowrap">
       <div className="flex flex-1">
         <Link to="/" className="link-navbar">
           {logoMarket != "" && pathname.split("/")[1] === "bodega" ? (
             <img src={logoMarket} alt="logo" className="h-16" />
           ) : (
-            <h1 className="text-xl md:text-2xl font-bold">
-              La Esquina de Chente
+            <h1 className="text-xl md:text-2xl font-pacifico">
+              Tú Mercado Favorito
             </h1>
           )}
           {/* <h1 className="text-2xl font-bold">La Esquina de Chente</h1> */}
@@ -26,6 +26,7 @@ export const NavTop = () => {
       </div>
       <div className="flex justify-center items-center">
         <NavLink
+          title="Preguntas Frecuentes"
           to="/home/preguntas-frecuentes"
           className="flex justify-center items-center gap-2 p-2 h-9 link-top"
         >
@@ -42,6 +43,7 @@ export const NavTop = () => {
           <p className="hidden md:block">Soporte</p>
         </NavLink>
         <NavLink
+          title="Encuentre su Bodega"
           to="/home/buscar"
           className="flex justify-center items-center gap-2 p-2 h-9 link-top"
         >
@@ -60,7 +62,7 @@ export const NavTop = () => {
       </div>
       <div className="flex justify-center items-center">
         {/* Favorito */}
-        <NavLink to="/" className="h-9 p-2 link-top">
+        <NavLink title="Inicio" to="/" className="h-9 p-2 link-top">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -76,7 +78,27 @@ export const NavTop = () => {
             />
           </svg>
         </NavLink>
-        <NavLink to="/home/favoritos" className="h-9 p-2 link-top">
+        <NavLink title="Perfiles de las Bodegas" to="/home/tiendas" className="h-9 p-2 link-top">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+            />
+          </svg>
+        </NavLink>
+        <NavLink
+          title="Favoritos"
+          to="/home/favoritos"
+          className="h-9 p-2 link-top"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -90,6 +112,7 @@ export const NavTop = () => {
         </NavLink>
         {/* Usuario */}
         <NavLink
+          title="Mi Cuenta"
           onClick={() => toggleMenu(false)}
           to="/user/profile"
           className="h-9 p-2 link-top"
@@ -107,6 +130,7 @@ export const NavTop = () => {
         </NavLink>
         {/* Carrito */}
         <button
+          title="Carrito"
           onClick={() => toggleCart(!ToggleCart)}
           className="h-9 p-2 relative"
         >

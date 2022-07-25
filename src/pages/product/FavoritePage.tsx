@@ -2,14 +2,20 @@ import React, { useContext, useEffect, useState } from "react";
 import { LayoutProducts } from "../../components/layout/LayoutProducts";
 import { ListProducts } from "../../components/products";
 import { FavoriteContext } from "../../context/favorite";
+import { useProducts } from "../../hooks";
 import { Producto } from "../../interfaces/product";
 
 export const FavoritePage = () => {
-  const { favorites, products } = useContext(FavoriteContext);
+  const { favorites } = useContext(FavoriteContext);
+  const {products}=useProducts();
   const [favorite, setFavorite] = useState<Producto[]>([]);
+  const {getFavorites}=useContext(FavoriteContext);
+  useEffect(()=>{
+    getFavorites();
+  },[]);
   useEffect(() => {
     setFavorite(products.filter((product) => favorites.includes(product._id)));
-  }, [favorites]);
+  }, [products]);
 
   return (
     <LayoutProducts>

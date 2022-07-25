@@ -34,6 +34,7 @@ export const useProducts = () => {
     console.log(error);
    }
   }
+
   useEffect(() => {
     fetchData();
     fetchDataMarket();
@@ -45,6 +46,6 @@ export const useProducts = () => {
     fetchData,
     productsMarket,
     setProductsMarket,
-    fetchDataMarket,
+    fetchDataMarket
   }
 };

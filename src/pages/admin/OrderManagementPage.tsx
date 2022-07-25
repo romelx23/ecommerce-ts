@@ -23,7 +23,7 @@ export const OrderManagementPage = () => {
   const {deleteOrder}=useOrderDetail();
   // const [detail, setDetail] = useState<DetallePedido[]>([]);
   const [mode, setMode] = useState("tabla");
-  const { currentPage, nextPage, prevPage } = usePaginate(filterOrders);
+  const { currentPage, nextPage, prevPage,numberPage,numberLastPage } = usePaginate(filterOrders);
   const {detail,getOrderDetails,orderDetail}=useOrderDetail();
   // const [orderDetail, setOrderDetail] = useState({
   //   _id: "",
@@ -362,6 +362,13 @@ export const OrderManagementPage = () => {
                         onClick={prevPage}
                       >
                         Atrás
+                      </li>
+                      <li className="px-2">
+                        {
+                          <p className="text-white">
+                            {numberPage} de {numberLastPage}
+                          </p>
+                        }
                       </li>
                       <li onClick={nextPage} className="btn-next">
                         Adelante

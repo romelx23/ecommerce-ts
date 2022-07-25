@@ -22,10 +22,11 @@ export const NavBottom = () => {
     <>
     <div className="flex gap-3 relative flex-wrap sm:flex-nowrap">
       <NavLink
+      title="Buscar Productos"
         to="/home/categorias"
-        className="link-category text-sm md:text-base w-full text-center sm:w-auto sm:text-left"
+        className="link-category text-sm md:text-base w-full text-center sm:w-72 sm:h-10"
       >
-        Categoría de Productos
+        Buscar Productos
       </NavLink>
       <div className="w-full h-9 md:h-auto">
         <div className="navbottom-cateogries w-full sm:w-auto">

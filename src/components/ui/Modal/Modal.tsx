@@ -16,6 +16,12 @@ export const Modal = ({ children }: Props) => {
             onClick={()=>toggleModal(false)}
             >
             </div>
+            <button 
+            className='btn bg-red-500 text-white p-2 rounded-lg top-8 right-4 absolute'
+            onClick={()=>toggleModal(false)}
+            >
+                <i className='fas fa-times'></i>
+            </button>
             <div className='absolute h-full flex justify-center items-center'>
                 {children}
             </div>

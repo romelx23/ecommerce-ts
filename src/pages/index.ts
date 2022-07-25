@@ -6,6 +6,7 @@ export * from './product/CategoryPage';
 export * from './product/FavoritePage';
 export * from './product/SearchPage';
 export * from './product/MarketDetailPage';
+export * from './product/MarketsPage';
 // Auth Page
 export * from './auth/LoginPage';
 export * from './auth/RegisterPage';

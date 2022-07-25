@@ -1,18 +1,20 @@
 import { fetchContoken } from "../helpers";
 
-export const useStock = (id: string) => {
-  const updateStock = async (stock: number) => {
+export const useStock = () => {
+  const updateStock = async (id: string, stock: number) => {
     try {
-      const resp = await fetchContoken(`api/productos/stock/${id}`, { stock:20 }, "PUT");
+      const resp = await fetchContoken(`api/productos/stock/${id}`, { stock: stock }, "PUT");
       const data = await resp?.json();
       console.log(data);
     } catch (error) {
       console.log(error);
     }
   }
-  const decrement = async () => {
+  const decrement = async (id: string,cantidad:number) => {
     try {
-      const response = await fetchContoken(`api/productos/stock/decrementar/${id}`, {}, "PUT");
+      const response = await fetchContoken(`api/productos/stock/decrementar/${id}`, {
+        cantidad
+      }, "PUT");
       const data = await response!.json();
       if (data.success) {
         console.log(data);
@@ -21,9 +23,11 @@ export const useStock = (id: string) => {
       console.log(error);
     }
   };
-  const increment = async () => {
+  const increment = async (id: string,cantidad:number) => {
     try {
-      const response = await fetchContoken(`api/productos/stock/incrementar/${id}`, {}, "PUT");
+      const response = await fetchContoken(`api/productos/stock/incrementar/${id}`, {
+        cantidad
+      }, "PUT");
       const data = await response!.json();
       if (data.success) {
         console.log(data);

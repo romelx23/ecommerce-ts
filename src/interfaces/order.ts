@@ -1,4 +1,4 @@
-import { Producto } from "./product";
+import { Producto, ProductoOrder } from "./product";
 import { Market } from './market';
 
 export interface OrderResponse {
@@ -39,6 +39,13 @@ export interface DetallePedido {
     producto: Producto;
 }
 
+export interface PedidoByIdResponse {
+    success: boolean;
+    data:{
+        pedido: Order[];
+        productos: ProductoOrder[];
+    }
+}
 
 // export interface Producto {
 //     estado:      boolean;

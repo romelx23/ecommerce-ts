@@ -33,7 +33,8 @@ import {
   UpdatePassPage,
   FeedBackPage,
   DashboardOrderPage,
-  OrderEditPage
+  OrderEditPage,
+  MarketsPage
 } from "../pages";
 import { AuthContext } from "../context/auth";
 import { UIContext } from "../context/ui";
@@ -52,6 +53,7 @@ export const DashboardRoutes = () => {
           <Route path="/home/pagos" element={<PaymentPage />} />
           <Route path="/home/favoritos" element={<FavoritePage />} />
           <Route path="/home/buscar" element={<SearchPage />} />
+          <Route path="/home/tiendas" element={<MarketsPage />} />
           <Route path="/bodega/:id" element={<MarketDetailPage />} />
           {/* Auth Page */}
           <Route path="/auth/login" element={<LoginPage />} />

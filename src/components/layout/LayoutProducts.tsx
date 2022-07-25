@@ -3,16 +3,11 @@ import { Carrito } from "../products";
 import { Footer } from "../ui";
 import { ButtonTop } from "../ui/Button/ButtonTop";
 import { Header } from "../ui/Header/Header";
-import { FavoriteContext } from '../../context/favorite/FavoriteContext';
 interface Props {
   children: React.ReactNode;
 }
 
 export const LayoutProducts: FC<Props> = ({ children }) => {
-  const {getFavorites}=useContext(FavoriteContext);
-  useEffect(()=>{
-    getFavorites();
-  },[]);
   return (
     <div className="layout-products">
       <div className="p-4 w-full">

@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../context/auth";
 import { fetchContoken } from "../../helpers";
+import { usePaginate } from "../../hooks";
 import { Producto } from "../../interfaces";
 interface Props {
   products: Producto[];
 }
 
 export const TableProducts: FC<Props> = ({ products }) => {
-  const [currentPage, setCurrentPage] = useState(0);
   const [productos, setProductos] = useState(products);
-  const [search, setSearch] = useState("");
-  const {user}=useContext(AuthContext);
+  const {numberPage,numberLastPage,searchItemsInput,items,prevPage,nextPage,search,currentPage}=usePaginate(productos);
+  const { user } = useContext(AuthContext);
   const handlePrint = () => {
     window.print();
   };
@@ -31,7 +31,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
     }
   };
 
-  const handleDelete=(id: string)=>{
+  const handleDelete = (id: string) => {
     Swal.fire({
       title: "¿Estas seguro?",
       text: "Una vez eliminado no podras recuperarlo",
@@ -45,49 +45,53 @@ export const TableProducts: FC<Props> = ({ products }) => {
         deleteProduct(id);
       }
     });
-  }
+  };
 
-  useEffect(() => {
-    setProductos(filteredProducts);
-    // console.log(productos);
-  }, [products, currentPage, search]);
-  const filteredProducts = () => {
-    if (search.length === 0) {
-      return products.slice(currentPage, currentPage + 5);
-    }
-    const filtered = products.filter((producto) =>
-      producto.nombre.toLowerCase().includes(search.toLowerCase())
-    );
-    return filtered.slice(currentPage, currentPage + 5);
-  };
-  const nextPage = () => {
-    if (
-      products.filter((producto) =>
-        producto.nombre.toLowerCase().includes(search.toLowerCase())
-      ).length >
-      currentPage + 5
-    ) {
-      setCurrentPage(currentPage + 5);
-    }
-  };
-  const prevPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
-      // console.log("prevPage");
-    }
-  };
-  const searchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setCurrentPage(0);
-    setSearch(value);
-  };
+  // useEffect(() => {
+  //   setProductos(filteredProducts);
+  //   // console.log(productos);
+  // }, [products, currentPage, search]);
+  // const filteredProducts = () => {
+  //   if (search.length === 0) {
+  //     return products.slice(currentPage, currentPage + 5);
+  //   }
+  //   const filtered = products.filter((producto) =>
+  //     producto.nombre.toLowerCase().includes(search.toLowerCase())
+  //   );
+  //   return filtered.slice(currentPage, currentPage + 5);
+  // };
+  // const nextPage = () => {
+  //   if (
+  //     products.filter((producto) =>
+  //       producto.nombre.toLowerCase().includes(search.toLowerCase())
+  //     ).length >
+  //     currentPage + 5
+  //   ) {
+  //     setCurrentPage(currentPage + 5);
+  //   }
+  // };
+  // const prevPage = () => {
+  //   if (currentPage > 0) {
+  //     setCurrentPage(currentPage - 5);
+  //     // console.log("prevPage");
+  //   }
+  // };
+  // const searchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value } = e.target;
+  //   setCurrentPage(0);
+  //   setSearch(value);
+  // };
 
   return (
     <div className="w-full">
       <div className="flex flex-col  mx-6">
         <div className="flex justify-between">
-        <h1 className="text-left mb-2 text-xl font-bold">Gestión Productos</h1>
-        <h1 className="text-left mb-2 text-xl font-bold">Total de Productos: {products.length} </h1>
+          <h1 className="text-left mb-2 text-xl font-bold">
+            Gestión Productos
+          </h1>
+          <h1 className="text-left mb-2 text-xl font-bold">
+            Total de Productos: {products.length}{" "}
+          </h1>
         </div>
         <div className="flex flex-col md:flex-row justify-between">
           <div className="flex justify-center items-center gap-2 flex-1">
@@ -97,13 +101,17 @@ export const TableProducts: FC<Props> = ({ products }) => {
               type="text"
               placeholder="Buscar"
               value={search}
-              onChange={searchProduct}
+              onChange={searchItemsInput}
             />
           </div>
           <div className="flex mt-3 md:mt-0 items-center gap-2 md:justify-center">
             <h1 className="font-semibold">Agregar Producto</h1>
             <Link
-              to={(user.rol==="ADMIN_ROLE")?"/admin/product/add":"/gestion/producto/agregar"}
+              to={
+                user.rol === "ADMIN_ROLE"
+                  ? "/admin/product/add"
+                  : "/gestion/producto/agregar"
+              }
               className="btn border-green-500 text-green-500 hover:bg-green-700"
             >
               <i className="fas fa-plus"></i>
@@ -116,30 +124,14 @@ export const TableProducts: FC<Props> = ({ products }) => {
           <table className="min-w-full print:overflow-hidden">
             <thead>
               <tr>
-                <th className="th">
-                  ID
-                </th>
-                <th className="th">
-                  Nombre
-                </th>
-                <th className="th">
-                  Precio
-                </th>
-                <th className="th">
-                  Descripción
-                </th>
-                <th className="th">
-                  Categoría
-                </th>
-                <th className="th">
-                  Marca
-                </th>
-                <th className="th">
-                  Imagen
-                </th>
-                <th className="th">
-                  Cantidad
-                </th>
+                <th className="th">ID</th>
+                <th className="th">Nombre</th>
+                <th className="th">Precio</th>
+                <th className="th">Descripción</th>
+                <th className="th">Categoría</th>
+                <th className="th">Marca</th>
+                <th className="th">Imagen</th>
+                <th className="th">Cantidad</th>
                 {
                   <th className="px-6 py-3 border-b-2 border-gray-300 text-white">
                     <button
@@ -153,7 +145,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
               </tr>
             </thead>
             <tbody className="">
-              {productos.map((product, i) => (
+              {items.map((product, i) => (
                 <tr className="font-semibold text-lg" key={product._id}>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 print:border-none">
                     <div className="flex items-center">
@@ -179,7 +171,7 @@ export const TableProducts: FC<Props> = ({ products }) => {
                     {product.categoria.nombre}
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
-                    {product.marca?product.marca.nombre:""}
+                    {product.marca ? product.marca.nombre : ""}
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b text-white border-gray-500  leading-5">
                     <img
@@ -197,7 +189,11 @@ export const TableProducts: FC<Props> = ({ products }) => {
                   <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5 space-x-2 print:hidden">
                     <div className="flex justify-center gap-2 items-center">
                       <Link
-                        to={user.rol==="ADMIN_ROLE"?`${`/admin/product/${product._id}`}`:`${`/gestion/producto/${product._id}`}`}
+                        to={
+                          user.rol === "ADMIN_ROLE"
+                            ? `${`/admin/product/${product._id}`}`
+                            : `${`/gestion/producto/${product._id}`}`
+                        }
                         className="btn border-blue-500 text-blue-500 hover:bg-blue-700"
                       >
                         <i className="fas fa-edit"></i>
@@ -213,15 +209,16 @@ export const TableProducts: FC<Props> = ({ products }) => {
                   </td>
                 </tr>
               ))}
-              {
-                productos.length <= 0 && (
-                  <tr className="font-semibold text-lg columns-4">
+              {items.length <= 0 && (
+                <tr className="font-semibold text-lg columns-4">
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 print:border-none">
-                   <p className="text-white"> No hay productos con ese nombre</p>
+                    <p className="text-white">
+                      {" "}
+                      No hay productos con ese nombre
+                    </p>
                   </td>
                 </tr>
-                )
-              }
+              )}
             </tbody>
           </table>
         </div>
@@ -231,11 +228,18 @@ export const TableProducts: FC<Props> = ({ products }) => {
               <a
                 href="#"
                 className={`py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
-                ${currentPage>0 && 'disabled:bg-gray-300' }
+                ${currentPage > 0 && "disabled:bg-gray-300"}
                 `}
               >
                 Atrás
               </a>
+            </li>
+            <li className="px-2">
+              {
+                <p className="text-white">
+                  {numberPage} de {numberLastPage}
+                </p>
+              }
             </li>
             <li onClick={nextPage}>
               <a

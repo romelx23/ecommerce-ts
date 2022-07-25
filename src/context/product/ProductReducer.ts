@@ -9,7 +9,10 @@ type ProductActionType =
 | {type:'[Product] - Filter Product', payload:{products:Producto[]}}
 | {type:'[Category] - Add Category', payload:{category:CategoryForm}}
 | {type:'[Category] - Load Category', payload:{categories:[]}}
-| {type:'[Product] - Clear Filter',payload:{filters:Filter}}
+| {type:'[Product] - Clear Filter',payload:{
+    productsFilter:Producto[],
+    filters:Filter
+}}
 
 export const ProductReducer = (state:ProductState,action:ProductActionType):ProductState => { 
     switch (action.type) {
@@ -52,7 +55,8 @@ export const ProductReducer = (state:ProductState,action:ProductActionType):Prod
         case '[Product] - Clear Filter':
             return {
                 ...state,
-                filters:action.payload.filters
+                filters:action.payload.filters,
+                productsFilter:action.payload.productsFilter
             };
 
         default:

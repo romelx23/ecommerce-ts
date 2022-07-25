@@ -70,6 +70,9 @@ export const ConfigurePage = () => {
               </p>
             )} */}
           </div>
+        <div className="px-4">
+          <p>( próximamente )</p>
+        </div>
         </div>
         <div className="w-full">{/* <h1>Otra columna</h1> */}</div>
       </div>

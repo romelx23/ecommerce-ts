@@ -41,7 +41,8 @@ export const OrderEditPage = () => {
   const { user } = useContext(AuthContext);
   const { getOrderDetails, detail, orderDetail } = useOrderDetail();
   const { productsMarket, products } = useProducts();
-  const productsByRole = user.rol === "ADMIN_ROLE" ? products : productsMarket;
+  // productos por rol, depende de si es admin o bodeguero
+  // const productsByRole = user.rol === "ADMIN_ROLE" ? products : productsMarket;
   const handleDelete = (id: string) => {
     console.log(id);
   };
@@ -107,7 +108,7 @@ export const OrderEditPage = () => {
             <ListProducts 
             title="Productos"
             quantity={5}
-            productsProps={productsByRole} 
+            productsProps={products} 
             topTitle="Selecciones los productos que desea agregar al pedido, si desea"
             />
           </div>

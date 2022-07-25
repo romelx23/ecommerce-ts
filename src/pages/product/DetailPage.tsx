@@ -12,6 +12,7 @@ import {
 import { baseUrl } from "../../utils";
 import { Market, MarketResponse } from "../../interfaces/market";
 import { useStock } from "../../hooks";
+import Swal from "sweetalert2";
 
 const initMarket: Market = {
   _id: "",
@@ -34,22 +35,45 @@ const initMarket: Market = {
 export const DetailPage = () => {
   const { id } = useParams();
   const [producto, setProducto] = useState<Producto>({} as Producto);
-  const { addToCart,saveOrderLocalStorage } = useContext(CartContext);
-  const { increment, decrement, updateStock } = useStock(id || "");
-  const [cantidad, setCantidad] = useState(1);
+  const { addToCart,cart } = useContext(CartContext);
+  const { increment, decrement, updateStock } = useStock();
+  const currentProduct = cart.find((item) => item._id === id);
+  const [cantidad, setCantidad] = useState(currentProduct?.cantidad || 1);
   const [showToast, setShowToast] = useState(false);
   const [market, setMarket] = useState(initMarket as Market);
-  const navigate = useNavigate();
   const addQuantity = () => {
     setCantidad(cantidad + 1);
+    setProducto((producto) => ({ ...producto, stock: producto.stock - 1 }));
   };
   const removeQuantity = () => {
     if (cantidad > 1) {
       setCantidad(cantidad - 1);
+      setProducto((producto) => ({ ...producto, stock: producto.stock + 1 }));
     }
   };
 
   const addToCartHandler = (producto: Producto) => {
+    // validar si el producto ya esta en el carrito
+    if (currentProduct) {
+     return Swal.fire({
+        title: "Ya esta en el carrito",
+        text: "Si Desea agregar mas productos a su carrito, retire el producto actual",
+        icon: "warning",
+        confirmButtonText: "Ok",
+     });
+    }
+
+    // validar que las bodegas sean iguales
+    const bodegas = cart.filter((item) => item.bodega.nombre!==market.nombre);
+    // console.log(bodegas);
+    if (bodegas.length > 0) {
+      return Swal.fire({
+        title: "Aviso",
+        text: "Los productos debe ser de la misma bodega",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+    }
     if (cantidad > 0 && producto.stock >= cantidad) {
       setShowToast(true);
       const productoCarrito: ProductoCarrito = {
@@ -60,11 +84,8 @@ export const DetailPage = () => {
         cantidad,
       };
       addToCart(productoCarrito);
-      console.log(producto.stock - cantidad);
       // actualiza el stock del carrito
       // updateStock(producto.stock - cantidad);
-      // guarda el pedido en localstorage
-      saveOrderLocalStorage(productoCarrito);
     }
   };
 
@@ -103,20 +124,6 @@ export const DetailPage = () => {
       zoomImg.current.style.transform = `translate(0px, 0px) scale(1)`;
     }
   };
-
-  // const handleMarket = async(id:string)=>{
-  //   try {
-  //     const resp = await fetchSintoken(`api/bodega/usuario/${id}`, {
-  //       method: "GET",
-  //     });
-  //     const {bodega}:MarketResponse = await resp!.json();
-  //     if (bodega) setMarket(bodega);
-  //     console.log("bodega",bodega);
-  //     setMarket(bodega);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
   useEffect(() => {
     getProductId();
@@ -205,15 +212,6 @@ export const DetailPage = () => {
               </h1>
             )}
             <div className="w-full flex flex-wrap gap-2">
-              {/* <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
-              chico
-            </button>
-            <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
-              mediano
-            </button>
-            <button className="py-1 px-4 border border-gray-500 rounded-md hover:bg-slate-100 transition">
-              grande
-            </button> */}
               <h1 className="font-semibold text-xl">
                 cantidad de productos: {producto.stock}
               </h1>
@@ -260,7 +258,7 @@ export const DetailPage = () => {
             title={market ? market.nombre : "bodega"}
             placeholder="bodega"
             loading="lazy"
-            className="object-cover w-12 h-12 cursor-pointer"
+            className="object-cover h-12 cursor-pointer"
             // onClick={() => navigate(`${market?'/bodega/'+ market._id:'/'}`)}
           />
         </Link>

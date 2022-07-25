@@ -8,7 +8,8 @@ interface Props{
 }
 
 export const ProductCart:FC<Props> = ({producto}) => {
-    const {nombre, precio, _id, cantidad,img} = producto;
+    const {nombre, precio, _id, cantidad,img,bodega} = producto;
+    const {nombre:nombreBodega,imagen}=bodega;
     const {removeFromCart}=useContext(CartContext);
   return (
     <div className="product-cart">
@@ -23,11 +24,14 @@ export const ProductCart:FC<Props> = ({producto}) => {
     />
     <div className="">
       <p className="text-base font-semibold">{nombre}</p>
-      <p className="text-sm">mediano</p>
+      <div className="flex justify-center">
+        <p className="text-gray-400 mr-2 capitalize">{nombreBodega}</p>
+        <img src={imagen} alt={nombreBodega} className="w-5 h-5 object-cover" />
+      </div>
     </div>
     <p>{formatPrice(precio*cantidad)}</p>
     <button
-        onClick={()=>removeFromCart(_id)}
+        onClick={()=>removeFromCart(producto)}
         className="btn-remove"
     >
         <i className="fas fa-times"></i>

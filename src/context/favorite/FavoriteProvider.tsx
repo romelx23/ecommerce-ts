@@ -21,6 +21,7 @@ export const Favorite_INITIAL_STATE: FavoriteState = {
 export const FavoriteProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(FavoriteReducer, Favorite_INITIAL_STATE);
   const getProducts=(products:Producto[])=>{
+    // obtener productos favoritos de la base de datos
     dispatch({
       type: '[Favorite] - Get Products',
       payload: products

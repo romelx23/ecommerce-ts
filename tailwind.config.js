@@ -52,6 +52,10 @@ module.exports = {
         'notification':'550px',
         'networks':'650px',
       },
+      // configure google fonts
+      fontFamily:{
+        'pacifico':['Pacifico','sans-serif','cursive'],
+      }
     },
   },
   plugins: [],

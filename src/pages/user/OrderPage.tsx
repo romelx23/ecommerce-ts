@@ -25,6 +25,8 @@ export const OrderPage = () => {
     quantity,
     search,
     searchItemsInput,
+    numberPage,
+    numberLastPage
   } = usePaginate(filterOrders);
   
   const loadOrders = async () => {
@@ -310,7 +312,7 @@ export const OrderPage = () => {
                       <li className="px-2">
                         {
                           <p className="text-white">
-                            {currentPage + 1} de {currentPage + 6}
+                            {numberPage} de {numberLastPage}
                           </p>
                         }
                       </li>

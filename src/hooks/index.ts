@@ -8,3 +8,6 @@ export * from './usePaginate';
 export * from './useOrders';
 export * from './useOrderDetail';
 export * from './useStock';
+export * from './useMarkets';
+export * from './useProductsCategory';
+export * from './useCart';

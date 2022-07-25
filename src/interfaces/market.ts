@@ -30,6 +30,10 @@ export interface MarketResponse {
   success: boolean;
   bodega: Market;
 }
+export interface MarketsResponse {
+  success: boolean;
+  bodegas: Market[];
+}
 
 export interface Market {
   _id:               string;

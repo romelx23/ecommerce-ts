@@ -10,7 +10,8 @@ type CartActionType =
       type: "[Cart] - Update from cart";
       payload: { id: string; product: ProductoCarrito };
     }
-  | { type: "[Cart] - Clear cart" };
+  | { type: "[Cart] - Clear cart" }
+  | { type: "[Cart] - Load cart"; payload: { cart: ProductoCarrito []} };
 
 export const CartReducer = (
   state: CartState,
@@ -68,6 +69,11 @@ export const CartReducer = (
           }
           return product;
         }),
+      };
+    case "[Cart] - Load cart":
+      return {
+        ...state,
+        cart: action.payload.cart,
       };
 
     default:

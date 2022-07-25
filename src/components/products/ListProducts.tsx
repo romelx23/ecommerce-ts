@@ -1,9 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 import { Product } from "./Product";
-import { Producto, ProductsI } from "../../interfaces/product";
-import { FavoriteContext } from "../../context/favorite/FavoriteContext";
+import { Producto } from "../../interfaces/product";
 import { useProducts } from "../../hooks";
-import { Spinner } from "../ui";
 interface Props {
   title?: string;
   productsProps?: Producto[];
@@ -21,14 +19,9 @@ export const ListProducts: FC<Props> = ({
   const [numberPage, setNumberPage] = useState(1);
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
-  const { getProducts } = useContext(FavoriteContext);
   const { products } = useProducts();
   const [productos, setProductos] = useState(products);
   const quantityForPage = quantity ? quantity : 10;
-  useEffect(() => {
-    // asigna productos a la pagina de favoritos
-    getProducts(products);
-  }, [products]);
 
   const nextPage = () => {
     if (productsProps) {

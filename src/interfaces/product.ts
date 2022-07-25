@@ -26,6 +26,7 @@ export interface Producto {
   stock: number;
   img?: string;
   marca: Marca;
+  bodega:Market;
 }
 
 export interface ProductoBodega{
@@ -92,6 +93,15 @@ export interface ProductForm {
   description: string;
   category: string;
   image: string;
+}
+
+export interface ProductoOrder{
+  _id: string;
+  pedido:string;
+  total: number;
+  precio: number;
+  cantidad: number;
+  producto: Producto;
 }
 
 // Category
