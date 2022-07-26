@@ -10,7 +10,7 @@ import { useCart, usePaginate } from "../../hooks";
 import { OrderResponse } from "../../interfaces";
 
 export const PaymentPage = () => {
-  const {cart,removeFromCart,handleRemove,handleMore,handleOrder,total}=useCart();
+  const {cart,removeFromCart,handleRemove,handleMore,handleOrder,handleCancel,total}=useCart();
   const { currentPage, items, nextPage, prevPage, numberPage, numberLastPage } =
     usePaginate(cart);
   const handlePrint = () => {
@@ -21,32 +21,6 @@ export const PaymentPage = () => {
   useEffect(() => {
     console.log(cart);
   }, []);
-
-  const handleCancel = () => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "¿Deseas cancelar el pedido?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, cancelar pedido",
-      cancelButtonText: "No, cancelar",
-    })
-      .then((result) => {
-        if (result.value) {
-          window.location.replace("/");
-        }
-      })
-      .catch(() => {
-        Swal.fire({
-          title: "Cancelado",
-          text: "El pedido no se ha cancelado",
-          icon: "warning",
-          confirmButtonText: "Ok",
-        });
-      });
-  };
 
   return (
     <LayoutProducts>

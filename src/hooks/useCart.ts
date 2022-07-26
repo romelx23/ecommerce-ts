@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/auth";
 import { CartContext } from "../context/cart";
@@ -11,8 +12,15 @@ import {
 
 export const useCart = () => {
   const { user } = useContext(AuthContext);
-  const { cart, removeFromCart, handleMore, handleRemove,addToCart } =
-    useContext(CartContext);
+  const navigate = useNavigate();
+  const {
+    cart,
+    removeFromCart,
+    handleMore,
+    handleRemove,
+    addToCart,
+    clearCart,
+  } = useContext(CartContext);
   const getProductsCart = async () => {
     try {
       const resp = await fetchContoken(`api/pedido/status/carrito`, {}, "GET");
@@ -23,7 +31,7 @@ export const useCart = () => {
       const { bodega } = pedido[0];
       if (success) {
         productos.map((product) => {
-          const {cantidad,producto}=product;
+          const { cantidad, producto } = product;
           const productoCarrito: ProductoCarrito = {
             ...producto,
             bodega: {
@@ -45,6 +53,7 @@ export const useCart = () => {
     }
   };
   const generateOrder = async () => {
+    console.log(user.nombre,total,cart);
     // actualiza el estado del pedido a ordenado
     const resp = await fetchContoken(
       `api/pedido`,
@@ -104,7 +113,8 @@ export const useCart = () => {
         .then((result) => {
           if (result.value) {
             generateOrder();
-            window.location.replace("/");
+            clearCart();
+            navigate("/home/respuesta?status=realizado");
           }
         })
         .catch(() => {
@@ -121,6 +131,34 @@ export const useCart = () => {
     (total, product) => total + product.precio * product.cantidad,
     0
   );
+
+  const handleCancel = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¿Deseas cancelar el pedido?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, cancelar pedido",
+      cancelButtonText: "No, cancelar",
+    })
+      .then((result) => {
+        if (result.value) {
+          clearCart();
+          navigate("/home/respuesta?status=cancelado");
+        }
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Cancelado",
+          text: "El pedido no se ha cancelado",
+          icon: "warning",
+          confirmButtonText: "Ok",
+        });
+      });
+  };
+
   return {
     cart,
     removeFromCart,
@@ -129,5 +167,6 @@ export const useCart = () => {
     handleOrder,
     total,
     getProductsCart,
+    handleCancel,
   };
 };

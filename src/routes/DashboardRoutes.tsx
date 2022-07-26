@@ -59,7 +59,7 @@ export const DashboardRoutes = () => {
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
           {/* Sales Page */}
-          <Route path="/sales" element={<SalesPage />} />
+          {/* <Route path="/sales" element={<SalesPage />} /> */}
           {/* Admin Page */}
           {user && user.rol === "ADMIN_ROLE" && (
             <>

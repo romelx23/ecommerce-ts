@@ -9,39 +9,14 @@ import { useCart } from '../../hooks/useCart';
 
 export const Carrito = () => {
   const { toggleCart, ToggleCart } = useContext(UIContext);
-  const { cart,clearCart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
+  const {handleCancel}=useCart();
   const {total}=useCart();
 
   useEffect(() => {
     // console.log(total);
   }, []);
 
-  const handleCancel = () => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "¿Deseas cancelar el pedido?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, cancelar pedido",
-      cancelButtonText: "No, cancelar",
-    })
-      .then((result) => {
-        if (result.value) {
-          clearCart();
-          window.location.replace("/");
-        }
-      })
-      .catch(() => {
-        Swal.fire({
-          title: "Cancelado",
-          text: "El pedido no se ha cancelado",
-          icon: "warning",
-          confirmButtonText: "Ok",
-        });
-      });
-  };
 
   return (
     <div
