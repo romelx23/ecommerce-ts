@@ -48,7 +48,7 @@ export const CartReducer = (
         ...state,
         cart: state.cart.map((product) => {
           if (product._id === action.payload.id) {
-            product.cantidad += 0.5;
+            product.cantidad += 1;
             console.log(product)
           }
           return product;
@@ -63,7 +63,7 @@ export const CartReducer = (
               return product;
             } else {
               console.log(product)
-              product.cantidad -= 0.5;
+              product.cantidad -= 1;
               console.log(product)
             }
           }
